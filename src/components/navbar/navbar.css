@@ -24,6 +24,7 @@
 .navbarCenter {
     flex: 5;
 }
+
 .searchBar {
     width: 80%;
     height: 30px;
@@ -33,6 +34,7 @@
     display: flex;
     align-items: center;
 }
+
 .searchIcon {
     font-size: 20px;
     margin-left: 10px;
@@ -54,6 +56,7 @@
     justify-content: space-around;
     color: white;
 }
+
 .navbarLinks {
     margin-left: 20px;
     font-size: 14px;
@@ -61,10 +64,12 @@
 }
 
 .navbarIcons {
+    margin-left: 300px;
     display: flex;
     font-size: 20px;
     gap: 10px;
 }
+
 .navbarIconItem {
     display: flex;
     margin-right: 15px;
@@ -87,13 +92,12 @@
 }
 
 
-
 .navbarImg {
     display: flex;
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 1px solid black;
     object-fit: cover;
     cursor: pointer;
 }
@@ -103,73 +107,73 @@
 
 /*Responsiveness*/
 
-/*@media only screen and (max-width: 992px) {*/
-/*    .navbarContainer {*/
+@media only screen and (max-width: 992px) {
+    .navbarContainer {
+    }
 
-/*    .navbarLeft {*/
-/*        flex: 2;*/
+    .navbarLeft {
+        flex: 2;
+    }
 
-/*    .logo {*/
-/*        font-weight: 500;*/
-/*    }*/
-/*}*/
+    .logo {
+        font-weight: 500;
+    }
 
-/*.navbarCenter {*/
-/*    flex: 5;*/
 
-/*.searchBar {*/
-/*    width: 95%;*/
+    .navbarCenter {
+        flex: 5;
+    }
 
-/*.searchInput {*/
-/*    width: 70%;*/
-/*}*/
+    .searchBar {
+        width: 95%;
+    }
 
-/*}*/
-/*}*/
+    .searchInput {
+        width: 70%;
+    }
 
-/*.navbarRight {*/
 
-/*.navbarImg {*/
-/*    margin-right: 20px;*/
-/*}*/
+    .navbarRight {
+    }
 
-/*}*/
-/*}*/
-/*}*/
+    .navbarImg {
+        margin-right: 20px;
+    }
+}
 
-/*@media only screen and (max-width: 768px) {*/
-/*    .navbarContainer {*/
+@media only screen and (max-width: 768px) {
+    .navbarContainer {
+    }
 
-/*    .navbarLeft {*/
-/*        flex: 3;*/
-/*    }*/
+    .navbarLeft {
+        flex: 3;
+    }
 
-/*    .navbarRight {*/
+    .navbarRight {
+    }
 
-/*    .navbarLink {*/
-/*        display: none;*/
-/*    }*/
-/*}*/
+    .navbarLink {
+        display: none;
+    }
+}
 
-/*}*/
-/*}*/
 
-/*@media only screen and (max-width: 576px) {*/
-/*    .navbarContainer {*/
-/*        justify-content: space-between;*/
+@media only screen and (max-width: 576px) {
+    .navbarContainer {
+        justify-content: space-between;
+    }
 
-/*    .navbarLeft {*/
-/*        flex: 1;*/
-/*    }*/
+    .navbarLeft {
+        flex: 1;
+    }
 
-/*    .navbarCenter {*/
-/*        flex: 1;*/
-/*        display: none;*/
-/*    }*/
+    .navbarCenter {
+        flex: 1;
+        display: none;
+    }
 
-/*    .navbarRight {*/
-/*        flex: 1;*/
-/*    }*/
-/*}*/
+    .navbarRight {
+        flex: 1;
+    }
+}
 
-/*}*/

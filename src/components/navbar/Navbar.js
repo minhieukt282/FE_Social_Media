@@ -30,22 +30,22 @@ const Navbar = () => {
                 </div>
                 <div className="navbarIcons">
                     <div className="navbarIconItem">
-                        <PersonIcon/>
+                        <i className="fa-solid fa-user-group"></i>
                         {/*<span className="navbarIconBadge">2</span>*/}
                     </div>
                     <div className="navbarIconItem">
-                        <ChatBubbleIcon/>
+                        <i className="fa-solid fa-message"></i>
                         {/*<span className="navbarIconBadge">10</span>*/}
                     </div>
                     <div className="navbarIconItem">
-                        <NotificationsIcon/>
+                        <i className="fa-solid fa-bell"></i>
                         {/*<span className="navbarIconBadge">8</span>*/}
                     </div>
                 </div>
-                <Link to="/profile/userId">
-                    {/*<img src="/assets/person/user.jpg" alt="" className="navbarImg"/>*/}
-                </Link>
             </div>
+            <Link to="/">
+                <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>
+            </Link>
         </div>
     );
 };
