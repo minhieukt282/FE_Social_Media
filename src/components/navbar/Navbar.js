@@ -7,8 +7,9 @@ const Navbar = () => {
         <div className="navbarContainer">
             <div className="navbarLeft">
                 <Link to="/" style={{textDecoration: "none"}}>
-                    <span className="logo"><img src="image/logo/Facebook_Logo.png"
-                                                style={{width: 50, height: 50, marginTop: 5}}/></span>
+                    <span className="logo"><img
+                        src="image/logo/Facebook_Logo.png"
+                        style={{width: 50, height: 50, marginTop: 5}}/></span>
                 </Link>
                 <div className="searchBar">
                     <Link className="searchIcon" >

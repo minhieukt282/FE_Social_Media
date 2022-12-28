@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./post.css";
 import {IconButton} from "@mui/material";
 import {
@@ -10,9 +10,18 @@ import {
     ShareOutlined,
 } from "@mui/icons-material";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {getPosts} from "../../services/postService";
 
 const Post = () => {
-
+    const dispatch = useDispatch();
+    const posts = useSelector(state => {
+        console.log(state)
+        return state
+    })
+    useEffect(()=>{
+        dispatch(getPosts())
+    },[])
     return (
 
         <div className="post">
@@ -60,9 +69,6 @@ const Post = () => {
                 </div>
             </div>
         </div>
-        // </div>
-        //     </div>
-        // </>
     );
 };
 
