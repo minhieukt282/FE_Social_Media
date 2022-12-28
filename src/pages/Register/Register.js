@@ -6,22 +6,23 @@ import {useEffect, useState} from "react";
 import * as Yup from "yup"
 import {useDispatch} from "react-redux";
 import {loginWed} from "../../services/loginServices";
+import {registerWed} from "../../services/registerServices";
 
-const loginInfos = {
+const registerInfos = {
     username: "",
     password: "",
-    repassword:""
+    rePassword: ""
 }
 
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [message, setMessage] = useState("")
-    const [login, setLogin] = useState(loginInfos)
-    const {username, password} = login;
+    const [register, setRegister] = useState(registerInfos)
+    const {username, password, rePassword} = register;
     const handleRegisterChange = (e) => {
         const {name, value} = e.target;
-        setLogin({...login, [name]: value})
+        setRegister({...register, [name]: value})
     };
 
     const loginValidation = Yup.object({
@@ -30,18 +31,21 @@ export default function Login() {
             .email("Must have an email.")
             .max(50),
         password: Yup.string().required("Password is Required"),
-        repassword: Yup.string().required("RePassword is Required")
+        rePassword: Yup.string().required("RePassword is Required")
     })
     const handleRegister = async (values) => {
-        let result = await dispatch(loginWed(values))
-        let message = result.payload.data.message
-        // console.log(result)
-        if (message =="success") {
-            navigate("/profile")
-        } else {
-            setMessage(message)
-        }
+        if (values.password === values.rePassword) {
+            let result = await dispatch(registerWed(values))
+            let message = result.payload.data.message
+            if (message === "Account already exists") {
+                setMessage(message)
+            } else {
+                navigate("/login")
+            }
 
+        } else {
+            setMessage("Check your Repassword!!")
+        }
     }
 
     return (
@@ -58,7 +62,8 @@ export default function Login() {
                                 enableReinitialize
                                 initialValues={{
                                     username,
-                                    password
+                                    password,
+                                    rePassword
                                 }}
                                 validationSchema={loginValidation}
                                 onSubmit={(values) => {
@@ -77,7 +82,7 @@ export default function Login() {
                                                 bottom
                                     />
                                     <LoginInput type={"password"}
-                                                name="repassword"
+                                                name="rePassword"
                                                 placeholder={"RePassword"}
                                                 onChange={handleRegisterChange}
                                                 bottom
