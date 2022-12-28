@@ -28,7 +28,10 @@ export default function Login() {
             .required("Email is required.")
             .email("Must have an email.")
             .max(50),
-        password: Yup.string().required("Password is Required")
+        password: Yup.string()
+            .required("Password is Required")
+            .min(6)
+            .max(15)
     })
 
     const handleLogin = async (values) => {

@@ -57,6 +57,7 @@ export default function Login() {
                     </div>
                     <div className="login_2">
                         <div className="login_2_wrap">
+
                             <Formik
                                 enableReinitialize
                                 initialValues={{
