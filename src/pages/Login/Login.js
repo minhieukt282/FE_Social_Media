@@ -2,7 +2,7 @@ import {Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import './style.css';
 import LoginInput from "../../components/input/LoginInput";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import * as Yup from "yup"
 import {useDispatch} from "react-redux";
 import {loginWed} from "../../services/loginServices";
@@ -30,6 +30,7 @@ export default function Login() {
             .max(50),
         password: Yup.string().required("Password is Required")
     })
+
     const handleLogin = async (values) => {
         let result = await dispatch(loginWed(values))
         let message = result.payload.data.message
@@ -39,7 +40,6 @@ export default function Login() {
         } else {
             setMessage(message)
         }
-
     }
 
     return (
@@ -77,16 +77,15 @@ export default function Login() {
                                     <button type={"submit"} className={"blue_btn"}>Log In</button>
                                 </Form>
                             </Formik>
+
                             <div>{message}</div>
+
                             <div className="sign_splitter"></div>
                             <Link style={{textDecoration: "none", color: "white", width: "75%", marginLeft: 80}}
                                   to={"/register"}>
                                 <button className="blue_btn open_signup">Create Account</button>
                             </Link>
                         </div>
-                        <Link to="/" className={"sign_extra"}>
-                            <b>Create a Page</b> for a celebrity,brand or business.
-                        </Link>
                     </div>
                 </div>
             </div>

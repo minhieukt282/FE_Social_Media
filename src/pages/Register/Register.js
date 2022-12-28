@@ -2,10 +2,9 @@ import {Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import '../Login/style.css';
 import LoginInput from "../../components/input/LoginInput";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import * as Yup from "yup"
 import {useDispatch} from "react-redux";
-import {loginWed} from "../../services/loginServices";
 import {registerWed} from "../../services/registerServices";
 
 const registerInfos = {
@@ -33,6 +32,7 @@ export default function Login() {
         password: Yup.string().required("Password is Required"),
         rePassword: Yup.string().required("RePassword is Required")
     })
+
     const handleRegister = async (values) => {
         if (values.password === values.rePassword) {
             let result = await dispatch(registerWed(values))
@@ -42,7 +42,6 @@ export default function Login() {
             } else {
                 navigate("/login")
             }
-
         } else {
             setMessage("Check your Repassword!!")
         }
@@ -90,16 +89,16 @@ export default function Login() {
                                     <button type={"submit"} className={"blue_btn"}>Sign Up</button>
                                 </Form>
                             </Formik>
+
                             <div>{message}</div>
+
                             <div className="sign_splitter"></div>
                             <Link style={{textDecoration: "none", color: "white", width: "75%", marginLeft: 80}}
                                   to={"/login"}>
                                 <button className="blue_btn open_signup">Back to Login</button>
                             </Link>
                         </div>
-                        <Link to="/" className={"sign_extra"}>
-                            <b>Create a Page</b> for a celebrity,brand or business.
-                        </Link>
+
                     </div>
                 </div>
                 <div className="/register"></div>
