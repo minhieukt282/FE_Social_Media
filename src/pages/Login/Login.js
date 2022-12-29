@@ -30,7 +30,7 @@ export default function Login() {
             .max(50),
         password: Yup.string()
             .required("Password is Required")
-            .min(6)
+            .min(1)
             .max(15)
     })
 
@@ -38,8 +38,8 @@ export default function Login() {
         let result = await dispatch(loginWed(values))
         let message = result.payload.data.message
         // console.log(result)
-        if (message =="success") {
-            navigate("/profile")
+        if (message ==="success") {
+            navigate("/home")
         } else {
             setMessage(message)
         }
@@ -50,7 +50,7 @@ export default function Login() {
             <div className={"login_wrapper"}>
                 <div className="login_wrap">
                     <div className="login_1">
-                        <img style={{width: 325, height: 160}} src="Image/Facebook-Logo-650x366.png" alt=""/>
+                        <img style={{width: 325, height: 160}} src="Image/Facebook-Logo-650x366.png" alt="clear"/>
                         <span>An Social Page to make FriendShip</span>
                     </div>
                     <div className="login_2">

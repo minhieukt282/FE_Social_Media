@@ -1,25 +1,54 @@
-import React, {useContext} from "react";
-import RssFeedIcon from "@mui/icons-material/RssFeed";
-import ChatIcon from "@mui/icons-material/Chat";
-import VideocamIcon from "@mui/icons-material/Videocam";
-import GroupsIcon from "@mui/icons-material/Groups";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import EventIcon from "@mui/icons-material/Event";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import "./sidebar.css";
-// import MenuLink from "../menuLink/MenuLink";
-
-// import Friends from "../friends/Friends";
-// import {Users} from "../../data";
-// import {DarkModeContext} from "./../../context/darkModeContext";
+import RssFeedIcon from '@mui/icons-material/RssFeed';
+import HomeIcon from '@mui/icons-material/Home';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import ChatIcon from '@mui/icons-material/Chat';
+import {Link} from "react-router-dom";
 
 export default function Sidebar() {
-    // const {dispatch} = useContext(DarkModeContext);
     return (
-        <div className="sidebar">
+        <div className="sidebar col-3">
             <div className="sidebarWrapper">
+                <ul className="sidebarList">
+                    <li  className="sidebarListItem" >
+                        <RssFeedIcon className="sidebarIcon"></RssFeedIcon>
+                        <span className="sidebarListItemText">Feed</span>
+                    </li>
+                    <Link style={{textDecoration:"none"}} to="/home">
+                    <li  className="sidebarListItem" >
+                        <HomeIcon className="sidebarIcon"></HomeIcon>
+                        <span className="sidebarListItemText">Home</span>
+                    </li>
+                    </Link>
+
+                    <li  className="sidebarListItem" >
+                        <YouTubeIcon className="sidebarIcon"></YouTubeIcon>
+                        <span className="sidebarListItemText">Video</span>
+                    </li>
+
+                    <li  className="sidebarListItem" >
+                        <ChatIcon className="sidebarIcon"></ChatIcon>
+                        <span className="sidebarListItemText">Chat</span>
+                    </li>
+                </ul>
+                <button className="sidebarButton">ShowMore</button>
+                <hr className="sidebarHr"/>
+                <ul className="sidebarFriendList">
+                    {/*<li className="sidebarFriend">*/}
+                    {/*    <img style={{maxWidth:40,}} className="sidebarFriendImg" src="https://www.clipartmax.com/png/small/204-2045091_group-together-teamwork-icon-people-icon-flat-png.png" alt=""/>*/}
+                    {/*    <span className="sidebarFriendName">Jane doe</span>*/}
+                    {/*</li>*/}
+
+                    {/*<li className="sidebarFriend">*/}
+                    {/*    <img style={{maxWidth:40,}} className="sidebarFriendImg" src="https://www.clipartmax.com/png/small/204-2045091_group-together-teamwork-icon-people-icon-flat-png.png" alt=""/>*/}
+                    {/*    <span className="sidebarFriendName">Jane doe</span>*/}
+                    {/*</li>*/}
+
+                    {/*<li className="sidebarFriend">*/}
+                    {/*    <img style={{maxWidth:40,}} className="sidebarFriendImg" src="https://www.clipartmax.com/png/small/204-2045091_group-together-teamwork-icon-people-icon-flat-png.png" alt=""/>*/}
+                    {/*    <span className="sidebarFriendName">Jane doe</span>*/}
+                    {/*</li>*/}
+                </ul>
                <span></span>
             </div>
         </div>
