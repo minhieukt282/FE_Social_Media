@@ -5,18 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/image/avatar/images.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/menuLink/MenuLink.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/menuLink/menuLink.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/sidebar/Sidebar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/sidebar/sidebar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a9342a7c-0099-47ff-b8bc-4676e231ecfb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a9342a7c-0099-47ff-b8bc-4676e231ecfb.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/Navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/navbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/menuLink/MenuLink.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/menuLink/menuLink.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navbar/Navbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navbar/navbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/Sidebar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sidebar/sidebar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +33,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -52,7 +59,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/test/Md6/FE_Social_Media/public/image/avata",
+    "last_opened_file_path": "E:/test/Md6/BE_Social_Media",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,6 +84,7 @@
       <recent name="E:\test\Md6\FE_Social_Media\src\components\navbar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\test\Md6\FE_Social_Media\src" />
       <recent name="E:\test\Md6\FE_Social_Media\src\components\navbar" />
       <recent name="E:\test\Md6\FE_Social_Media" />
     </key>
@@ -89,6 +98,10 @@
       <option name="presentableId" value="Default" />
       <updated>1672106905123</updated>
       <workItem from="1672106906962" duration="13698000" />
+      <workItem from="1672137703910" duration="540000" />
+      <workItem from="1672160644925" duration="1989000" />
+      <workItem from="1672189519596" duration="2779000" />
+      <workItem from="1672217832567" duration="21546000" />
     </task>
     <servers />
   </component>
