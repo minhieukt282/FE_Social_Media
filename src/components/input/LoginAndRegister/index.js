@@ -1,6 +1,6 @@
-import "../../../pages/Login/style.css"
-import Login from "../../../pages/Login/Login";
-import Register from "../../../pages/Register/Register";
+import "../../../pages/login/style.css"
+import Login from "../../../pages/login/Login";
+import Register from "../../../pages/register/Register";
 
 export default function MenuLogin(){
     return(

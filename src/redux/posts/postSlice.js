@@ -1,16 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getPosts} from "../../services/postService";
+import {getPosts} from "../../services/postServices";
 const initialState ={
     posts:[]
 }
-const postsSlices = createSlice({
+const postSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {},
     extraReducers: builder => {
         builder.addCase(getPosts.fulfilled,(state, action)=>{
-            state.posts = action.payload
+            // console.log(action.payload)
+            state.posts = action.payload.data;
         })
     }
 })
-export default postsSlices.reducer
+export default postSlice.reducer
