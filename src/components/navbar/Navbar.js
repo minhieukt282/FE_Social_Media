@@ -6,7 +6,7 @@ const Navbar = () => {
     return (
         <div className="navbarContainer">
             <div className="navbarLeft">
-                <Link to="/" style={{textDecoration: "none"}}>
+                <Link to="/home" style={{textDecoration: "none"}}>
                     <span className="logo">
                         <img src="https://1.bp.blogspot.com/-S8HTBQqmfcs/XN0ACIRD9PI/AAAAAAAAAlo/FLhccuLdMfIFLhocRjWqsr9cVGdTN_8sgCPcBGAYYCw/s1600/f_logo_RGB-Blue_1024.png"
                              style={{width: 50, height: 50, marginTop: 5}}
@@ -30,19 +30,14 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="navbarCenter">
-                <div className="navbarIconItem hove1">
-                    <Link className="fa-solid fa-house"></Link>
+                    <Link style={{textDecoration:"none",marginRight:50}} to="/home" className="fa-solid fa-house"></Link>
 
-                </div>
-                <div className="navbarIconItem hove1">
-                    <Link className="fa-solid fa-users"></Link>
-                </div>
-                <div className="navbarIconItem hove1">
-                    <Link style={{paddingLeft: 40}} className="fa-brands fa-youtube"></Link>
-                </div>
-                <div className="navbarIconItem hove1">
-                    <Link className="fa-solid fa-house"></Link>
-                </div>
+                    <Link style={{textDecoration:"none",marginLeft:50}} to="/addFriend" className="fa-solid fa-users"></Link>
+
+                    <Link style={{textDecoration:"none",marginLeft:100}} className="fa-brands fa-youtube"></Link>
+
+                    <Link style={{textDecoration:"none",marginLeft:100}} className="fa-solid fa-house"></Link>
+
             </div>
             <div className="navbarRight">
                 <Link to="/" className="profile_link">

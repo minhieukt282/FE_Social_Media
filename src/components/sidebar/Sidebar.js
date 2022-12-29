@@ -31,23 +31,8 @@ export default function Sidebar() {
                         <span className="sidebarListItemText">Chat</span>
                     </li>
                 </ul>
-                <button className="sidebarButton">ShowMore</button>
                 <hr className="sidebarHr"/>
                 <ul className="sidebarFriendList">
-                    {/*<li className="sidebarFriend">*/}
-                    {/*    <img style={{maxWidth:40,}} className="sidebarFriendImg" src="https://www.clipartmax.com/png/small/204-2045091_group-together-teamwork-icon-people-icon-flat-png.png" alt=""/>*/}
-                    {/*    <span className="sidebarFriendName">Jane doe</span>*/}
-                    {/*</li>*/}
-
-                    {/*<li className="sidebarFriend">*/}
-                    {/*    <img style={{maxWidth:40,}} className="sidebarFriendImg" src="https://www.clipartmax.com/png/small/204-2045091_group-together-teamwork-icon-people-icon-flat-png.png" alt=""/>*/}
-                    {/*    <span className="sidebarFriendName">Jane doe</span>*/}
-                    {/*</li>*/}
-
-                    {/*<li className="sidebarFriend">*/}
-                    {/*    <img style={{maxWidth:40,}} className="sidebarFriendImg" src="https://www.clipartmax.com/png/small/204-2045091_group-together-teamwork-icon-people-icon-flat-png.png" alt=""/>*/}
-                    {/*    <span className="sidebarFriendName">Jane doe</span>*/}
-                    {/*</li>*/}
                 </ul>
                <span></span>
             </div>
