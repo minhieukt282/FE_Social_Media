@@ -1,7 +1,7 @@
 import './home.css'
 import Navbar from "../../components/navbar/Navbar";
 import Post from "../../components/post/Post";
-import {Outlet} from "react-router-dom";
+import Sidebar from "../../components/sidebar/Sidebar";
 
 export default function Home() {
     return (
@@ -9,16 +9,12 @@ export default function Home() {
             <div className={'home'}>
                 <Navbar/>
             </div>
-            <Outlet></Outlet>
             <div className="row">
-                <div className="col-3">
-
-                </div>
+                    <Sidebar></Sidebar>
                 <div className="col-6">
-                        <Post/>
+                    <Post/>
                 </div>
                 <div className="col-3">
-
                 </div>
             </div>
                 {/*<div className="main">*/}

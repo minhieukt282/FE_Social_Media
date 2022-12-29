@@ -1,9 +1,10 @@
 import {Route, Routes} from "react-router-dom";
-import Register from "./pages/register/Register";
-import Login from "./pages/login/Login";
-import Profile from "./pages/profile/Profile";
-import Home from "./pages/home/Home";
-import {Check} from "./Check";
+import Home from "./pages/Home/Home";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
+import Profile from "./pages/Profile/Profile";
+import AddFriend from "./pages/AddFriends/AddFriend";
+
 function App() {
     return (
         <div >
@@ -11,11 +12,12 @@ function App() {
                 <Route path="/">
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
-                    {/*<Route path={'/check'} element={<Check/>}/>*/}
-                    <Route path="home" element={<Home/>}>
-
+                    <Route path="/home" element={<Home/>}/>
+                    <Route path="/addFriend" element={<AddFriend/>}/>
+                    <Route path=":username">
+                        <Route path=":userId" element={<Profile/>}/>
+                        {/*<Route path=":userId/edit" element={<EditProfile/>}/>*/}
                     </Route>
-                    <Route path="/profile" element={<Profile/>}/>
                 </Route>
             </Routes>
         </div>
