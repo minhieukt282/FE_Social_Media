@@ -8,9 +8,10 @@ const Navbar = () => {
             <div className="navbarLeft">
                 <Link to="/home" style={{textDecoration: "none"}}>
                     <span className="logo">
-                        <img src="https://1.bp.blogspot.com/-S8HTBQqmfcs/XN0ACIRD9PI/AAAAAAAAAlo/FLhccuLdMfIFLhocRjWqsr9cVGdTN_8sgCPcBGAYYCw/s1600/f_logo_RGB-Blue_1024.png"
-                             style={{width: 50, height: 50, marginTop: 5}}
-                             alt="clear"/>
+                        <img
+                            src="https://1.bp.blogspot.com/-S8HTBQqmfcs/XN0ACIRD9PI/AAAAAAAAAlo/FLhccuLdMfIFLhocRjWqsr9cVGdTN_8sgCPcBGAYYCw/s1600/f_logo_RGB-Blue_1024.png"
+                            style={{width: 50, height: 50, marginTop: 5}}
+                            alt="clear"/>
                     </span>
                 </Link>
                 <div className="searchBar">
@@ -30,13 +31,14 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="navbarCenter">
-                    <Link style={{textDecoration:"none",marginRight:50}} to="/home" className="fa-solid fa-house"></Link>
+                <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
 
-                    <Link style={{textDecoration:"none",marginLeft:50}} to="/addFriend" className="fa-solid fa-users"></Link>
+                <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"
+                      className="fa-solid fa-users"></Link>
 
-                    <Link style={{textDecoration:"none",marginLeft:100}} className="fa-brands fa-youtube"></Link>
+                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
 
-                    <Link style={{textDecoration:"none",marginLeft:100}} className="fa-solid fa-house"></Link>
+                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>
 
             </div>
             <div className="navbarRight">
@@ -46,6 +48,7 @@ const Navbar = () => {
                 </Link>
                 <div className="navbarIconItem1">
                     <Link style={{paddingRight: 40}} className="fa-solid fa-comment-dots"></Link>
+                    <div className="right_notification">5</div>
                 </div>
                 <div className="navbarIconItem1">
                     <Link style={{paddingRight: 40}} className="fa-solid fa-bell"></Link>

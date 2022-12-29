@@ -24,12 +24,12 @@ export default function MultiActionAreaCard() {
 
     const handleAccept = async (relationshipId) => {
         await dispatch(acceptFriends(relationshipId))
-        dispatch(waitingFriends(accountId))
+        await dispatch(waitingFriends(accountId))
     }
 
     const handleReject = async (relationshipId) => {
         await dispatch(rejectFriends(relationshipId))
-        dispatch((waitingFriends(accountId)))
+        await dispatch((waitingFriends(accountId)))
     }
 
     return (

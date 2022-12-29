@@ -14,13 +14,8 @@ export default function AddFriend() {
                     <h2>Lời mời kết bạn</h2>
                     <hr/>
                     <div className="row">
-
                         <MultiActionAreaCard></MultiActionAreaCard>
-
                     </div>
-                </div>
-                <div className="col-3">
-
                 </div>
             </div>
         </div>
