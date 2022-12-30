@@ -1,27 +1,26 @@
 import {Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
-import '../Login/style.css';
+import './style.css';
 import LoginInput from "../../components/input/LoginInput";
-import {useState} from "react";
+import { useState} from "react";
 import * as Yup from "yup"
 import {useDispatch} from "react-redux";
-import {registerWed} from "../../services/registerServices";
+import {loginWed} from "../../services/loginServices";
 
-const registerInfos = {
+const loginInfos = {
     username: "",
     password: "",
-    rePassword: ""
 }
 
-export default function Login() {
+export default function Login({socket}) {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [message, setMessage] = useState("")
-    const [register, setRegister] = useState(registerInfos)
-    const {username, password, rePassword} = register;
-    const handleRegisterChange = (e) => {
+    const [login, setLogin] = useState(loginInfos)
+    const {username, password} = login;
+    const handleLoginChange = (e) => {
         const {name, value} = e.target;
-        setRegister({...register, [name]: value})
+        setLogin({...login, [name]: value})
     };
 
     const loginValidation = Yup.object({
@@ -32,24 +31,19 @@ export default function Login() {
         password: Yup.string()
             .required("Password is Required")
             .min(1)
-            .max(15),
-        rePassword: Yup.string()
-            .required("RePassword is Required")
-            .min(1)
             .max(15)
     })
 
-    const handleRegister = async (values) => {
-        if (values.password === values.rePassword) {
-            let result = await dispatch(registerWed(values))
-            let message = result.payload.data.message
-            if (message === "Account already exists") {
-                setMessage(message)
-            } else {
-                navigate("/login")
-            }
+    const handleLogin = async (values) => {
+        let result = await dispatch(loginWed(values))
+        let data = result.payload.data
+        if (data.message ==="success") {
+            socket.emit("online", {
+                accountId: data.data.accountId
+            })
+            navigate("/home")
         } else {
-            setMessage("Check your Repassword!!")
+            setMessage(data.message)
         }
     }
 
@@ -58,42 +52,34 @@ export default function Login() {
             <div className={"login_wrapper"}>
                 <div className="login_wrap">
                     <div className="login_1">
-                        <img style={{width: 325, height: 160}} src="Image/Facebook-Logo-650x366.png" alt=""/>
+                        <img style={{width: 325, height: 160}} src="Image/Facebook-Logo-650x366.png" alt="clear"/>
                         <span>An Social Page to make FriendShip</span>
                     </div>
                     <div className="login_2">
                         <div className="login_2_wrap">
-
                             <Formik
                                 enableReinitialize
                                 initialValues={{
                                     username,
-                                    password,
-                                    rePassword
+                                    password
                                 }}
                                 validationSchema={loginValidation}
                                 onSubmit={(values) => {
-                                    handleRegister(values)
+                                    handleLogin(values)
                                 }}>
                                 <Form>
                                     <LoginInput type={"text"}
                                                 name="username"
                                                 placeholder={"Email Address"}
-                                                onChange={handleRegisterChange}/>
+                                                onChange={handleLoginChange}/>
 
                                     <LoginInput type={"password"}
                                                 name="password"
                                                 placeholder={"Password"}
-                                                onChange={handleRegisterChange}
+                                                onChange={handleLoginChange}
                                                 bottom
                                     />
-                                    <LoginInput type={"password"}
-                                                name="rePassword"
-                                                placeholder={"RePassword"}
-                                                onChange={handleRegisterChange}
-                                                bottom
-                                    />
-                                    <button type={"submit"} className={"blue_btn"}>Sign Up</button>
+                                    <button type={"submit"} className={"blue_btn"}>Log In</button>
                                 </Form>
                             </Formik>
 
@@ -101,14 +87,12 @@ export default function Login() {
 
                             <div className="sign_splitter"></div>
                             <Link style={{textDecoration: "none", color: "white", width: "75%", marginLeft: 80}}
-                                  to={"/login"}>
-                                <button className="blue_btn open_signup">Back to Login</button>
+                                  to={"/register"}>
+                                <button className="blue_btn open_signup">Create Account</button>
                             </Link>
                         </div>
-
                     </div>
                 </div>
-                <div className="/register"></div>
             </div>
         </div>
     )

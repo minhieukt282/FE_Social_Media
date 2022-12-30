@@ -1,8 +1,32 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./navbar.css";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {showNotification} from "../../services/notificationService";
+import SettingsIcon from '@mui/icons-material/Settings';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import ChatIcon from '@mui/icons-material/Chat';
 
-const Navbar = () => {
+const Navbar = ({socket}) => {
+    const dispatch = useDispatch()
+    const [on, setOn] = useState(false)
+    const accountId = JSON.parse(localStorage.getItem('accountId'))
+
+    useEffect(() => {
+        dispatch(showNotification())
+    }, [on])
+
+    useEffect(() => {
+        socket?.on("getNotification", data => {
+            setOn(true)
+        })
+    }, [socket])
+
+    const notifications = useSelector(state => {
+        return state.notification.notification
+    })
+
     return (
         <div className="navbarContainer">
             <div className="navbarLeft">
@@ -31,39 +55,58 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="navbarCenter">
-                <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"
-                      className="fa-solid fa-users"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>
-
+                <div className="navbarIconItem hove1">
+                    <Link to={"/home"} className="fa-solid fa-house"></Link>
+                </div>
+                <div className="navbarIconItem hove1">
+                    <Link to={"/addFriend"} className="fa-solid fa-users"></Link>
+                </div>
+                <div className="navbarIconItem hove1">
+                    <Link style={{paddingLeft: 40}} className="fa-brands fa-youtube"></Link>
+                </div>
+                <div className="navbarIconItem hove1">
+                    <Link className="fa-solid fa-house"></Link>
+                </div>
             </div>
             <div className="navbarRight">
-                <Link to="/" className="profile_link">
+                <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
                     <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>
-                    <span>name</span>
                 </Link>
-                <div className="navbarIconItem1">
-                    <Link style={{paddingRight: 40}} className="fa-solid fa-comment-dots"></Link>
-                    <div className="right_notification">5</div>
+
+                <div style={{paddingRight: 20}}>
+                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                          data-display="static" aria-expanded="false"><ChatIcon/>
+                    </Link>
                 </div>
-                <div className="navbarIconItem1">
-                    <Link style={{paddingRight: 40}} className="fa-solid fa-bell"></Link>
-                    <div className="right_notification">5</div>
-                </div>
-                <div className="dropdown">
-                    <Link type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-                          data-display="static" aria-expanded="false">
+
+                <div style={{paddingRight: 20}} className="dropdown">
+                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                          data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
+                        setOn(false)
+                    }}/>
+                        {on ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
-                        <Link className="dropdown-item" to="/profile">Profile</Link>
-                        <Link className="dropdown-item" href="#">Setting</Link>
-                        <Link className="dropdown-item" href="#">Logout</Link>
+                        {notifications?.map(item => {
+                            if (accountId === item.accountReceiver) {
+                                return (<Link>{item.time} | {item.content}</Link>)
+                            }
+                        })}
                     </div>
                 </div>
+
+                <div className="dropdown">
+                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                          data-display="static" aria-expanded="false"><SettingsIcon/>
+                    </Link>
+                    <div className="dropdown-menu dropdown-menu-lg-right">
+                        <Link className="dropdown-item" href="#">Setting</Link>
+                        <Link className="dropdown-item" to="/login" onClick={() => {
+                            localStorage.clear()
+                        }}>Logout</Link>
+                    </div>
+                </div>
+
             </div>
         </div>
     );
