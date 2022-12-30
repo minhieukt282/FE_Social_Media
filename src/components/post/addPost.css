@@ -1,0 +1,17 @@
+.addPost{
+    color: white;
+    background: #007bff;
+    position: relative;
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+    left: 100px;
+    border: 1px solid #e5e2e2;
+}
+
+.post-group{
+    border: 1px solid #e5e2e2;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 2px 2px 2px 2px #e3e3e3;
+}

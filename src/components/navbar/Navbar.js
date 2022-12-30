@@ -1,8 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import "./navbar.css";
+import {useDispatch, useSelector} from "react-redux";
+import {getPosts} from "../../services/postServices";
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getPosts())
+    }, [])
+
+    const posts = useSelector(state => {
+        console.log(state)
+        return state.posts.posts
+    })
+
     return (
         <div className="navbarContainer">
             <div className="navbarLeft">

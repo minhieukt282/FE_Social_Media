@@ -11,6 +11,7 @@ const registerSlice = createSlice({
     extraReducers:builder => {
         builder.addCase(registerWed.fulfilled,(state,action)=>{
             state.posts = action.payload
+
         })
     }
 })
