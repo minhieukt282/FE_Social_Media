@@ -14,10 +14,11 @@ function App() {
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/addFriend" element={<AddFriend/>}/>
-                    <Route path=":username">
-                        <Route path=":userId" element={<Profile/>}/>
-                        {/*<Route path=":userId/edit" element={<EditProfile/>}/>*/}
-                    </Route>
+                    <Route path="/profile" element={<Profile/>}/>
+                    {/*<Route path=":username">*/}
+                    {/*    <Route path=":userId" element={<Profile/>}/>*/}
+                    {/*    /!*<Route path=":userId/edit" element={<EditProfile/>}/>*!/*/}
+                    {/*</Route>*/}
                 </Route>
             </Routes>
         </div>

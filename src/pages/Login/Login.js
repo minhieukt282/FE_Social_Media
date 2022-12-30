@@ -2,7 +2,7 @@ import {Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import './style.css';
 import LoginInput from "../../components/input/LoginInput";
-import { useState} from "react";
+import {useState} from "react";
 import * as Yup from "yup"
 import {useDispatch} from "react-redux";
 import {loginWed} from "../../services/loginServices";
@@ -26,8 +26,8 @@ export default function Login() {
     const loginValidation = Yup.object({
         username: Yup.string()
             .required("Email is required.")
-            .email("Must have an email.")
-            .max(50),
+            .min(1)
+            .max(15),
         password: Yup.string()
             .required("Password is Required")
             .min(1)
@@ -38,7 +38,7 @@ export default function Login() {
         let result = await dispatch(loginWed(values))
         let message = result.payload.data.message
         // console.log(result)
-        if (message ==="success") {
+        if (message === "success") {
             navigate("/home")
         } else {
             setMessage(message)
@@ -88,6 +88,7 @@ export default function Login() {
                                   to={"/register"}>
                                 <button className="blue_btn open_signup">Create Account</button>
                             </Link>
+                            <Link style={{textDecoration:"none"}} to="/register">Create an new Account here !!</Link>
                         </div>
                     </div>
                 </div>
