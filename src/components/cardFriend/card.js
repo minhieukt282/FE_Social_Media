@@ -3,36 +3,73 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import {Button, CardActionArea, CardActions} from '@mui/material';
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {acceptFriends, rejectFriends, waitingFriends} from "../../services/FriendServices";
+
 
 export default function MultiActionAreaCard() {
-    return (
-        <Card sx={{ maxWidth: 300 }}>
-            <CardActionArea>
-                <CardMedia
-                    component="img"
-                    height="120"
-                    image="https://1.bp.blogspot.com/-9Q4HCjTaH08/XiJluTvBgrI/AAAAAAAAB5I/e7p4u5dzM0A4OV1IUzfG1F_3TDfDPZgjgCLcBGAsYHQ/s1600/gai-xinh-deo-kinh-3.jpg"
-                    alt="green iguana"
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                       Friend Name
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Locations:
+    const dispatch = useDispatch()
+    // const token = JSON.parse(localStorage.getItem("token"))
+    const accountId = JSON.parse(localStorage.getItem("accountId"))
 
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Accept
-                </Button>
-                <Button size="small" color="primary">
-                    Decline
-                </Button>
-            </CardActions>
-        </Card>
+    useEffect(() => {
+        dispatch(waitingFriends(accountId))
+    }, [])
+
+    const listReqFriends = useSelector((state) => {
+        return state.waitingFriend.waitingFriend
+    });
+
+    const handleAccept = async (relationshipId) => {
+        await dispatch(acceptFriends(relationshipId))
+        dispatch(waitingFriends(accountId))
+    }
+
+    const handleReject = async (relationshipId) => {
+        await dispatch(rejectFriends(relationshipId))
+        dispatch((waitingFriends(accountId)))
+    }
+
+    return (
+        <>
+            {
+                listReqFriends.data?.map((item) => (
+                    <div className="col-4">
+                        <Card sx={{maxWidth: 300}}>
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    height="160"
+                                    image={item?.img}
+                                    alt="green iguana"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {item?.displayName}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {item?.location}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions>
+                                <Button size="small" color="primary" onClick={() => {
+                                    handleAccept(item?.relationshipId)
+                                }}>
+                                    Accept
+                                </Button>
+                                <Button size="small" color="primary" onClick={() => {
+                                    handleReject(item?.relationshipId)
+                                }}>
+                                    Reject
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </div>
+                ))
+            }
+        </>
     );
 }
