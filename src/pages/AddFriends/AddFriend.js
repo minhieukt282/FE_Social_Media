@@ -22,7 +22,7 @@ export default function AddFriend({socket}) {
                     <h2>Lời mời kết bạn</h2>
                     <hr/>
                     <div className="row">
-                        <MultiActionAreaCard></MultiActionAreaCard>
+                        <MultiActionAreaCard socket={socket}></MultiActionAreaCard>
                     </div>
                 </div>
             </div>

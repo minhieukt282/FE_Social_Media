@@ -21,6 +21,8 @@ export default function Home({socket}) {
             <div className="row">
                 <Sidebar></Sidebar>
                 <div className="col-6">
+
+
                     <Post socket={socket}/>
                 </div>
                 <div className="col-3">

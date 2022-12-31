@@ -14,14 +14,14 @@ const Navbar = ({socket}) => {
     const accountId = JSON.parse(localStorage.getItem('accountId'))
 
     useEffect(() => {
-        dispatch(showNotification())
-    }, [noticeCome])
-
-    useEffect(() => {
         socket?.on("getNotification", data => {
-            setNoticeCome(true)
+            setNoticeCome(!noticeCome)
         })
     }, [socket])
+
+    useEffect(() => {
+        dispatch(showNotification())
+    })
 
     const notifications = useSelector(state => {
         return state.notification.notification
@@ -78,12 +78,14 @@ const Navbar = ({socket}) => {
                 </div>
             </div>
             <div className="navbarRight">
-                <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
-                    <img src={imgAvt} alt="" className="navbarImg"/>
-                </Link>
+                <div style={{paddingRight: 20}}>
+                    {/*<Link style={{textDecoration: "none"}} to="/profile" className="profile_link">*/}
+                        <img src={imgAvt} alt="" className="navbarImg"/>
+                    {/*</Link>*/}
+                </div>
 
                 <div style={{paddingRight: 20}}>
-                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><ChatIcon/>
                     </Link>
                 </div>
@@ -96,15 +98,23 @@ const Navbar = ({socket}) => {
                         {noticeCome ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
-                        {notifications?.map(item => {
+                        {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
-                                return (<Link>{item.time} | {item.content}</Link>)
+                                if (item.type === "friends") {
+                                    return (<Link key={index} to="/addFriend" onClick={() => {
+                                        setNoticeCome(false)
+                                    }}>{item.time} | {item.content}</Link>)
+                                } else {
+                                    return (<Link key={index} to="/register" onClick={() => {
+                                        setNoticeCome(false)
+                                    }}>{item.time} | {item.content}</Link>)
+                                }
                             }
                         })}
                     </div>
                 </div>
 
-                <div className="dropdown">
+                <div style={{paddingRight: 20}} className="dropdown">
                     <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><SettingsIcon/>
                     </Link>
