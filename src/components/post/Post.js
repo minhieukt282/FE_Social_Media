@@ -10,6 +10,7 @@ import {getPosts} from "../../services/postServices";
 const Post = () => {
     const dispatch = useDispatch();
     const posts = useSelector(state => {
+        console.log(state.posts.posts)
         return state.posts.posts;
     });
     useEffect(() => {
@@ -26,7 +27,7 @@ const Post = () => {
                                 <div className="postTopLeft">
                                     <Link>
                                         <img
-                                            src={item?.imgAvt}
+                                            src="image/avatar/images.jpg"
                                             alt="my avatar"
                                             className="postProfileImg"/>
                                     </Link>

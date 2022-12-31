@@ -37,7 +37,6 @@ export default function Login() {
     const handleLogin = async (values) => {
         let result = await dispatch(loginWed(values))
         let message = result.payload.data.message
-        // console.log(result)
         if (message === "success") {
             navigate("/home")
         } else {
