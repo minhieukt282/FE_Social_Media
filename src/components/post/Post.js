@@ -5,7 +5,7 @@ import {MoreVert} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
-import {createNotification} from "../../services/notificationService";
+import {createNotification, deleteNotification} from "../../services/notificationService";
 
 const Post = ({socket}) => {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Post = ({socket}) => {
         return state.posts.posts
     })
 
-    const handleNotification = async (accountReceiver, postId) => {
+    const handleNotificationLiked = async (accountReceiver, postId) => {
         setLike(!like)
         const accountSent = JSON.parse(localStorage.getItem("accountId"))
         const displayName = JSON.parse(localStorage.getItem("displayName"))
@@ -26,11 +26,44 @@ const Post = ({socket}) => {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            contentId: postId
+            contentId: postId,
+            type: "liked"
         }
         if (accountSent !== accountReceiver) {
             await dispatch(createNotification(dataNotification))
             socket.emit("liked", dataNotification)
+        }
+    }
+
+    const handleNotificationDisliked = async (accountReceiver, postId) => {
+        setLike(!like)
+        const accountSent = JSON.parse(localStorage.getItem("accountId"))
+        const dataNotification = {
+            accountSent: accountSent,
+            contentId: postId,
+            type: "liked"
+        }
+        if (accountSent !== accountReceiver) {
+            await dispatch(deleteNotification(dataNotification))
+            // socket.emit("liked", dataNotification)
+        }
+    }
+
+    const handleNotificationComment = async (accountReceiver, postId) => {
+        //the comment table in the database has not been saved
+        const accountSent = JSON.parse(localStorage.getItem("accountId"))
+        const displayName = JSON.parse(localStorage.getItem("displayName"))
+        const dataNotification = {
+            displayName: displayName,
+            accountSent: accountSent,
+            accountReceiver: accountReceiver,
+            contentId: postId,
+            type: "commented"
+        }
+
+        if (accountSent !== accountReceiver) {
+            await dispatch(createNotification(dataNotification))
+            socket.emit("commented", dataNotification)
         }
     }
 
@@ -69,11 +102,11 @@ const Post = ({socket}) => {
                                 {
                                     like ? (<button>
                                         <i className="fa-solid fa-thumbs-up" onClick={() => {
-                                            setLike(!like)
+                                            handleNotificationDisliked(item?.accountId, item?.postId)
                                         }}>Dislike</i>
                                     </button>) : (
                                         <button onClick={() => {
-                                            handleNotification(item?.accountId, item?.postId)
+                                            handleNotificationLiked(item?.accountId, item?.postId)
                                         }}>
                                             <i className="fa-regular fa-thumbs-up">Like</i>
                                         </button>)}

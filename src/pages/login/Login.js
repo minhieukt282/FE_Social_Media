@@ -36,7 +36,7 @@ export default function Login({socket}) {
 
     const handleLogin = async (values) => {
         let result = await dispatch(loginWed(values))
-        let data = result.payload.data
+        let data = result.payload
         if (data.message ==="success") {
             socket.emit("online", {
                 accountId: data.data.accountId

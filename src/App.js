@@ -16,13 +16,13 @@ function App() {
 
     return (
         <>
-            <div>
+            <div className="container">
                 <Routes>
                     <Route path="/">
                         <Route path="/login" element={<Login socket={socket}/>}/>
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/home" element={<Home socket={socket}/>}/>
-                        <Route path="/addFriend" element={<AddFriend/>}/>
+                        <Route path="/addFriend" element={<AddFriend socket={socket}/>}/>
                         <Route path=":username">
                             <Route path=":userId" element={<Profile/>}/>
                         </Route>

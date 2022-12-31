@@ -1,12 +1,20 @@
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import MultiActionAreaCard from "../../components/cardFriend/card";
+import {useEffect} from "react";
 
-export default function AddFriend() {
+export default function AddFriend({socket}) {
+    useEffect(() => {
+        if (socket != null)
+            socket.emit("refresh", {
+                accountId: JSON.parse(localStorage.getItem("accountId"))
+            })
+    }, [socket])
+
     return (
         <div>
             <div className={'home'}>
-                <Navbar/>
+                <Navbar socket={socket}/>
             </div>
             <div className="row">
                 <Sidebar></Sidebar>

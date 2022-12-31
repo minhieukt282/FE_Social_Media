@@ -10,22 +10,31 @@ import ChatIcon from '@mui/icons-material/Chat';
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
-    const [on, setOn] = useState(false)
+    const [noticeCome, setNoticeCome] = useState(false)
     const accountId = JSON.parse(localStorage.getItem('accountId'))
 
     useEffect(() => {
         dispatch(showNotification())
-    }, [on])
+    }, [noticeCome])
 
     useEffect(() => {
         socket?.on("getNotification", data => {
-            setOn(true)
+            setNoticeCome(true)
         })
     }, [socket])
 
     const notifications = useSelector(state => {
         return state.notification.notification
     })
+
+    const imgAvt = useSelector(state => {
+        return state.loginWed.imgAvt
+    })
+
+    const handleLogout = (accountId) => {
+        localStorage.clear()
+        socket.emit("offline", {accountId: accountId})
+    }
 
     return (
         <div className="navbarContainer">
@@ -70,7 +79,7 @@ const Navbar = ({socket}) => {
             </div>
             <div className="navbarRight">
                 <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
-                    <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>
+                    <img src={imgAvt} alt="" className="navbarImg"/>
                 </Link>
 
                 <div style={{paddingRight: 20}}>
@@ -82,9 +91,9 @@ const Navbar = ({socket}) => {
                 <div style={{paddingRight: 20}} className="dropdown">
                     <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
-                        setOn(false)
+                        setNoticeCome(false)
                     }}/>
-                        {on ? (<div className="right_notification">1</div>) : (<></>)}
+                        {noticeCome ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map(item => {
@@ -102,7 +111,7 @@ const Navbar = ({socket}) => {
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         <Link className="dropdown-item" href="#">Setting</Link>
                         <Link className="dropdown-item" to="/login" onClick={() => {
-                            localStorage.clear()
+                            handleLogout(accountId)
                         }}>Logout</Link>
                     </div>
                 </div>

@@ -5,7 +5,6 @@ import registerReducer from "./register/registerSlice";
 import waitingFriendsReducer from "./addFriend/friendSlice";
 import notificationReducer from  "./notification/notificationSlice"
 
-
 export const store = configureStore({
     reducer: {
         posts: postReducer,

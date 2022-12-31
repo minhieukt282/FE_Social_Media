@@ -5,7 +5,8 @@ const initialState = {
     accountId: JSON.parse(localStorage.getItem('accountId')),
     token: JSON.parse(localStorage.getItem('token')),
     displayName: JSON.parse(localStorage.getItem('displayName')),
-    username: JSON.parse(localStorage.getItem('username'))
+    username: JSON.parse(localStorage.getItem('username')),
+    imgAvt: JSON.parse(localStorage.getItem('imgAvt'))
 }
 
 const loginSlice = createSlice({
@@ -13,16 +14,18 @@ const loginSlice = createSlice({
     initialState,
     extraReducers: builder => {
         builder.addCase(loginWed.fulfilled, (state, action) => {
-            if (action.payload.data.message === "success"){
-                state.accountId = action.payload.data.data.accountId
-                state.token = action.payload.data.data.token
-                state.displayName = action.payload.data.data.displayName
-                state.username = action.payload.data.data.username
+            if (action.payload.message === "success"){
+                state.accountId = action.payload.data.accountId
+                state.token = action.payload.data.token
+                state.displayName = action.payload.data.displayName
+                state.username = action.payload.data.username
+                state.imgAvt = action.payload.data.imgAvt
                 if (state.accountId !== undefined && state.token !== undefined && state.displayName !== undefined) {
-                    localStorage.setItem('accountId', JSON.stringify(action.payload.data.data.accountId))
-                    localStorage.setItem('token', JSON.stringify(action.payload.data.data.token))
-                    localStorage.setItem('displayName', JSON.stringify(action.payload.data.data.displayName))
-                    localStorage.setItem('username', JSON.stringify(action.payload.data.data.username))
+                    localStorage.setItem('accountId', JSON.stringify(action.payload.data.accountId))
+                    localStorage.setItem('token', JSON.stringify(action.payload.data.token))
+                    localStorage.setItem('displayName', JSON.stringify(action.payload.data.displayName))
+                    localStorage.setItem('username', JSON.stringify(action.payload.data.username))
+                    localStorage.setItem('imgAvt', JSON.stringify(action.payload.data.imgAvt))
                 }
             }
         })
