@@ -12,14 +12,17 @@ const loginSlice = createSlice({
     initialState,
     extraReducers: builder => {
         builder.addCase(loginWed.fulfilled, (state, action) => {
+            console.log(state)
             if (action.payload.data.message === "success"){
                 state.accountId = action.payload.data.data.accountId
                 state.token = action.payload.data.data.token
                 state.displayName = action.payload.data.data.displayName
-                if (state.accountId !== undefined && state.token !== undefined && state.displayName !== undefined) {
+                state.imgAvt = action.payload.data.data.imgAvt
+                if (state.accountId !== undefined && state.token !== undefined && state.displayName !== undefined && state.imgAvt !== undefined) {
                     localStorage.setItem('accountId', JSON.stringify(action.payload.data.data.accountId))
                     localStorage.setItem('token', JSON.stringify(action.payload.data.data.token))
                     localStorage.setItem('displayName', JSON.stringify(action.payload.data.data.displayName))
+                    localStorage.setItem('imgAvt', JSON.stringify(action.payload.data.data.imgAvt))
                 }
             }
         })

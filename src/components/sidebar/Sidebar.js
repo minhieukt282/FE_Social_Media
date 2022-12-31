@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 
 export default function Sidebar() {
     return (
-        <div className="sidebar col-3">
+        <div style={{top:20}} className="sidebar col-3">
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
                     <li  className="sidebarListItem" >

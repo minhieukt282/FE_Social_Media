@@ -26,7 +26,6 @@ export const addPosts = createAsyncThunk(
                 }
             }
         )
-        console.log(res.data)
         return res.data;
     }
 )

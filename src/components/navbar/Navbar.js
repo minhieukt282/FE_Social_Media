@@ -1,5 +1,8 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
+import SettingsIcon from '@mui/icons-material/Settings';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import ChatIcon from '@mui/icons-material/Chat';
 import "./navbar.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
@@ -11,8 +14,7 @@ const Navbar = () => {
     }, [])
 
     const posts = useSelector(state => {
-        console.log(state)
-        return state.posts.posts
+        return state.loginWed
     })
 
     return (
@@ -20,9 +22,10 @@ const Navbar = () => {
             <div className="navbarLeft">
                 <Link to="/home" style={{textDecoration: "none"}}>
                     <span className="logo">
-                        <img src="https://1.bp.blogspot.com/-S8HTBQqmfcs/XN0ACIRD9PI/AAAAAAAAAlo/FLhccuLdMfIFLhocRjWqsr9cVGdTN_8sgCPcBGAYYCw/s1600/f_logo_RGB-Blue_1024.png"
-                             style={{width: 50, height: 50, marginTop: 5}}
-                             alt="clear"/>
+                        <img
+                            src="https://1.bp.blogspot.com/-S8HTBQqmfcs/XN0ACIRD9PI/AAAAAAAAAlo/FLhccuLdMfIFLhocRjWqsr9cVGdTN_8sgCPcBGAYYCw/s1600/f_logo_RGB-Blue_1024.png"
+                            style={{width: 50, height: 50, marginTop: 5}}
+                            alt="clear"/>
                     </span>
                 </Link>
                 <div className="searchBar">
@@ -42,35 +45,48 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="navbarCenter">
-                    <Link style={{textDecoration:"none",marginRight:50}} to="/home" className="fa-solid fa-house"></Link>
+                <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
 
-                    <Link style={{textDecoration:"none",marginLeft:50}} to="/addFriend" className="fa-solid fa-users"></Link>
+                <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"
+                      className="fa-solid fa-users"></Link>
 
-                    <Link style={{textDecoration:"none",marginLeft:100}} className="fa-brands fa-youtube"></Link>
+                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
 
-                    <Link style={{textDecoration:"none",marginLeft:100}} className="fa-solid fa-house"></Link>
+                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>
 
             </div>
             <div className="navbarRight">
-                <Link to="/" className="profile_link">
-                    <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>
-                    <span>name</span>
+                <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                    <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>{posts.displayName}
                 </Link>
-                <div className="navbarIconItem1">
-                    <Link style={{paddingRight: 40}} className="fa-solid fa-comment-dots"></Link>
+
+                <div style={{paddingRight:20}}>
+                <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                      data-display="static" aria-expanded="false"><ChatIcon/>
+                </Link>
                 </div>
-                <div className="navbarIconItem1">
-                    <Link style={{paddingRight: 40}} className="fa-solid fa-bell"></Link>
-                    <div className="right_notification">5</div>
-                </div>
-                <div className="dropdown">
-                    <Link type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-                          data-display="static" aria-expanded="false">
+
+                <div style={{paddingRight: 20}} className="dropdown">
+                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                          data-display="static" aria-expanded="false"><NotificationsActiveIcon/>
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
-                        <Link className="dropdown-item" to="/profile">Profile</Link>
+                        <h4>thong bao</h4>
+                        <h4>thong bao</h4>
+                        <h4>thong bao</h4>
+                        <h4>thong bao</h4>
+                    </div>
+                </div>
+
+                <div className="dropdown">
+                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                          data-display="static" aria-expanded="false"><SettingsIcon/>
+                    </Link>
+                    <div className="dropdown-menu dropdown-menu-lg-right">
                         <Link className="dropdown-item" href="#">Setting</Link>
-                        <Link className="dropdown-item" href="#">Logout</Link>
+                        <Link className="dropdown-item" to="/login" onClick={()=>{
+                            localStorage.clear()
+                        }}>Logout</Link>
                     </div>
                 </div>
             </div>

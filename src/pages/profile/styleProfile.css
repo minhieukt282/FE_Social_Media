@@ -1,0 +1,97 @@
+
+.profile {
+    display: flex;
+    background: linear-gradient(to bottom, #999966 0%, #ffffff 54%);
+}
+
+.profileRight {
+    flex: 9;
+}
+
+.profileCover {
+    height: 500px;
+    position: relative;
+}
+
+.profileCoverImg {
+    width: 80%;
+    height: 450px;
+    object-fit: fill;
+    position: absolute;
+    left: 150px;
+    border-radius: 10px;
+}
+
+.profileUserImg {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 350px;
+    border: 3px solid white;
+}
+
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.profileInfoName {
+    font-size: 36px;
+}
+
+.profileInfoDesc {
+    font-weight: 300;
+}
+
+.profileRightBottom {
+    display: flex;
+}
+
+.col-6 {
+    justify-content: center;
+
+}
+.infoTable{
+    border: 1px solid #eeeded;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px #ece9e9;
+}
+
+.detailInfoItem {
+    padding-top: 10px;
+}
+
+.editButton {
+    font-size: 18px;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.editButton:hover {
+    background: #ece9e9;
+}
+
+.editProfile {
+    position: absolute;
+    right: 150px;
+    width: 200px;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 18px;
+}
+
+.editProfile:hover {
+    background: #ece9e9;
+}

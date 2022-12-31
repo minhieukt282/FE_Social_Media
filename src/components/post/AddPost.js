@@ -7,30 +7,33 @@ import {addPosts, getPosts} from "../../services/postServices";
 import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {v4} from "uuid";
 import "./addPost.css";
-import Sidebar from "../sidebar/Sidebar";
-import Navbar from "../navbar/Navbar";
 
 
 export default function AddPost() {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const users = useSelector(state => {
+        console.log(state)
         return state;
+    })
+    const imgAvt = useSelector(state => {
+        return state.loginWed.imgAvt
     })
     const [submitting, setSubmitting] = useState(false)
     const handleAdd = async (values) => {
+        console.log(values)
         let data = {
             ...values,
             accountId: users.loginWed.accountId,
-            img: img
+            imgPost: img,
+            imgAvt:imgAvt
         }
-      await  dispatch(addPosts(data))
-      await  dispatch(getPosts())
+        console.log(data)
+        await dispatch(addPosts(data))
+        await dispatch(getPosts())
     }
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
-
 
     const imagesListRef = ref(storage, "images/");
     const uploadFile = (imageUpload) => {
@@ -61,9 +64,9 @@ export default function AddPost() {
             <div>
                 <Formik initialValues={{
                     content: '',
-                    img: imageUrls,
+                    imgPost: imageUrls,
                     status: '',
-                    // time: new Date().toLocaleDateString(),
+                    imgAvt:''
                 }} onSubmit={(values) => {
                     handleAdd(values);
                 }}>
