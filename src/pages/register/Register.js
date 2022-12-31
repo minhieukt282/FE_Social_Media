@@ -13,7 +13,7 @@ const registerInfos = {
     rePassword: ""
 }
 
-export default function Login() {
+export default function Register() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [message, setMessage] = useState("")

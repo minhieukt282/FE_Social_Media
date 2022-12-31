@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="0035">
-      <change afterPath="$PROJECT_DIR$/src/pages/profile/Profile.js" afterDir="false" />
+    <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/post/AddPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/AddPost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardFriend/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardFriend/card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/Navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/post/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/Post.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/post/post.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/post.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AddFriends/AddFriend.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AddFriends/AddFriend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/Home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,9 +37,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2JTfHOMPKUw9gUP9vswz9kNn27O" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -49,14 +47,14 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/thien/css&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/test/Md6/FE_Social_Media&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;E:\\Program Files\\JetBrains\\WebStorm 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -88,6 +86,13 @@
       <option name="presentableId" value="Default" />
       <updated>1672106905123</updated>
       <workItem from="1672106906962" duration="13698000" />
+      <workItem from="1672137703910" duration="540000" />
+      <workItem from="1672160644925" duration="1989000" />
+      <workItem from="1672189519596" duration="2779000" />
+      <workItem from="1672217832567" duration="26489000" />
+      <workItem from="1672361998762" duration="34350000" />
+      <workItem from="1672455020698" duration="18786000" />
+      <workItem from="1672495879056" duration="2547000" />
     </task>
     <servers />
   </component>
