@@ -1,8 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import SettingsIcon from '@mui/icons-material/Settings';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import ChatIcon from '@mui/icons-material/Chat';
 import "./navbar.css";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -61,7 +58,7 @@ const Navbar = () => {
                             style={{width: 50, height: 50, marginTop: 5}}
                             alt="clear"/>
                     </span>
->>>>>>>>> Temporary merge branch 2
+
                 </Link>
                 <div className="searchBar">
                     <Link className="searchIcon">
@@ -96,7 +93,7 @@ const Navbar = () => {
             <div className="navbarRight">
                 <div style={{paddingRight: 20}}>
                     {/*<Link style={{textDecoration: "none"}} to="/profile" className="profile_link">*/}
-                        <img src={imgAvt} alt="" className="navbarImg"/>
+                    <img src={imgAvt} alt="" className="navbarImg"/>
                     {/*</Link>*/}
                 </div>
 
@@ -145,6 +142,7 @@ const Navbar = () => {
             </div>
         </div>
     );
+};
 };
 
 export default Navbar;

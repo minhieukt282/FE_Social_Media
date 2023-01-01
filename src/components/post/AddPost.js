@@ -13,14 +13,20 @@ export default function AddPost() {
 
     const dispatch = useDispatch();
     const users = useSelector(state => {
+        console.log(state)
         return state;
+    })
+    const imgAvt = useSelector(state => {
+        return state.loginWed.imgAvt
     })
     const [submitting, setSubmitting] = useState(false)
     const handleAdd = async (values) => {
+        console.log(values)
         let data = {
             ...values,
             accountId: users.loginWed.accountId,
-            img: img
+            imgPost: img,
+            imgAvt:imgAvt
         }
         console.log(data)
         await dispatch(addPosts(data))
@@ -58,8 +64,9 @@ export default function AddPost() {
             <div>
                 <Formik initialValues={{
                     content: '',
-                    img: imageUrls,
-                    status: ''
+                    imgPost: imageUrls,
+                    status: '',
+                    imgAvt:''
                 }} onSubmit={(values) => {
                     handleAdd(values);
                 }}>
