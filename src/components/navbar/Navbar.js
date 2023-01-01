@@ -21,7 +21,7 @@ const Navbar = ({socket}) => {
 
     useEffect(() => {
         dispatch(showNotification())
-    })
+    }, [noticeCome])
 
     const notifications = useSelector(state => {
         return state.notification.notification

@@ -9,7 +9,6 @@ import {useEffect, useState} from "react";
 import {acceptFriends, rejectFriends, waitingFriends} from "../../services/FriendServices";
 import {createNotification} from "../../services/notificationService";
 
-
 export default function MultiActionAreaCard({socket}) {
     const dispatch = useDispatch()
     const accountId = JSON.parse(localStorage.getItem("accountId"))
@@ -29,7 +28,7 @@ export default function MultiActionAreaCard({socket}) {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            contentId: 0,
+            postId: 0,
             type: "friends"
         }
         await dispatch(acceptFriends(relationshipId))
