@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/post/postDetails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/liked/likedSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/likeService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cardFriend/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardFriend/card.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/Navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/post/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/Post.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AddFriends/AddFriend.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AddFriends/AddFriend.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +94,8 @@
       <workItem from="1672217832567" duration="26489000" />
       <workItem from="1672361998762" duration="34350000" />
       <workItem from="1672455020698" duration="18786000" />
-      <workItem from="1672495879056" duration="2547000" />
+      <workItem from="1672495879056" duration="10254000" />
+      <workItem from="1672540844277" duration="14134000" />
     </task>
     <servers />
   </component>

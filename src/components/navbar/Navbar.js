@@ -91,7 +91,7 @@ const Navbar = ({socket}) => {
                 </div>
 
                 <div style={{paddingRight: 20}} className="dropdown">
-                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)
                     }}/>
@@ -115,7 +115,7 @@ const Navbar = ({socket}) => {
                 </div>
 
                 <div style={{paddingRight: 20}} className="dropdown">
-                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><SettingsIcon/>
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
