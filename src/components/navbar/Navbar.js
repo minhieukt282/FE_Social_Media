@@ -21,7 +21,7 @@ const Navbar = ({socket}) => {
 
     useEffect(() => {
         dispatch(showNotification())
-    }, [noticeCome])
+    },[noticeCome])
 
     const notifications = useSelector(state => {
         return state.notification.notification
@@ -64,24 +64,21 @@ const Navbar = ({socket}) => {
                 </div>
             </div>
             <div className="navbarCenter">
-                <div className="navbarIconItem hove1">
-                    <Link to={"/home"} className="fa-solid fa-house"></Link>
-                </div>
-                <div className="navbarIconItem hove1">
-                    <Link to={"/addFriend"} className="fa-solid fa-users"></Link>
-                </div>
-                <div className="navbarIconItem hove1">
-                    <Link style={{paddingLeft: 40}} className="fa-brands fa-youtube"></Link>
-                </div>
-                <div className="navbarIconItem hove1">
-                    <Link className="fa-solid fa-house"></Link>
-                </div>
+                <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
+
+                <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"
+                      className="fa-solid fa-users"></Link>
+
+                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
+
+                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>
+
             </div>
             <div className="navbarRight">
                 <div style={{paddingRight: 20}}>
-                    {/*<Link style={{textDecoration: "none"}} to="/profile" className="profile_link">*/}
+                    <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
                         <img src={imgAvt} alt="" className="navbarImg"/>
-                    {/*</Link>*/}
+                    </Link>
                 </div>
 
                 <div style={{paddingRight: 20}}>
@@ -97,17 +94,18 @@ const Navbar = ({socket}) => {
                     }}/>
                         {noticeCome ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
+
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
                                 if (item.type === "friends") {
                                     return (<Link key={index} to="/addFriend" onClick={() => {
                                         setNoticeCome(false)
-                                    }}>{item.time} | {item.content}</Link>)
+                                    }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}</Link>)
                                 } else {
                                     return (<Link key={index} to="/register" onClick={() => {
                                         setNoticeCome(false)
-                                    }}>{item.time} | {item.content}</Link>)
+                                    }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}</Link>)
                                 }
                             }
                         })}
@@ -125,10 +123,9 @@ const Navbar = ({socket}) => {
                         }}>Logout</Link>
                     </div>
                 </div>
-
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default Navbar;

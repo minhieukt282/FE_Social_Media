@@ -26,9 +26,9 @@ export default function Register() {
 
     const loginValidation = Yup.object({
         username: Yup.string()
-            .required("Email is required.")
-            .email("Must have an email.")
-            .max(50),
+            .required("Username is required.")
+            .min(1)
+            .max(15),
         password: Yup.string()
             .required("Password is Required")
             .min(1)

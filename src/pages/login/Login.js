@@ -26,8 +26,8 @@ export default function Login({socket}) {
     const loginValidation = Yup.object({
         username: Yup.string()
             .required("Email is required.")
-            .email("Must have an email.")
-            .max(50),
+            .min(1)
+            .max(15),
         password: Yup.string()
             .required("Password is Required")
             .min(1)

@@ -46,11 +46,15 @@ const PostDetails = ({socket, item, index}) => {
     const handleNotificationDisliked = async (accountReceiver, postId) => {
         setLike(!like)
         const accountSent = accountId
+        const displayName = JSON.parse(localStorage.getItem("displayName"))
         const dataNotice = {
+            displayName: displayName,
             accountSent: accountSent,
+            accountReceiver: accountReceiver,
             postId: postId,
             type: "liked"
         }
+        console.log(dataNotice, "delete notice")
         const dataLike = {
             accountId: accountId,
             postId: postId
@@ -101,7 +105,8 @@ const PostDetails = ({socket, item, index}) => {
                             className="postProfileImg"/>
                     </Link>
                     <span className="postUsername">{item?.displayName}</span>
-                    <span className="postDate">{item?.timePost}</span>
+                    <span
+                        className="postDate">{new Date(item?.timePost).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
                 </div>
                 <div className="postTopRight">
                     <span className="postDate">{item?.status}</span>
@@ -124,14 +129,14 @@ const PostDetails = ({socket, item, index}) => {
                         {isLike ? (
                             <button onClick={() => {
                                 handleNotificationLiked(item?.accountId, item?.postId)
-                            }}>
-                                <i className="fa-solid fa-thumbs-up" >Like</i>
+                            }}>Like
+                                {/*<i className="fa-solid fa-thumbs-up" >Like</i>*/}
                             </button>
                         ) : (
                             <button onClick={() => {
                                 handleNotificationDisliked(item?.accountId, item?.postId)
-                            }}>
-                                <i className="fa-regular fa-thumbs-up">Dislike</i>
+                            }}>Dislike
+                                {/*<i className="fa-regular fa-thumbs-up">Dislike</i>*/}
                             </button>
                         )}
                     </div>

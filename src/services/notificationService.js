@@ -18,7 +18,7 @@ export const deleteNotification = createAsyncThunk(
     "delete/notification",
     async (data) => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.delete(`http://localhost:3001/notification/${data.accountSent}/${data.contentId}/${data.type}`, {
+        const res = await axios.delete(`http://localhost:3001/notification/${data.accountSent}/${data.postId}/${data.type}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }

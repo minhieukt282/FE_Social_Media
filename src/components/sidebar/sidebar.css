@@ -17,7 +17,7 @@
 }
 
 .sidebarWrapper {
-    padding: 20px;
+    padding: 40px;
 }
 
 .sidebarList {
@@ -29,7 +29,7 @@
 .sidebarListItem {
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .sidebarIcon {

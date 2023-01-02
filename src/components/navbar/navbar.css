@@ -6,7 +6,6 @@
     position: sticky;
     top: 0;
     z-index: 999;
-    box-shadow: 1px 8px 15px -7px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
