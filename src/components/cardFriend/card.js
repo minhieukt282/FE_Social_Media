@@ -5,49 +5,38 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {Button, CardActionArea, CardActions} from '@mui/material';
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {acceptFriends, rejectFriends, waitingFriends} from "../../services/FriendServices";
-import {createNotification} from "../../services/notificationService";
 
 
-export default function MultiActionAreaCard({socket}) {
+export default function MultiActionAreaCard() {
     const dispatch = useDispatch()
+    // const token = JSON.parse(localStorage.getItem("token"))
     const accountId = JSON.parse(localStorage.getItem("accountId"))
-    const [refreshPage, setRefreshPage] = useState(false)
+
     useEffect(() => {
         dispatch(waitingFriends(accountId))
-    }, [refreshPage])
+    }, [])
 
     const listReqFriends = useSelector((state) => {
         return state.waitingFriend.waitingFriend
     });
 
-    const handleAccept = async (relationshipId, accountReceiver) => {
-        const accountSent = JSON.parse(localStorage.getItem("accountId"))
-        const displayName = JSON.parse(localStorage.getItem("displayName"))
-        const dataNotification = {
-            displayName: displayName,
-            accountSent: accountSent,
-            accountReceiver: accountReceiver,
-            contentId: 0,
-            type: "friends"
-        }
+    const handleAccept = async (relationshipId) => {
         await dispatch(acceptFriends(relationshipId))
-        setRefreshPage(!refreshPage)
-        await dispatch(createNotification(dataNotification))
-        socket.emit("acceptFriend", dataNotification)
+        dispatch(waitingFriends(accountId))
     }
 
     const handleReject = async (relationshipId) => {
         await dispatch(rejectFriends(relationshipId))
-        setRefreshPage(!refreshPage)
+        dispatch((waitingFriends(accountId)))
     }
 
     return (
         <>
             {
-                listReqFriends.data?.map((item, index) => (
-                    <div className="col-4" key={index}>
+                listReqFriends.data?.map((item) => (
+                    <div className="col-4">
                         <Card sx={{maxWidth: 300}}>
                             <CardActionArea>
                                 <CardMedia
@@ -67,7 +56,7 @@ export default function MultiActionAreaCard({socket}) {
                             </CardActionArea>
                             <CardActions>
                                 <Button size="small" color="primary" onClick={() => {
-                                    handleAccept(item?.relationshipId, item?.accountId)
+                                    handleAccept(item?.relationshipId)
                                 }}>
                                     Accept
                                 </Button>

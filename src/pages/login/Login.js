@@ -12,7 +12,7 @@ const loginInfos = {
     password: "",
 }
 
-export default function Login({socket}) {
+export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [message, setMessage] = useState("")
@@ -36,14 +36,11 @@ export default function Login({socket}) {
 
     const handleLogin = async (values) => {
         let result = await dispatch(loginWed(values))
-        let data = result.payload
-        if (data.message ==="success") {
-            socket.emit("online", {
-                accountId: data.data.accountId
-            })
+        let message = result.payload.data.message
+        if (message === "success") {
             navigate("/home")
         } else {
-            setMessage(data.message)
+            setMessage(message)
         }
     }
 

@@ -5,38 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Changes/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_12_2022_4_30_CH_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_12_2022_4_30_CH__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/profile/profile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/profile/styleProfile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/profile/profileSlice.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/profileService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/FE_Social_Media.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FE_Social_Media.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/profile/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardFriend/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardFriend/card.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/Navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/navbar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/post/AddPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/AddPost.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/post/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/Post.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/post/PostStatus.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/post/addPost.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/addPost.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/post/postStatus.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sidebar/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sidebar/sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sidebar/sidebar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/post/post.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/post.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/profile/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/AddFriends/AddFriend.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AddFriends/AddFriend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Profile/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/profile/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/login/loginSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/login/loginSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/loginServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/loginServices.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/postServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/postServices.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -71,27 +52,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/thien/css&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/thien/case5fe",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\test\Md6\FE_Social_Media\public\image\avata" />
@@ -116,6 +99,14 @@
       <updated>1672106905123</updated>
       <workItem from="1672106906962" duration="13698000" />
     </task>
+    <task id="LOCAL-00001" summary="Revert &quot;update post&quot;&#10;&#10;This reverts commit 4fc0ddd6">
+      <created>1672587989596</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1672587989597</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,5 +122,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Revert &quot;update post&quot;&#10;&#10;This reverts commit 4fc0ddd6" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;update post&quot;&#10;&#10;This reverts commit 4fc0ddd6" />
   </component>
 </project>

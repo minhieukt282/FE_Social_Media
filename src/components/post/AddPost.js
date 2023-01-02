@@ -1,32 +1,27 @@
 import {Field, Form, Formik} from "formik";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
 import {storage} from "../../firebase";
 import {addPosts, getPosts} from "../../services/postServices";
 import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {v4} from "uuid";
 import "./addPost.css";
+import {useNavigate} from "react-router-dom";
 
 
 export default function AddPost() {
-
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const users = useSelector(state => {
-        console.log(state)
         return state;
     })
-    const imgAvt = useSelector(state => {
-        return state.loginWed.imgAvt
-    })
+
     const [submitting, setSubmitting] = useState(false)
     const handleAdd = async (values) => {
-        console.log(values)
         let data = {
             ...values,
             accountId: users.loginWed.accountId,
-            imgPost: img,
-            imgAvt:imgAvt
+            img: img
         }
         console.log(data)
         await dispatch(addPosts(data))
@@ -62,14 +57,27 @@ export default function AddPost() {
             <div className="row">
             </div>
             <div>
-                <Formik initialValues={{
-                    content: '',
-                    imgPost: imageUrls,
-                    status: '',
-                    imgAvt:''
-                }} onSubmit={(values) => {
-                    handleAdd(values);
-                }}>
+                <Formik
+                    initialValues={{
+                        content: '',
+                        img: imageUrls,
+                        status: 'public'
+                    }}
+                    onSubmit={(values, {resetForm}) => {
+                        console.log("values", values.content)
+                        if (values.content === '') {
+                            if (img !== '') {
+                                handleAdd(values);
+                                resetForm()
+                            } else {
+                                navigate("/home")
+                            }
+                        } else {
+                            handleAdd(values);
+                            resetForm()
+                        }
+
+                    }}>
                     <Form>
                         <div className={"post-group"}>
                             <div className="form-group">

@@ -9,6 +9,7 @@ import {getPosts} from "../../services/postServices";
 
 const Post = () => {
     const dispatch = useDispatch();
+    const accountId = JSON.parse(localStorage.getItem("accountId"))
     const posts = useSelector(state => {
         return state.posts.posts;
     });
@@ -26,7 +27,7 @@ const Post = () => {
                                 <div className="postTopLeft">
                                     <Link>
                                         <img
-                                            src={item?.imgAvt}
+                                            src="image/avatar/images.jpg"
                                             alt="my avatar"
                                             className="postProfileImg"/>
                                     </Link>
