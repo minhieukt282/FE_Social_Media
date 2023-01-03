@@ -7,20 +7,18 @@ import AddFriend from "./pages/AddFriends/AddFriend";
 
 function App() {
     return (
-        <div >
-            <Routes>
-                <Route path="/">
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
-                    <Route path="/home" element={<Home/>}/>
-                    <Route path="/addFriend" element={<AddFriend/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
-                    {/*<Route path=":username">*/}
-                    {/*    <Route path=":userId" element={<Profile/>}/>*/}
-                    {/*    /!*<Route path=":userId/edit" element={<EditProfile/>}/>*!/*/}
-                    {/*</Route>*/}
-                </Route>
-            </Routes>
+        <div>
+            <div className="container">
+                <Routes>
+                    <Route path="/">
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/register" element={<Register/>}/>
+                        <Route path="/home" element={<Home/>}/>
+                        <Route path="/addFriend" element={<AddFriend/>}/>
+                        <Route path="/profile" element={<Profile/>}/>
+                    </Route>
+                </Routes>
+            </div>
         </div>
     );
 }
