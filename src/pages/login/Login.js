@@ -2,7 +2,7 @@ import {Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import './style.css';
 import LoginInput from "../../components/input/LoginInput";
-import { useState} from "react";
+import {useState} from "react";
 import * as Yup from "yup"
 import {useDispatch} from "react-redux";
 import {loginWed} from "../../services/loginServices";
@@ -37,7 +37,7 @@ export default function Login({socket}) {
     const handleLogin = async (values) => {
         let result = await dispatch(loginWed(values))
         let data = result.payload
-        if (data.message ==="success") {
+        if (data.message === "success") {
             socket.emit("online", {
                 accountId: data.data.accountId
             })

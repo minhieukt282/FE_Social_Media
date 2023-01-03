@@ -13,7 +13,6 @@ export default function AddPost() {
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
     const imagesListRef = ref(storage, "images/");
-    const [isCreatePost, setIsCreatePost] = useState(false)
 
     const users = useSelector(state => {
         return state;
@@ -28,13 +27,7 @@ export default function AddPost() {
             img: img
         }
         await dispatch(addPosts(data))
-        setIsCreatePost(!isCreatePost)
     }
-    useEffect(()=>{
-        dispatch(getPosts)
-    },[isCreatePost])
-
-    // console.log(isCreatePost, "adddddddddddddddd")
 
     const uploadFile = (imageUpload) => {
         if (imageUpload == null) return;
@@ -65,26 +58,26 @@ export default function AddPost() {
                 <Formik initialValues={{
                     content: '',
                     img: imageUrls,
-                    status: ''
+                    status: 'public'
                 }} onSubmit={(values) => {
-                    handleAddPost(values);
+                    if (img !== '' || values.content !== '') {
+                        handleAddPost(values);
+                        // resetForm()
+                    }
                 }}>
                     <Form>
                         <div className={"post-group"}>
                             <div className="form-group">
-                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1">Bạn đang nghĩ
-                                    gì?</label>
+                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1">What are you thinking?</label>
                                 <Field as={'textarea'} style={{width: '100%'}} name={'content'}
                                        className={'form-control'}/>
                             </div>
                             <div className="form-group">
-                                {/*<label htmlFor="exampleInputPassword1">Image</label>*/}
                                 <input
                                     type="file" onChange={(event) => {
                                     setSubmitting(true)
                                     uploadFile(event.target.files[0])
                                 }}/>
-                                {/*bug here */}
                                 <Field className="select" as="select" name="status">
                                     <option value='public'>Public</option>
                                     <option value='private'>Private</option>
