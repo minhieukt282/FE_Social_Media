@@ -27,14 +27,15 @@ export default function Register() {
     const loginValidation = Yup.object({
         username: Yup.string()
             .required("Username is required.")
+            .matches(/^[a-z0-9]+$/,"Username is a-z,0-9")
             .min(1)
             .max(15),
         password: Yup.string()
-            .required("Password is Required")
+            .required("Password is required")
             .min(1)
             .max(15),
         rePassword: Yup.string()
-            .required("RePassword is Required")
+            .required("RePassword is required")
             .min(1)
             .max(15)
     })
@@ -78,7 +79,7 @@ export default function Register() {
                                 <Form>
                                     <LoginInput type={"text"}
                                                 name="username"
-                                                placeholder={"Email Address"}
+                                                placeholder={"Username"}
                                                 onChange={handleRegisterChange}/>
 
                                     <LoginInput type={"password"}
@@ -89,7 +90,7 @@ export default function Register() {
                                     />
                                     <LoginInput type={"password"}
                                                 name="rePassword"
-                                                placeholder={"RePassword"}
+                                                placeholder={"Confirm password"}
                                                 onChange={handleRegisterChange}
                                                 bottom
                                     />

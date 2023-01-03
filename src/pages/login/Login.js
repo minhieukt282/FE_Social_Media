@@ -25,11 +25,12 @@ export default function Login({socket}) {
 
     const loginValidation = Yup.object({
         username: Yup.string()
-            .required("Email is required.")
+            .required("Username is required.")
+            .matches(/^[a-z0-9]+$/,"Username is a-z,0-9")
             .min(1)
             .max(15),
         password: Yup.string()
-            .required("Password is Required")
+            .required("Password is required")
             .min(1)
             .max(15)
     })
@@ -70,7 +71,7 @@ export default function Login({socket}) {
                                 <Form>
                                     <LoginInput type={"text"}
                                                 name="username"
-                                                placeholder={"Email Address"}
+                                                placeholder={"Username"}
                                                 onChange={handleLoginChange}/>
 
                                     <LoginInput type={"password"}
