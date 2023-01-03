@@ -1,0 +1,115 @@
+.login_wrapper {
+    background: #f0f2f5;
+}
+
+.login_wrap {
+    height: 100vh;
+    color: #050505;
+}
+
+.login_1 {
+    width: 330px;
+    margin: 0 auto;
+}
+
+.login_1 span {
+    font-size: 20px;
+    position: center;
+
+}
+
+.login_2 {
+    text-align: center;
+}
+
+.login_2_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    width: 350px;
+    height: fit-content;
+    margin: 1rem auto;
+    user-select: none;
+    border-radius: 10px;
+}
+
+.login_2_wrap button {
+    width: 100%;
+    height: 50px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.blue_btn {
+    border: none;
+    outline: none;
+    background: #2192FF;
+    padding: 8px 12px;
+    margin-top: 15px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.blue_btn:hover{
+    background: #1e8ffd;
+}
+
+.sign_splitter {
+    width: 100%;
+    height: 1px;
+}
+
+.open_signup {
+    background: #54B435;
+    width: 70% !important;
+    font-weight: 600 !important;
+    font-size: 17px !important;
+    margin-top: 1rem;
+}
+
+.sign_extra {
+    font-size: 15px;
+}
+
+@media (min-width: 850px) {
+    .login_wrap {
+        display: flex;
+        align-items: center;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .login_1 {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin-bottom: 15vh;
+    }
+    .login_1 image{
+        width: 300px;
+        margin-left: -1.7rem;
+    }
+    .login_1 span{
+        font-size: 20px;
+    }
+    .login_2_wrap{
+        width: 400px;
+    }
+    .input_wrap{
+        width: 360px !important;
+    }
+
+}
