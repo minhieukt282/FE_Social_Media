@@ -23,7 +23,6 @@ export default function AddPost() {
             accountId: users.loginWed.accountId,
             img: img
         }
-        console.log(data)
         await dispatch(addPosts(data))
         await dispatch(getPosts())
     }
@@ -64,19 +63,10 @@ export default function AddPost() {
                         status: 'public'
                     }}
                     onSubmit={(values, {resetForm}) => {
-                        console.log("values", values.content)
-                        if (values.content === '') {
-                            if (img !== '') {
-                                handleAdd(values);
-                                resetForm()
-                            } else {
-                                navigate("/home")
-                            }
-                        } else {
+                        if (values.content !== '' || img !== '') {
                             handleAdd(values);
                             resetForm()
                         }
-
                     }}>
                     <Form>
                         <div className={"post-group"}>

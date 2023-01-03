@@ -50,9 +50,9 @@ const Navbar = () => {
                 <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"
                       className="fa-solid fa-users"></Link>
 
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
+                {/*<Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>*/}
 
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>
+                {/*<Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>*/}
 
             </div>
             <div className="navbarRight">
@@ -67,7 +67,7 @@ const Navbar = () => {
                 </div>
 
                 <div style={{paddingRight: 20}} className="dropdown">
-                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon/>
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
@@ -79,7 +79,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="dropdown">
-                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><SettingsIcon/>
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">

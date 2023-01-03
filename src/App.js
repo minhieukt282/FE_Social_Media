@@ -8,7 +8,7 @@ import AddFriend from "./pages/AddFriends/AddFriend";
 
 function App() {
     return (
-        <div>
+        <div className="container">
             <Routes>
                 <Route path="/">
                     <Route path="/login" element={<Login/>}/>

@@ -36,7 +36,7 @@ export default function Login() {
 
     const handleLogin = async (values) => {
         let result = await dispatch(loginWed(values))
-        let message = result.payload.data.message
+        let message = result.payload.message
         if (message === "success") {
             navigate("/home")
         } else {
@@ -79,9 +79,7 @@ export default function Login() {
                                     <button type={"submit"} className={"blue_btn"}>Log In</button>
                                 </Form>
                             </Formik>
-
                             <div>{message}</div>
-
                             <div className="sign_splitter"></div>
                             <Link style={{textDecoration: "none", color: "white", width: "75%", marginLeft: 80}}
                                   to={"/register"}>

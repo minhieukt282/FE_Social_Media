@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/profile/Profile.js" afterDir="false" />
+    <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="0035">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cardFriend/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardFriend/card.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/Navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/post/AddPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/AddPost.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/post/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/Post.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/post/post.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/post.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/profile/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AddFriends/AddFriend.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AddFriends/AddFriend.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/login/loginSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/login/loginSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/postServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/postServices.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
