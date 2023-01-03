@@ -23,8 +23,8 @@ const Post = ({socket}) => {
     return (
         <div className="post">
             {
-                posts && posts?.map((item, index) => {
-                    if ((item?.accountId === accountId && item?.status === "private") || item?.status === "public") {
+                posts.map((item, index) => {
+                    if ((item.accountId === accountId && item.status === "private") || item.status === "public") {
                         return (
                             <PostDetails key={index} socket={socket} item={item}  index={index}/>
                         )

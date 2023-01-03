@@ -59,10 +59,11 @@ export default function AddPost() {
                     content: '',
                     img: imageUrls,
                     status: 'public'
-                }} onSubmit={(values) => {
+                }} onSubmit={(values,{resetForm}) => {
                     if (img !== '' || values.content !== '') {
-                        handleAddPost(values);
-                        // resetForm()
+                        handleAddPost(values).then(()=> {
+                            resetForm()
+                        });
                     }
                 }}>
                     <Form>
