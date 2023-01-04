@@ -24,6 +24,33 @@ export const addPosts = createAsyncThunk(
                 }
             }
         )
-        return res.data.data
+        return res.data.data;
+    }
+)
+
+export const deletePosts = createAsyncThunk(
+    "posts/delete",
+    async ( postId) => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        const res = await axios.delete(`http://localhost:3001/posts/${postId}`, {
+                headers: {
+                    'Authorization': "Bearer " + token
+                }
+            }
+        )
+        return postId
+    }
+)
+
+export const editPosts = createAsyncThunk(
+    "posts/edit",
+    async (data,postId)=>{
+        const token = JSON.parse(localStorage.getItem("token"));
+        const res = await axios.patch(`http://localhost:3001/posts/${postId}`,data,{
+            headers:{
+                'Authorization': "Bearer " + token
+            }
+        })
+        return res
     }
 )

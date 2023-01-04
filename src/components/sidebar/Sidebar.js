@@ -18,10 +18,10 @@ export default function Sidebar() {
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
                     {/*<div style={{paddingRight: 20}}>*/}
-                    <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                    <Link style={{textDecoration: "none"}} to={`/${posts.accountId}`} className="profile_link">
                         <li className="sidebarListItem">
                             <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>
-                            <span className="sidebarListItemText">   {posts.displayName}</span>
+                            <span className="sidebarListItemText"> {posts.displayName}</span>
                         </li>
                     </Link>
                     {/*</div>*/}

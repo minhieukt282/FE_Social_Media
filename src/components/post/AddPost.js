@@ -74,7 +74,7 @@ export default function AddPost() {
                     <Form>
                         <div className={"post-group"}>
                             <div className="form-group">
-                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1">What are you thinking?</label>
+                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1" placeholder="">What are you thinking?</label>
                                 <Field as={'textarea'} style={{width: '100%'}} name={'content'}
                                        className={'form-control'}/>
                             </div>

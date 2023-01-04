@@ -63,23 +63,12 @@ const Navbar = ({socket}) => {
                     />
                 </div>
             </div>
-            <div className="navbarCenter">
-                <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 50}} to="/friends"
-                      className="fa-solid fa-users"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>
-
-            </div>
             <div className="navbarRight">
-                <div style={{paddingRight: 20}}>
-                    <Link style={{textDecoration: "none"}} to={`/${accountId}`} className="profile_link">
-                        <img src={imgAvt} alt="" className="navbarImg"/>
-                    </Link>
-                </div>
+                {/*<div style={{paddingRight: 20}}>*/}
+                {/*    <Link style={{textDecoration: "none"}} to={`/${accountId}`} className="profile_link">*/}
+                {/*        <img src={imgAvt} alt="" className="navbarImg"/>*/}
+                {/*    </Link>*/}
+                {/*</div>*/}
 
                 <div style={{paddingRight: 20}}>
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
