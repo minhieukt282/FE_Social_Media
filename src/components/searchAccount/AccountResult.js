@@ -10,7 +10,7 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {createNotification, deleteNotification} from "../../services/notificationService";
 
-export default function AccountResult({item, initStatus, isAccept, socket}) {
+export default function AccountResult({item, initStatus, isFriend, socket}) {
     const dispatch = useDispatch()
     const [waitRes, setWaitRes] = useState(initStatus)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
@@ -73,7 +73,7 @@ export default function AccountResult({item, initStatus, isAccept, socket}) {
                 <CardActions>
                     {
                         waitRes ? (
-                            isAccept ? (<Button size="small" color="primary" onClick={() => {
+                            isFriend ? (<Button size="small" color="primary" onClick={() => {
                                 handleCancel(item.accountId)
                             }}>
                                 Unfriend

@@ -2,6 +2,7 @@ import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import {useEffect} from "react";
 import SearchAccount from "../../components/searchAccount/searchAccount";
+import SearchPost from "../../components/searchPost/searchPost";
 
 export default function SearchResult({socket}) {
     useEffect(() => {
@@ -23,6 +24,7 @@ export default function SearchResult({socket}) {
                     <hr/>
                     <div className="row">
                         <SearchAccount socket={socket}/>
+                        <SearchPost socket={socket}></SearchPost>
                     </div>
                 </div>
             </div>

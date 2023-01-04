@@ -1,19 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import "./post.css";
-import {IconButton} from "@mui/material";
-import {Favorite, MoreVert, ThumbUp} from "@mui/icons-material";
-import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
 import PostDetails from "./postDetails";
-import AddPost from "./AddPost";
 import {getCountLikes} from "../../services/likeService";
+import {getRelationship} from "../../services/FriendServices";
 
 const Post = ({socket, url}) => {
     const dispatch = useDispatch();
     const accountId = JSON.parse(localStorage.getItem("accountId"))
+
     useEffect(() => {
         dispatch(getPosts())
+    }, [])
+
+    useEffect(() => {
+        dispatch(getRelationship())
     }, [])
 
     useEffect(() => {
@@ -37,6 +39,24 @@ const Post = ({socket, url}) => {
             }
         }
         return count
+    }
+
+    const relationship = useSelector(state => {
+        return state.relationship.relationship
+    })
+
+    const isRelationship = (accountRes) => {
+        let flag = false
+        for (let i = 0; i < relationship.length; i++) {
+            if (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isAccept === true) {
+                flag = true
+                break
+            } else if (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId && relationship[i].isAccept === true) {
+                flag = true
+                break
+            }
+        }
+        return flag
     }
 
     if (url !== null) {
@@ -78,7 +98,10 @@ const Post = ({socket, url}) => {
             <div className="post">
                 {
                     posts.map((item, index) => {
-                        if ((item.accountId === accountId && item.status === "private") || item.status === "public") {
+                        const isFriend = isRelationship(item?.accountId)
+                        console.log(isFriend, index)
+                        if ((item.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
+                            || (item.status === "onlyFriend" && isFriend === true)) {
                             const countLikeOfPost = findCountLikes(item.postId)
                             return (
                                 <PostDetails key={index} socket={socket} item={item}

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import {useSelector} from "react-redux";
-import {useState} from "react";
 import AccountResult from "./AccountResult";
 
 export default function SearchAccount({socket}) {
-    const [refreshPage, setRefreshPage] = useState(false)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
+
     const accountResult = useSelector((state) => {
-        return state.search.searchResult
+        return state.search.searchResult.listAccount
     });
 
     const relationship = useSelector(state => {
@@ -17,12 +16,13 @@ export default function SearchAccount({socket}) {
     const isRelationship = (accountRes) => {
         let data = {
             flag: false,
-            isAccept: false
+            isFriend: false
         }
         for (let i = 0; i < relationship.length; i++) {
-            if (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes) {
+            if (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isAccept === true) {
                 data.flag = true
-                data.isAccept = relationship[i].isAccept
+                data.isFriend = relationship[i].isAccept
+
                 break
             }
         }
@@ -32,12 +32,13 @@ export default function SearchAccount({socket}) {
     return (
         <>
             {
-                accountResult.listAccount?.map((item, index) => {
+                accountResult?.map((item, index) => {
                     const data = isRelationship(item?.accountId)
                     if (item?.accountId !== accountId) {
                         return (
                             <div className="col-4" key={index}>
-                                <AccountResult item={item} initStatus={data.flag} isAccept={data.isAccept} socket={socket}/>
+                                <AccountResult item={item} initStatus={data.flag} isFriend={data.isFriend}
+                                               socket={socket}/>
                             </div>
                         )
                     }
