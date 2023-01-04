@@ -1,21 +1,42 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
+import "./navbar.css";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {showNotification} from "../../services/notificationService";
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ChatIcon from '@mui/icons-material/Chat';
-import "./navbar.css";
-import {useDispatch, useSelector} from "react-redux";
-import {getPosts} from "../../services/postServices";
 
-const Navbar = () => {
-    const dispatch = useDispatch();
+const Navbar = ({socket}) => {
+    const dispatch = useDispatch()
+    const [noticeCome, setNoticeCome] = useState(false)
+    const accountId = JSON.parse(localStorage.getItem('accountId'))
+
     useEffect(() => {
-        dispatch(getPosts())
-    }, [])
+        socket?.on("getNotification", data => {
+            setNoticeCome(!noticeCome)
+        })
+    }, [socket])
 
-    const posts = useSelector(state => {
-        return state.loginWed
+    useEffect(() => {
+        dispatch(showNotification())
+    },[noticeCome])
+
+    const notifications = useSelector(state => {
+        return state.notification.notification
     })
+    // const posts = useSelector(state => {
+    //     return state.loginWed
+    // })
+    const imgAvt = useSelector(state => {
+        return state.loginWed.imgAvt
+    })
+
+    const handleLogout = (accountId) => {
+        localStorage.clear()
+        socket.emit("offline", {accountId: accountId})
+    }
 
     return (
         <div className="navbarContainer">
@@ -44,54 +65,69 @@ const Navbar = () => {
                     />
                 </div>
             </div>
-            <div className="navbarCenter">
-                <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
+            {/*<div className="navbarCenter">*/}
+            {/*    <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>*/}
 
-                <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"
-                      className="fa-solid fa-users"></Link>
+            {/*    <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"*/}
+            {/*          className="fa-solid fa-users"></Link>*/}
 
-                {/*<Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>*/}
+            {/*    <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>*/}
 
-                {/*<Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>*/}
+            {/*    <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>*/}
 
-            </div>
+            {/*</div>*/}
             <div className="navbarRight">
-                <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
-                    <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>{posts.displayName}
-                </Link>
+                {/*<div style={{paddingRight: 20}}>*/}
+                {/*    <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">*/}
+                {/*        <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>{posts.displayName}*/}
+                {/*    </Link>*/}
+                {/*</div>*/}
 
-                <div style={{paddingRight:20}}>
-                    <Link type="button" class="dropdown-toggle" data-toggle="dropdown"
+                <div style={{paddingRight: 20}}>
+                    <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><ChatIcon/>
                     </Link>
                 </div>
 
                 <div style={{paddingRight: 20}} className="dropdown">
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
-                          data-display="static" aria-expanded="false"><NotificationsActiveIcon/>
+                          data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
+                        setNoticeCome(false)
+                    }}/>
+                        {noticeCome ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
+
                     <div className="dropdown-menu dropdown-menu-lg-right">
-                        <h4>thong bao</h4>
-                        <h4>thong bao</h4>
-                        <h4>thong bao</h4>
-                        <h4>thong bao</h4>
+                        {notifications?.map((item, index) => {
+                            if (accountId === item.accountReceiver) {
+                                if (item.type === "friends") {
+                                    return (<Link key={index} to="/addFriend" onClick={() => {
+                                        setNoticeCome(false)
+                                    }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content} <br/></Link>)
+                                } else {
+                                    return (<Link style={{color:"black"}} key={index} to="/register" onClick={() => {
+                                        setNoticeCome(false)
+                                    }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content} <br/></Link>)
+                                }
+                            }
+                        })}
                     </div>
                 </div>
 
-                <div className="dropdown">
+                <div style={{paddingRight: 20}} className="dropdown">
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><SettingsIcon/>
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         <Link className="dropdown-item" href="#">Setting</Link>
-                        <Link className="dropdown-item" to="/login" onClick={()=>{
-                            localStorage.clear()
+                        <Link className="dropdown-item" to="/login" onClick={() => {
+                            handleLogout(accountId)
                         }}>Logout</Link>
                     </div>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default Navbar;

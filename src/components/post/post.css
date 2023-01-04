@@ -121,11 +121,28 @@
 }
 .fa-solid{
     position: relative;
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 
-.postBottomFooterItem:hover{
-    background-color: rgba(0, 0, 0, 0.3);
+.postBottomFooterItem{
+
+}
+
+.button{
+    border: none;
+    background: white;
+    color: #007bff;
+    padding: 5px;
+    width: 150px;
+}
+
+.fa-solid {
+    position: relative;
+    margin-left: 20px;
+}
+
+.span{
+    color: black;
 }
 

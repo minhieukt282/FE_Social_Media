@@ -3,8 +3,8 @@ import PortraitIcon from "@mui/icons-material/Portrait";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import Post from "../post/Post";
 
-export default function ProfileItem(){
-    return(
+export default function ProfileItem() {
+    return (
         <>
             <div className="profile">
                 <div className="profileRight">

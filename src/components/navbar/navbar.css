@@ -162,7 +162,7 @@
     height: 16px;
     background-color: red;
     position: absolute;
-    font-size: 12px;
+    font-size: 13px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -181,4 +181,13 @@
     padding: 1px 5px;
     font-size: 13px;
     color: #f1f1f1;
+}
+
+.dropdown-menu.dropdown-menu-lg-right.show{
+    display: block;
+    width: 480%;
+    margin-right: -112%;
+
+    border-radius: 10px;
+    border: 1px solid #e5e2e2;
 }

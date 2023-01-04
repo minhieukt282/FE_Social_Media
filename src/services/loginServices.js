@@ -8,11 +8,3 @@ export const loginWed = createAsyncThunk(
         return res.data
     }
 )
-
-export const logoutWed = createAsyncThunk(
-    "logout/getLogout",
-    async ()=>{
-        const res = await axios.post("http://localhost:3001/logout");
-        return res;
-    }
-)

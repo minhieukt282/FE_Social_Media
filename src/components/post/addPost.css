@@ -12,9 +12,45 @@
 }
 
 .post-group{
-    margin-top: 30px;
+    margin-bottom: 1%;
+    margin-top: 3%;
     border: 1px solid #e5e2e2;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 1px 1px 1px 1px #e3e3e3;
 }
+
+.select {
+    margin-left: 10%;
+    text-transform: none;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.addPost{
+    cursor: pointer;
+    margin-top: -14%;
+    margin-left: -6%;
+    padding: 6px 6px;
+    border: 1px solid
+}
+
+input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+

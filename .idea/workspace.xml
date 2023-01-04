@@ -4,12 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardFriend/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardFriend/card.js" afterDir="false" />
+=======
+>>>>>>> origin/minhieukt
     <list default="true" id="73259367-a7f3-4dda-a266-798bee1145eb" name="Changes" comment="0035">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar/Navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/post/AddPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/post/AddPost.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login/Login.js" afterDir="false" />
+<<<<<<< HEAD
+=======
+>>>>>>> origin/hanhim
+>>>>>>> origin/minhieukt
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +55,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -59,6 +72,30 @@
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+<<<<<<< HEAD
+    &quot;last_opened_file_path&quot;: &quot;E:/test/Md6/FE_Social_Media&quot;,
+=======
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/thien/css&quot;,
+>>>>>>> origin/hanhim
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+<<<<<<< HEAD
+    &quot;ts.external.directory.path&quot;: &quot;E:\\Program Files\\JetBrains\\WebStorm 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
+=======
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
+>>>>>>> origin/hanhim
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> origin/minhieukt
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -89,6 +126,17 @@
       <option name="presentableId" value="Default" />
       <updated>1672106905123</updated>
       <workItem from="1672106906962" duration="13698000" />
+<<<<<<< HEAD
+=======
+      <workItem from="1672137703910" duration="540000" />
+      <workItem from="1672160644925" duration="1989000" />
+      <workItem from="1672189519596" duration="2779000" />
+      <workItem from="1672217832567" duration="26489000" />
+      <workItem from="1672361998762" duration="34350000" />
+      <workItem from="1672455020698" duration="18786000" />
+      <workItem from="1672495879056" duration="10254000" />
+      <workItem from="1672540844277" duration="17662000" />
+>>>>>>> origin/minhieukt
     </task>
     <task id="LOCAL-00001" summary="Revert &quot;update post&quot;&#10;&#10;This reverts commit 4fc0ddd6">
       <created>1672587989596</created>
