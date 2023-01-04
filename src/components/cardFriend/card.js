@@ -24,7 +24,7 @@ export default function MultiActionAreaCard({socket}) {
     const handleAccept = async (relationshipId, accountReceiver) => {
         const accountSent = JSON.parse(localStorage.getItem("accountId"))
         const displayName = JSON.parse(localStorage.getItem("displayName"))
-        const dataNotification = {
+        const dataNotice = {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
@@ -33,8 +33,8 @@ export default function MultiActionAreaCard({socket}) {
         }
         await dispatch(acceptFriends(relationshipId))
         setRefreshPage(!refreshPage)
-        await dispatch(createNotification(dataNotification))
-        socket.emit("acceptFriend", dataNotification)
+        await dispatch(createNotification(dataNotice))
+        socket.emit("acceptFriend", dataNotice)
     }
 
     const handleReject = async (relationshipId) => {

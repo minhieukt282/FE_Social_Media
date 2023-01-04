@@ -6,7 +6,7 @@ import AddFriend from "./pages/AddFriends/AddFriend";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
 import {io} from "socket.io-client";
-import Post from "./components/post/Post";
+import SearchResult from "./pages/search/searchResult";
 
 function App() {
     const [socket, setSocket] = useState(null)
@@ -24,8 +24,8 @@ function App() {
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/home" element={<Home socket={socket}/>}/>
                         <Route path="/friends" element={<AddFriend socket={socket}/>}/>
+                        <Route path="/search" element={<SearchResult socket={socket}/>}/>
                         <Route path="/:accountId" element={<Profile socket={socket}/>}/>
-                        {/*<Route path="/show" element={<Post/>}/>*/}
                     </Route>
                 </Routes>
             </div>

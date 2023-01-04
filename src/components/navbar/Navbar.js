@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./navbar.css";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,9 +7,13 @@ import {showNotification} from "../../services/notificationService";
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ChatIcon from '@mui/icons-material/Chat';
+import {Field, Form, Formik} from "formik";
+import {getSearch} from "../../services/searchService";
+import {getRelationship} from "../../services/FriendServices";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [noticeCome, setNoticeCome] = useState(false)
     const accountId = JSON.parse(localStorage.getItem('accountId'))
 
@@ -21,7 +25,7 @@ const Navbar = ({socket}) => {
 
     useEffect(() => {
         dispatch(showNotification())
-    },[noticeCome])
+    }, [noticeCome])
 
     const notifications = useSelector(state => {
         return state.notification.notification
@@ -34,6 +38,12 @@ const Navbar = ({socket}) => {
     const handleLogout = (accountId) => {
         localStorage.clear()
         socket.emit("offline", {accountId: accountId})
+    }
+
+    const handleSearch = async (values) => {
+        await dispatch(getSearch(values.searchKey))
+        await dispatch(getRelationship())
+        navigate('/search')
     }
 
     return (
@@ -56,11 +66,15 @@ const Navbar = ({socket}) => {
                                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
                     </Link>
-                    <input
-                        type="text"
-                        placeholder="Search on facebook"
-                        className="searchInput"
-                    />
+                    <Formik initialValues={{
+                        searchKey: ''
+                    }} onSubmit={values => {
+                        handleSearch(values)
+                    }}>
+                        <Form>
+                            <Field className="searchInput" placeholder="Search on facebook" name={'searchKey'}/>
+                        </Form>
+                    </Formik>
                 </div>
             </div>
             <div className="navbarCenter">

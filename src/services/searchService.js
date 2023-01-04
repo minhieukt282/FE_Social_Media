@@ -1,11 +1,11 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getAccount = createAsyncThunk(
-    "account/getAccount",
-    async (accountId) => {
+export const getSearch = createAsyncThunk(
+    "search/getSearch",
+    async (data) => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get(`http://localhost:3001/accounts/${accountId}`, {
+        const res = await axios.get(`http://localhost:3001/search/${data}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -13,3 +13,4 @@ export const getAccount = createAsyncThunk(
         return res.data
     }
 )
+
