@@ -66,7 +66,7 @@ const Navbar = ({socket}) => {
             <div className="navbarCenter">
                 <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
 
-                <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"
+                <Link style={{textDecoration: "none", marginLeft: 50}} to="/friends"
                       className="fa-solid fa-users"></Link>
 
                 <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
@@ -76,7 +76,7 @@ const Navbar = ({socket}) => {
             </div>
             <div className="navbarRight">
                 <div style={{paddingRight: 20}}>
-                    <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                    <Link style={{textDecoration: "none"}} to={`/${accountId}`} className="profile_link">
                         <img src={imgAvt} alt="" className="navbarImg"/>
                     </Link>
                 </div>
@@ -99,7 +99,7 @@ const Navbar = ({socket}) => {
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
                                 if (item.type === "friends") {
-                                    return (<Link key={index} to="/addFriend" onClick={() => {
+                                    return (<Link key={index} to="/friends" onClick={() => {
                                         setNoticeCome(false)
                                     }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}</Link>)
                                 } else {

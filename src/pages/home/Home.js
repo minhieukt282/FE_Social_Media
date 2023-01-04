@@ -22,7 +22,7 @@ export default function Home({socket}) {
                 <Sidebar></Sidebar>
                 <div className="col-6">
                     <AddPost/>
-                    <Post socket={socket}/>
+                    <Post socket={socket} url={null}/>
                 </div>
                 <div className="col-3"></div>
             </div>

@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {IconButton} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import {MoreVert} from "@mui/icons-material";
 import React, {useEffect, useState} from "react";
 import "./post.css";
@@ -7,7 +7,7 @@ import {createLikes, deleteLikes, getLike} from "../../services/likeService";
 import {createNotification, deleteNotification} from "../../services/notificationService";
 import {useDispatch, useSelector} from "react-redux";
 
-const PostDetails = ({socket, item, index}) => {
+const PostDetails = ({socket, item, countLike, isSetting}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
@@ -54,7 +54,6 @@ const PostDetails = ({socket, item, index}) => {
             postId: postId,
             type: "liked"
         }
-        console.log(dataNotice, "delete notice")
         const dataLike = {
             accountId: accountId,
             postId: postId
@@ -83,6 +82,18 @@ const PostDetails = ({socket, item, index}) => {
         }
     }
 
+    const handleEditPost = () => {
+
+    }
+
+    const handleChangeStatus = () => {
+
+    }
+
+    const handleDeletePost = () => {
+
+    }
+
     let isLike = true
 
     if (likes !== undefined) {
@@ -104,16 +115,35 @@ const PostDetails = ({socket, item, index}) => {
                             alt="my avatar"
                             className="postProfileImg"/>
                     </Link>
-                    <span className="postUsername">{item?.displayName}</span>
+                    <Link to={`/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
                     <span
                         className="postDate">{new Date(item?.timePost).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
+                    <span className="postDate">{item?.status}</span>
                 </div>
                 <div className="postTopRight">
-                    <span className="postDate">{item?.status}</span>
-                    <IconButton>
-                        <MoreVert className="postVertButton"/>
-                    </IconButton>
+                    {
+                        isSetting ? (<div style={{paddingRight: 20}} className="dropdown">
+                            <div type="button" data-toggle="dropdown"
+                                 data-display="static" aria-expanded="false">
+                                <IconButton>
+                                    <MoreVert className="postVertButton"/>
+                                </IconButton>
+                            </div>
+                            <div className="dropdown-menu dropdown-menu-lg-right">
+                                <Button className="dropdown-item" onClick={() => {
+                                    handleEditPost()
+                                }}>Edit status</Button>
+                                <Button className="dropdown-item" to="/" onClick={() => {
+                                    handleChangeStatus()
+                                }}>Change status</Button>
+                                <Button className="dropdown-item" to="/" onClick={() => {
+                                    handleDeletePost()
+                                }}>Delete status</Button>
+                            </div>
+                        </div>) : (<></>)
+                    }
                 </div>
+
             </div>
             <div className="postCenter">
                 <span>{item?.contentPost}</span>
@@ -122,7 +152,12 @@ const PostDetails = ({socket, item, index}) => {
                     alt=""
                     className="postImg"/>
             </div>
-            <hr style={{border: "0.5px solid"}}/>
+            <div className="postBottomFooter">
+                <div>
+                    <i className="fa-regular fa-thumbs-up"> {countLike}</i>
+
+                </div>
+            </div>
             <div className="postBottomFooter">
                 <div className="postBottomFooterItem">
                     <div>
@@ -152,5 +187,7 @@ const PostDetails = ({socket, item, index}) => {
             </div>
         </div>
     )
+
+
 }
 export default PostDetails
