@@ -9,10 +9,7 @@ import {v4} from "uuid";
 import "./addPost.css";
 
 
-
 export default function AddPost() {
-
-
 
     const dispatch = useDispatch();
     const [imageUrls, setImageUrls] = useState([]);
@@ -64,9 +61,9 @@ export default function AddPost() {
                     content: '',
                     img: imageUrls,
                     status: 'public'
-                }} onSubmit={(values,{resetForm}) => {
+                }} onSubmit={(values, {resetForm}) => {
                     if (img !== '' || values.content !== '') {
-                        handleAddPost(values).then(()=> {
+                        handleAddPost(values).then(() => {
                             resetForm()
                         });
                     }
@@ -74,12 +71,11 @@ export default function AddPost() {
                     <Form>
                         <div className={"post-group"}>
                             <div className="form-group">
-                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1" placeholder="">What are you thinking?</label>
+                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1">What are you
+                                    thinking?</label>
                                 <Field as={'textarea'} style={{width: '100%'}} name={'content'}
                                        className={'form-control'}/>
                             </div>
-
-
                             <div className="form-group">
                                 <label for="file-upload" className="custom-file-upload">
                                     <i class="fa fa-cloud-upload"></i>
@@ -98,6 +94,7 @@ export default function AddPost() {
                                     <option value='private'>Private</option>
                                     <option value='onlyFriend'>Only friend</option>
                                 </Field>
+
                                 <button className="addPost" type="submit" disabled={submitting}>Share</button>
                             </div>
                         </div>

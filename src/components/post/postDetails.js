@@ -8,11 +8,14 @@ import {createNotification, deleteNotification} from "../../services/notificatio
 import {useDispatch, useSelector} from "react-redux";
 import {deletePosts, getPosts} from "../../services/postServices";
 import Swal from 'sweetalert2';
+import EditPost from "./EditPost";
+
 
 const PostDetails = ({socket, item, countLike, isSetting}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
+    console.log(accountId)
     useEffect(() => {
         dispatch(getLike())
     }, [like])
@@ -20,8 +23,6 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
     const likes = useSelector(state => {
         return state.likes.likes
     })
-
-
 
     const handleNotificationLiked = async (accountReceiver, postId) => {
         setLike(!like)
@@ -67,31 +68,6 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
         }
     }
 
-    const handleNotificationComment = async (accountReceiver, postId) => {
-        //the comment table in the database has not been saved
-        const accountSent = accountId
-        const displayName = JSON.parse(localStorage.getItem("displayName"))
-        const dataNotice = {
-            displayName: displayName,
-            accountSent: accountSent,
-            accountReceiver: accountReceiver,
-            postId: postId,
-            type: "commented"
-        }
-
-        if (accountSent !== accountReceiver) {
-            await dispatch(createNotification(dataNotice))
-            socket.emit("commented", dataNotice)
-        }
-    }
-
-    const handleEditPost = () => {
-
-    }
-
-    const handleChangeStatus = () => {
-
-    }
 
     const handleDeletePost = () => {
         Swal.fire({
@@ -108,7 +84,6 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
             }
         })
     }
-
     let isLike = true
     if (likes !== undefined) {
         for (let i = 0; i < likes.length; i++) {
@@ -118,6 +93,16 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
             }
         }
     }
+
+    let icon = ''
+    if (item.status === 'public') {
+        icon = 'fa-earth-americas'
+    } else if (item.status === 'private') {
+        icon = 'fa-lock'
+    } else {
+        icon = 'fa-user-group'
+    }
+
     return (
         <div className="postWrapper">
             <div className="postTop">
@@ -130,10 +115,9 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                     </Link>
                     <Link to={`/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
                     <span
-                        className="postDate">{new Date(item?.timePost).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
+                        className="postDate">{new Date(item?.timePost).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
                     </span>
-
-                    <i className="fa-solid fa-earth-americas"></i>
+                    <i className={`fa-solid ${icon}`}></i>
                 </div>
                 <div className="postTopRight">
                     {
@@ -146,14 +130,9 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                                     </IconButton>
                                 </div>
                                 <div className="dropdown-menu dropdown-menu-lg-right">
-                                    <Button
-                                        className="dropdown-item"
-                                        onClick={() => {
-                                        handleEditPost()
-                                    }}>Edit status</Button>
-                                    <Button className="dropdown-item" to="/" onClick={() => {
-                                        handleChangeStatus()
-                                    }}>Change status</Button>
+                                    <Button className="dropdown-item">
+                                        <EditPost></EditPost>
+                                    </Button>
                                     <Button
                                         className="dropdown-item"
                                         to="/"
@@ -163,8 +142,7 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                                 </div>
                             </div>) : (<></>)
                     }
-                    {/*<i className="fa-solid fa-user-group"></i> //icon only friends*/}
-                    {/*<i className="fa-solid fa-earth-americas"></i>//icon public*/}
+
                 </div>
             </div>
             <div className="postCenter">
@@ -179,6 +157,8 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                     <i className="fa-regular fa-thumbs-up"> {countLike}</i>
                 </div>
             </div>
+
+            <hr/>
             <div className="postBottomFooter">
                 <div className="postBottomFooterItem">
                     <div>
@@ -202,6 +182,7 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                         )}
                     </div>
                 </div>
+
                 <div className="postBottomFooterItem">
                     <button className="button">
                         <i className="fa-solid fa-comment-dots"></i>

@@ -35,10 +35,11 @@ export default function ProfileItem({socket}) {
                         </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{accountInfo.displayName}</h4>
-                            <button className="editProfile"><CreateIcon/>Edit Profile</button>
+                            {/*<button className="editProfile"><CreateIcon/>Edit Profile</button>*/}
                         </div>
                     </div>
                 </div>
+           <br/>
                 <div className="profileRightBottom">
 
                 </div>

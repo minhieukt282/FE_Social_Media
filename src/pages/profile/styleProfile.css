@@ -14,7 +14,7 @@
 
 .profileCoverImg {
     width: 80%;
-    height: 450px;
+    height: 230px;
     object-fit: fill;
     position: absolute;
     left: 150px;
@@ -22,6 +22,7 @@
 }
 
 .profileUserImg {
+    top: 25%;
     width: 170px;
     height: 170px;
     border-radius: 50%;
@@ -30,12 +31,13 @@
     left: 0;
     right: 0;
     margin: auto;
-    top: 350px;
     border: 3px solid white;
 }
 
 
 .profileInfo {
+    margin-top: -15%;
+    font-size: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,7 +46,7 @@
 }
 
 .profileInfoName {
-    font-size: 36px;
+    font-size: 30px;
 }
 
 .profileInfoDesc {
@@ -59,11 +61,16 @@
     justify-content: center;
 
 }
+
+.col-4{
+    margin-bottom: 50%;
+}
 .infoTable{
     border: 1px solid #eeeded;
-    padding: 10px;
+    padding: 3%;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px #ece9e9;
+    box-shadow: 2px 2px #ece9e9;
+    margin-top: -9%;
 }
 
 .detailInfoItem {
