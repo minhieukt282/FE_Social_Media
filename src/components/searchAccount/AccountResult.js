@@ -3,7 +3,7 @@ import {Button, CardActionArea, CardActions} from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import * as React from "react";
 import {addFriend, unfriend} from "../../services/FriendServices";
 import {useState} from "react";
@@ -12,6 +12,7 @@ import {createNotification, deleteNotification} from "../../services/notificatio
 
 export default function AccountResult({item, initStatus, isFriend, socket}) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [waitRes, setWaitRes] = useState(initStatus)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
     const displayName = JSON.parse(localStorage.getItem("displayName"))

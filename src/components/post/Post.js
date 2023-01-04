@@ -81,7 +81,8 @@ const Post = ({socket, url}) => {
                 <div className="post">
                     {
                         posts.map((item, index) => {
-                            if (item.accountId === url && item.status === "public") {
+                            const isFriend = isRelationship(item?.accountId)
+                            if (item.accountId === url && (item.status === "public" || (item.status === "onlyFriend" && isFriend === true))) {
                                 const countLikeOfPost = findCountLikes(item.postId)
                                 return (
                                     <PostDetails key={index} socket={socket} item={item}
@@ -99,7 +100,6 @@ const Post = ({socket, url}) => {
                 {
                     posts.map((item, index) => {
                         const isFriend = isRelationship(item?.accountId)
-                        console.log(isFriend, index)
                         if ((item.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
                             || (item.status === "onlyFriend" && isFriend === true)) {
                             const countLikeOfPost = findCountLikes(item.postId)

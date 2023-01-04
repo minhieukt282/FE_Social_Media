@@ -8,6 +8,7 @@ import likeReducer from "./liked/likedSlice"
 import accountInfoReducer from "./account/accountSlice"
 import searchReducer from "./search/searchSlice"
 import relationshipReducer from "./relationship/relationshipSlice"
+import listFriendReducer from "./listFriend/listFriendSlice"
 
 export const store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
         likes: likeReducer,
         accountInfo: accountInfoReducer,
         search: searchReducer,
-        relationship: relationshipReducer
+        relationship: relationshipReducer,
+        listFriend: listFriendReducer
     }
 })

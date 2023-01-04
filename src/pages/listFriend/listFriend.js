@@ -1,0 +1,31 @@
+import {useEffect} from "react";
+import Navbar from "../../components/navbar/Navbar";
+import Sidebar from "../../components/sidebar/Sidebar";
+import ListFriendCard from "../../components/listFriend/listFriendCard";
+
+export default function ListFriend({socket}){
+    useEffect(() => {
+        if (socket != null)
+            socket.emit("refresh", {
+                accountId: JSON.parse(localStorage.getItem("accountId"))
+            })
+    }, [socket])
+
+    return (
+        <div>
+            <div className={'home'}>
+                <Navbar socket={socket}/>
+            </div>
+            <div className="row">
+                <Sidebar></Sidebar>
+                <div className="col-6">
+                    <h2 style={{paddingTop: 40}}>Friends list</h2>
+                    <hr/>
+                    <div className="row">
+                        <ListFriendCard socket={socket}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

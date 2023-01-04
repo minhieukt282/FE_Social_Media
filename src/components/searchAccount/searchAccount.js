@@ -16,13 +16,12 @@ export default function SearchAccount({socket}) {
     const isRelationship = (accountRes) => {
         let data = {
             flag: false,
-            isFriend: false
+            isFriend: null
         }
         for (let i = 0; i < relationship.length; i++) {
             if (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isAccept === true) {
                 data.flag = true
                 data.isFriend = relationship[i].isAccept
-
                 break
             }
         }

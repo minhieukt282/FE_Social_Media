@@ -13,6 +13,18 @@ export const addFriend = createAsyncThunk(
         return res
     }
 )
+export const getFriend = createAsyncThunk(
+    "friend/getFriend",
+    async () => {
+        const token = JSON.parse(localStorage.getItem("token"))
+        const res = await axios.get("http://localhost:3001/friends", {
+            headers: {
+                'Authorization': "Bearer " + token
+            }
+        })
+        return res.data
+    }
+)
 
 export const waitingFriends = createAsyncThunk(
     "friend/waitingFriend",

@@ -68,9 +68,7 @@ export default function ProfileItem({socket}) {
                                         <button className="editButton"><CreateIcon/>Edit Profile</button>
                                     </div>
                                 </div>
-                                <br/>
-                                <br/>
-                                <br/>
+                                <hr/>
                                 <div className="friendList">
                                     <h4>Friend 1</h4>
                                     <h4>Friend 1</h4>
