@@ -64,12 +64,6 @@ const Navbar = ({socket}) => {
                 </div>
             </div>
             <div className="navbarRight">
-                {/*<div style={{paddingRight: 20}}>*/}
-                {/*    <Link style={{textDecoration: "none"}} to={`/${accountId}`} className="profile_link">*/}
-                {/*        <img src={imgAvt} alt="" className="navbarImg"/>*/}
-                {/*    </Link>*/}
-                {/*</div>*/}
-
                 <div style={{paddingRight: 20}}>
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><ChatIcon/>
