@@ -4,6 +4,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import React, {useEffect} from "react";
 import AddPost from "../../components/post/AddPost";
 import Navbar from "../../components/navbar/Navbar";
+import RightBar from "../../components/rightBar/rightBar";
 
 export default function Home({socket}) {
     useEffect(() => {
@@ -24,7 +25,8 @@ export default function Home({socket}) {
                     <AddPost/>
                     <Post socket={socket} url={null}/>
                 </div>
-                <div className="col-3"></div>
+                <div className="col-3"><RightBar/></div>
+
             </div>
         </div>
     )

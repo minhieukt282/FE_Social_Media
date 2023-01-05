@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 import {useEffect, useState} from "react";
-import Home from "./pages/home/Home";
+import Home from "./pages/Home/Home";
 import Login from "./pages/login/Login";
 import AddFriend from "./pages/AddFriends/AddFriend";
 import Profile from "./pages/profile/Profile";

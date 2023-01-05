@@ -54,6 +54,7 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
             postId: postId,
             type: "liked"
         }
+        console.log(dataNotice, "delete notice")
         const dataLike = {
             accountId: accountId,
             postId: postId
@@ -136,7 +137,6 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                         </div>) : (<></>)
                     }
                 </div>
-
             </div>
             <div className="postCenter">
                 <span>{item?.contentPost}</span>
@@ -180,7 +180,5 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
             </div>
         </div>
     )
-
-
 }
 export default PostDetails

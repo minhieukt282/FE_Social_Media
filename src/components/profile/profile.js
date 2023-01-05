@@ -2,6 +2,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CakeIcon from '@mui/icons-material/Cake';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 import Post from "../post/Post";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -158,20 +160,64 @@ export default function ProfileItem({socket}) {
                                         }
                                     </div>
                                 </div>
+                                <br/>
+                                <h2>Friend List</h2>
+                                <div className="infoTable col-12">
+                                    <div className="row">
+                                        <div className="col-4">
+                                            <Card sx={{maxWidth: 120}}>
+                                                <CardMedia
+                                                    sx={{height: 120}}
+                                                    image="https://i.pinimg.com/564x/36/18/c5/3618c544af9803004da77bf7847ce217.jpg"
+                                                    title="Đào Anh"
+                                                />
+                                            </Card>
+                                        </div>
+
+                                        <div className="col-4">
+                                            <Card sx={{maxWidth: 120}}>
+                                                <CardMedia
+                                                    sx={{height: 120}}
+                                                    image="https://i.pinimg.com/564x/94/6c/42/946c423df85bcd08c44d1bf43b721670.jpg"
+                                                    title="Thị Hà"
+                                                />
+                                            </Card>
+                                        </div>
+
+                                        <div className="col-4">
+                                            <Card sx={{maxWidth: 120}}>
+                                                <CardMedia
+                                                    sx={{height: 120}}
+                                                    image="https://i.pinimg.com/564x/27/3e/32/273e3261d80014ecb374bb48a208562f.jpg"
+                                                    title="Minh Hiếu"
+                                                />
+                                            </Card>
+                                        </div>
+
+                                        <div className="col-4">
+                                            <Card sx={{maxWidth: 120}}>
+                                                <CardMedia
+                                                    sx={{height: 120}}
+                                                    image="https://i.pinimg.com/564x/6e/f6/d3/6ef6d39d021da8f183fd337310970d5e.jpg"
+                                                    title="green iguana"
+                                                />
+                                            </Card>
+                                        </div>
+                                    </div>
                                 <hr/>
-                                <div className="friendList">
-                                    <Link to={`/friends/${accountId}`}><h2>Friends list</h2></Link>
-                                    {
-                                        listFriends?.map((item, index) => {
-                                            if (item.accountId !== accountId) {
-                                                return (
-                                                    <Link to={`/${item.accountId}`}
-                                                          key={index}>{item.displayName}</Link>
-                                                )
-                                            }
-                                        })
-                                    }
-                                </div>
+                                {/*<div className="friendList">*/}
+                                {/*    <Link to={`/friends/${accountId}`}><h2>Friends list</h2></Link>*/}
+                                {/*    {*/}
+                                {/*        listFriends?.map((item, index) => {*/}
+                                {/*            if (item.accountId !== accountId) {*/}
+                                {/*                return (*/}
+                                {/*                    <Link to={`/${item.accountId}`}*/}
+                                {/*                          key={index}>{item.displayName}</Link>*/}
+                                {/*                )*/}
+                                {/*            }*/}
+                                {/*        })*/}
+                                {/*    }*/}
+                                {/*</div>*/}
                             </div>
                             <div className="col-8">
                                 {isProfile ? (<AddPost/>) : (<></>)}
