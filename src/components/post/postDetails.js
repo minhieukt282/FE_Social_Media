@@ -11,11 +11,10 @@ import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
 
 
-const PostDetails = ({socket, item, countLike, isSetting}) => {
+const PostDetails = ({socket, item, countLike, isSetting,url}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
-    console.log(accountId)
     useEffect(() => {
         dispatch(getLike())
     }, [like])
@@ -131,7 +130,7 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                                 </div>
                                 <div className="dropdown-menu dropdown-menu-lg-right">
                                     <Button className="dropdown-item">
-                                        <EditPost></EditPost>
+                                        <EditPost item={item} url={url}></EditPost>
                                     </Button>
                                     <Button
                                         className="dropdown-item"

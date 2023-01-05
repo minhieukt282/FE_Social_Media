@@ -1,40 +1,51 @@
 import * as React from 'react';
-import Button from '@mui/joy/Button';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
-import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import {Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {v4} from "uuid";
 import {useEffect, useState} from "react";
 import {storage} from "../../firebase";
-import {editPosts} from "../../services/postServices";
+import {deletePosts, editPosts, getPosts} from "../../services/postServices";
 
 
-export default function EditPost() {
-    const accountId = JSON.parse(localStorage.getItem("accountId"))
+export default function EditPost({item,url}) {
+    console.log(url)
+    const navigate = useNavigate()
+    const postId = item.postId
     const [open, setOpen] = React.useState(false);
-
-    const [post, setPost] = useState({})
-    const dispatch = useDispatch();
-    const param = useParams();
-    const posts = useSelector(state => {
-        console.log(state)
-        return state.posts.posts;
-    });
-    const postEdit = posts.postId
-
-
-
-
-
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
     const imagesListRef = ref(storage, "images/");
     const [submitting, setSubmitting] = useState(false)
+
+    const dispatch = useDispatch();
+    const posts = useSelector((state) => {
+        return state.posts.posts
+    })
+    let post = {}
+    posts.map(item => {
+        if (item.postId === postId) {
+            post = item
+        }
+    })
+
+    const handleEdit = async (values) => {
+        let imgSent
+        if (img !== "") {
+            imgSent = img
+        } else imgSent = values.img
+        let data = {
+            ...values,
+            img: imgSent,
+        };
+        await dispatch(editPosts(data));
+        await navigate(`/home`)
+        // await navigate(`/${urlAccountId}`)
+    };
 
     const uploadFile = (imageUpload) => {
         if (imageUpload == null) return;
@@ -94,19 +105,27 @@ export default function EditPost() {
                     >
                     </Typography>
                     <Formik
+                        initialValues={
+                            {
+                                content: post.contentPost,
+                                img: post.imgPost,
+                                postId: post.postId,
+                                status: post.status
+                            }
+                        }
                         onSubmit={(values) => {
+                            handleEdit(values)
                         }}>
                         <Form>
                             <div className={"post-group"}>
                                 <div className="form-group">
-                                    {/*<label style={{fontWeight: 400}} htmlFor="exampleInputPassword1"></label>*/}
                                     <Field as={'textarea'} style={{width: '100%'}} name={'content'}
                                            className={'form-control'}/>
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="file-upload" className="custom-file-upload">
-                                        <i class="fa fa-cloud-upload"></i>
+                                    <label className="custom-file-upload">
+                                        <i className="fa fa-cloud-upload"></i>
                                         Custom Upload
                                         <input
                                             id="file-upload"

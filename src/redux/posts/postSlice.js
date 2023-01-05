@@ -24,8 +24,7 @@ const postSlice = createSlice({
         });
 
         builder.addCase(editPosts.fulfilled,(state,action)=>{
-            console.log(state)
-            state.posts = action.payload
+            // state.posts = action.payload
         });
     }
 })
