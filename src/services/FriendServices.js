@@ -15,9 +15,9 @@ export const addFriend = createAsyncThunk(
 )
 export const getFriend = createAsyncThunk(
     "friend/getFriend",
-    async () => {
+    async (accountId) => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get("http://localhost:3001/friends", {
+        const res = await axios.get(`http://localhost:3001/friends/lists/${accountId}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }

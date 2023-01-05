@@ -1,25 +1,104 @@
 import CreateIcon from "@mui/icons-material/Create";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
+import CakeIcon from '@mui/icons-material/Cake';
 import Post from "../post/Post";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
-
+import {addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
+import {createNotification, deleteNotification} from "../../services/notificationService";
 
 export default function ProfileItem({socket}) {
     const {accountId} = useParams()
     const dispatch = useDispatch();
+    const [isFriend, setIsFriend] = useState(false)
+    const [isWaitRes, setIsWaitRes] = useState(false)
+    const userId = JSON.parse(localStorage.getItem("accountId"))
+    const displayName = JSON.parse(localStorage.getItem("displayName"))
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getAccount(accountId))
-    },[])
+    }, [accountId, dispatch])
+
+    useEffect(() => {
+        dispatch(getFriend(accountId))
+    }, [accountId, dispatch])
+
+    useEffect(() => {
+        dispatch(getRelationship())
+    }, [accountId, dispatch])
+
+    const listFriends = useSelector(state => {
+        return state.listFriend.listFriend
+    })
 
     const accountInfo = useSelector(state => {
         return state.accountInfo.accountInfo
     })
+
+    const relationship = useSelector(state => {
+        return state.relationship.relationship
+    })
+
+    useEffect(() => {
+        let check = false
+        for (let i = 0; i < relationship.length; i++) {
+            if (relationship[i].accountReq === userId && relationship[i].accountRes === accountId && relationship[i].isAccept === true) {
+                check = true
+                break
+            } else if (relationship[i].accountReq === accountId && relationship[i].accountRes === userId && relationship[i].isAccept === true) {
+                check = true
+                break
+            }
+        }
+        setIsFriend(check)
+        setIsWaitRes(check)
+    }, [accountId])
+
+
+    let isProfile = false
+    if (userId === accountId) {
+        isProfile = true
+    }
+
+    const handleUnfriend = async () => {
+        setIsFriend(false)
+        setIsWaitRes(false)
+        const data = {
+            accountReq: userId,
+            accountRes: accountId
+        }
+        const dataNotice = {
+            displayName: displayName,
+            accountSent: userId,
+            accountReceiver: accountId,
+            postId: 0,
+            type: "addFriends"
+        }
+        await dispatch(unfriend(data))
+        await dispatch(deleteNotification(dataNotice))
+    }
+
+    const handleAddFriend = async () => {
+        setIsWaitRes(true)
+        const data = {
+            accountReq: userId,
+            accountRes: accountId
+        }
+        const dataNotice = {
+            displayName: displayName,
+            accountSent: userId,
+            accountReceiver: accountId,
+            postId: 0,
+            type: "addFriends"
+        }
+        await dispatch(addFriend(data))
+        await dispatch(createNotification(dataNotice))
+        socket.emit("addFriends", dataNotice)
+    }
 
     return (
         <>
@@ -35,7 +114,16 @@ export default function ProfileItem({socket}) {
                         </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{accountInfo.displayName}</h4>
-                            <button className="editProfile"><CreateIcon/>Edit Profile</button>
+                            {
+                                isProfile ? (<button className="editProfile"><CreateIcon/>Edit Profile</button>) : (
+                                    isFriend ? (<button onClick={() => {
+                                        handleUnfriend()
+                                    }}>Unfriend</button>) : (isWaitRes ? (<button onClick={() => {
+                                        handleUnfriend()
+                                    }}>Wait | Cancel</button>) : (<button onClick={() => {
+                                        handleAddFriend()
+                                    }}>Add friend</button>)))
+                            }
                         </div>
                     </div>
                 </div>
@@ -57,27 +145,36 @@ export default function ProfileItem({socket}) {
                                             <span className="detailInfoKey">Real name: {accountInfo.displayName}</span>
                                         </div>
                                         <div className="detailInfoItem">
-                                            <PortraitIcon/>
+                                            <CakeIcon/>
                                             <span className="detailInfoKey">Birthday: {accountInfo.birthday}</span>
                                         </div>
                                         <div className="detailInfoItem">
                                             <LocationCityIcon/>
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
-
-                                        <button className="editButton"><CreateIcon/>Edit Profile</button>
+                                        {
+                                            isProfile ? (<button className="editButton"><CreateIcon/>Edit Profile
+                                            </button>) : (<></>)
+                                        }
                                     </div>
                                 </div>
                                 <hr/>
                                 <div className="friendList">
-                                    <h4>Friend 1</h4>
-                                    <h4>Friend 1</h4>
-                                    <h4>Friend 1</h4>
-                                    <h4>Friend 1</h4>
+                                    <Link to={`/friends/${accountId}`}><h2>Friends list</h2></Link>
+                                    {
+                                        listFriends?.map((item, index) => {
+                                            if (item.accountId !== accountId) {
+                                                return (
+                                                    <Link to={`/${item.accountId}`}
+                                                          key={index}>{item.displayName}</Link>
+                                                )
+                                            }
+                                        })
+                                    }
                                 </div>
                             </div>
                             <div className="col-8">
-                                <AddPost/>
+                                {isProfile ? (<AddPost/>) : (<></>)}
                                 <Post socket={socket} url={accountId}/>
                             </div>
                         </div>

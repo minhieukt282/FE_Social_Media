@@ -25,7 +25,7 @@ function App() {
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/home" element={<Home socket={socket}/>}/>
                         <Route path="/friends" element={<AddFriend socket={socket}/>}/>
-                        <Route path="/friends/lists" element={<ListFriend socket={socket}/>}/>
+                        <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
                         <Route path="/search" element={<SearchResult socket={socket}/>}/>
                         <Route path="/:accountId" element={<Profile socket={socket}/>}/>
                     </Route>

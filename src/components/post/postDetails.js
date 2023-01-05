@@ -86,10 +86,6 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
 
     }
 
-    const handleChangeStatus = () => {
-
-    }
-
     const handleDeletePost = () => {
 
     }
@@ -134,9 +130,6 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                                     handleEditPost()
                                 }}>Edit status</Button>
                                 <Button className="dropdown-item" to="/" onClick={() => {
-                                    handleChangeStatus()
-                                }}>Change status</Button>
-                                <Button className="dropdown-item" to="/" onClick={() => {
                                     handleDeletePost()
                                 }}>Delete status</Button>
                             </div>
@@ -178,11 +171,11 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                 </div>
                 <div className="postBottomFooterItem">
                     <Link className="fa-solid fa-comment-dots"></Link>
-                    <span>Comment</span>
+                    <span> Comment</span>
                 </div>
                 <div className="postBottomFooterItem">
                     <Link className="fa-solid fa-share"></Link>
-                    <span>share</span>
+                    <span> share</span>
                 </div>
             </div>
         </div>

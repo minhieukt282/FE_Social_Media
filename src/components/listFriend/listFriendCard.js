@@ -3,13 +3,15 @@ import {getFriend} from "../../services/FriendServices";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import AccountResult from "../searchAccount/AccountResult";
+import {useParams} from "react-router-dom";
 
 export default function ListFriendCard({socket}) {
     const dispatch = useDispatch()
-    const accountId = JSON.parse(localStorage.getItem("accountId"))
+    // const accountId = JSON.parse(localStorage.getItem("accountId"))
+    const {accountId} = useParams()
 
     useEffect(() => {
-        dispatch(getFriend())
+        dispatch(getFriend(accountId))
     }, [])
 
     const listFriends = useSelector(state => {
