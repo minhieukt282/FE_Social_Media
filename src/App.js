@@ -1,6 +1,5 @@
 import {Route, Routes} from "react-router-dom";
 import {useEffect, useState} from "react";
-import Home from "./pages/Home/Home";
 import Login from "./pages/login/Login";
 import AddFriend from "./pages/AddFriends/AddFriend";
 import Profile from "./pages/profile/Profile";
@@ -8,6 +7,7 @@ import Register from "./pages/register/Register";
 import {io} from "socket.io-client";
 import SearchResult from "./pages/search/searchResult";
 import ListFriend from "./pages/listFriend/listFriend";
+import Home from "./pages/home/Home";
 
 function App() {
     const [socket, setSocket] = useState(null)

@@ -15,13 +15,17 @@ export default function SearchAccount({socket}) {
 
     const isRelationship = (accountRes) => {
         let data = {
-            flag: false,
-            isFriend: null
+            isFriend: false,
+            isWaitRes: false,
         }
         for (let i = 0; i < relationship.length; i++) {
-            if (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isAccept === true) {
-                data.flag = true
+            if (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId) {
                 data.isFriend = relationship[i].isAccept
+                data. isWaitRes = true
+                break
+            } else if (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes) {
+                data.isFriend = relationship[i].isAccept
+                data. isWaitRes = true
                 break
             }
         }
@@ -36,7 +40,7 @@ export default function SearchAccount({socket}) {
                     if (item?.accountId !== accountId) {
                         return (
                             <div className="col-4" key={index}>
-                                <AccountResult item={item} initStatus={data.flag} isFriend={data.isFriend}
+                                <AccountResult item={item} initIsFriend={data.isFriend} initIsWaitRes={data.isWaitRes}
                                                socket={socket}/>
                             </div>
                         )

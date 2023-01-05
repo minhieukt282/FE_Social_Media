@@ -1,24 +1,24 @@
 import Card from "@mui/material/Card";
-import {Button, CardActionArea, CardActions} from "@mui/material";
+import {CardActionArea, CardActions} from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import * as React from "react";
 import {addFriend, unfriend} from "../../services/FriendServices";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {createNotification, deleteNotification} from "../../services/notificationService";
 
-export default function AccountResult({item, initStatus, isFriend, socket}) {
+export default function AccountResult({item, initIsFriend, initIsWaitRes, socket}) {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const [waitRes, setWaitRes] = useState(initStatus)
+    const [isFriend, setIsFriend] = useState(initIsFriend)
+    const [isWaitRes, setIsWaitRes] = useState(initIsWaitRes)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
     const displayName = JSON.parse(localStorage.getItem("displayName"))
 
     const handleAddFriend = async (accountRes) => {
-        setWaitRes(!waitRes)
+        setIsWaitRes(true)
         const data = {
             accountReq: accountId,
             accountRes: accountRes
@@ -36,7 +36,8 @@ export default function AccountResult({item, initStatus, isFriend, socket}) {
     }
 
     const handleCancel = async (accountRes) => {
-        setWaitRes(!waitRes)
+        setIsFriend(false)
+        setIsWaitRes(false)
         const data = {
             accountReq: accountId,
             accountRes: accountRes
@@ -73,23 +74,13 @@ export default function AccountResult({item, initStatus, isFriend, socket}) {
                 </CardActionArea>
                 <CardActions>
                     {
-                        waitRes ? (
-                            isFriend ? (<Button size="small" color="primary" onClick={() => {
-                                handleCancel(item.accountId)
-                            }}>
-                                Unfriend
-                            </Button>) : (
-                                <Button size="small" color="primary" onClick={() => {
-                                    handleCancel(item.accountId)
-                                }}>
-                                    Waiting accept | Cancel
-                                </Button>
-                            )
-                        ) : (<Button size="small" color="primary" onClick={() => {
+                        isFriend ? (<button onClick={() => {
+                            handleCancel(item.accountId)
+                        }}>Unfriend</button>) : (isWaitRes ? (<button onClick={() => {
+                            handleCancel(item.accountId)
+                        }}>Wait | Cancel</button>) : (<button onClick={() => {
                             handleAddFriend(item.accountId)
-                        }}>
-                            Add friend
-                        </Button>)
+                        }}>Add friend</button>))
                     }
                 </CardActions>
             </Card>

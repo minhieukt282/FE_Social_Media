@@ -25,8 +25,9 @@ export default function Home({socket}) {
                     <AddPost/>
                     <Post socket={socket} url={null}/>
                 </div>
-                <div className="col-3"><RightBar/></div>
+                <div className="col-3">
 
+                </div>
             </div>
         </div>
     )
