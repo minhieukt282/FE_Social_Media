@@ -1,9 +1,12 @@
-import Navbar from "../../components/navbar/Navbar";
+import './home.css'
+import Post from "../../components/post/Post";
 import Sidebar from "../../components/sidebar/Sidebar";
-import MultiActionAreaCard from "../../components/cardFriend/card";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import AddPost from "../../components/post/AddPost";
+import Navbar from "../../components/navbar/Navbar";
+import RightBar from "../../components/rightBar/rightBar";
 
-export default function AddFriend({socket}) {
+export default function Home({socket}) {
     useEffect(() => {
         if (socket != null)
             socket.emit("refresh", {
@@ -19,12 +22,11 @@ export default function AddFriend({socket}) {
             <div className="row">
                 <Sidebar></Sidebar>
                 <div className="col-6">
-                    <h2 style={{paddingTop:40}}>Lời mời kết bạn</h2>
-                    <hr/>
-                    <div className="row">
-                        <MultiActionAreaCard socket={socket}></MultiActionAreaCard>
-                    </div>
+                    <AddPost/>
+                    <Post socket={socket}/>
                 </div>
+                <div className="col-3"><RightBar/></div>
+
             </div>
         </div>
     )

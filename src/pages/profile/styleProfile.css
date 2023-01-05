@@ -1,4 +1,3 @@
-
 .profile {
     display: flex;
     background: linear-gradient(to bottom, #999966 0%, #ffffff 54%);
@@ -9,7 +8,7 @@
 }
 
 .profileCover {
-    height: 500px;
+    height: 400px;
     position: relative;
 }
 
@@ -18,6 +17,7 @@
     height: 450px;
     object-fit: fill;
     position: absolute;
+    top: -150px;
     left: 150px;
     border-radius: 10px;
 }
@@ -31,8 +31,8 @@
     left: 0;
     right: 0;
     margin: auto;
-    top: 350px;
-    border: 3px solid white;
+    top: 210px;
+    border: 3px solid #f5f3f3;
 }
 
 
@@ -41,7 +41,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 20px;
 }
 
 .profileInfoName {
@@ -98,4 +97,8 @@
 
 .container{
     max-width: 1600px;
+}
+
+.col-4{
+    padding: 10px;
 }

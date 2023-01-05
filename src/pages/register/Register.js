@@ -1,6 +1,6 @@
 import {Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
-import '../Login/style.css';
+import '../login/style.css';
 import LoginInput from "../../components/input/LoginInput";
 import {useState} from "react";
 import * as Yup from "yup"
@@ -13,7 +13,7 @@ const registerInfos = {
     rePassword: ""
 }
 
-export default function Login() {
+export default function Register() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [message, setMessage] = useState("")
@@ -26,9 +26,10 @@ export default function Login() {
 
     const loginValidation = Yup.object({
         username: Yup.string()
-            .required("Email is required.")
+            .required("Username is required.")
+            .matches(/^[a-z0-9]+$/,"Username is a-z,0-9")
             .min(1)
-            .max(50),
+            .max(15),
         password: Yup.string()
             .required("Password is Required")
             .min(1)

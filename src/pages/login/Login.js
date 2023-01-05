@@ -12,7 +12,7 @@ const loginInfos = {
     password: "",
 }
 
-export default function Login() {
+export default function Login({socket}) {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [message, setMessage] = useState("")
@@ -25,7 +25,8 @@ export default function Login() {
 
     const loginValidation = Yup.object({
         username: Yup.string()
-            .required("Email is required.")
+            .required("Username is required.")
+            .matches(/^[a-z0-9]+$/,"Username is a-z,0-9")
             .min(1)
             .max(15),
         password: Yup.string()
@@ -36,12 +37,14 @@ export default function Login() {
 
     const handleLogin = async (values) => {
         let result = await dispatch(loginWed(values))
-        let message = result.payload.data.message
-        // console.log(result)
-        if (message === "success") {
+        let data = result.payload
+        if (data.message === "success") {
+            socket.emit("online", {
+                accountId: data.data.accountId
+            })
             navigate("/home")
         } else {
-            setMessage(message)
+            setMessage(data.message)
         }
     }
 
@@ -88,7 +91,6 @@ export default function Login() {
                                   to={"/register"}>
                                 <button className="blue_btn open_signup">Create Account</button>
                             </Link>
-                            <Link style={{textDecoration:"none"}} to="/register">Create an new Account here !!</Link>
                         </div>
                     </div>
                 </div>
