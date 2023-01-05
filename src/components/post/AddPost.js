@@ -8,7 +8,9 @@ import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {v4} from "uuid";
 import "./addPost.css";
 
+
 export default function AddPost() {
+
     const dispatch = useDispatch();
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
@@ -57,32 +59,40 @@ export default function AddPost() {
                     content: '',
                     img: imageUrls,
                     status: 'public'
-                }} onSubmit={(values) => {
+                }} onSubmit={(values, {resetForm}) => {
                     if (img !== '' || values.content !== '') {
-                        handleAddPost(values);
-                        // resetForm()
+                        handleAddPost(values).then(() => {
+                            resetForm()
+                        });
                     }
                 }}>
                     <Form>
                         <div className={"post-group"}>
                             <div className="form-group">
-                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1">What are you thinking?</label>
+                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1">What are you
+                                    thinking?</label>
                                 <Field as={'textarea'} style={{width: '100%'}} name={'content'}
                                        className={'form-control'}/>
                             </div>
                             <div className="form-group">
-                                <input
-                                    type="file" onChange={(event) => {
-                                    setSubmitting(true)
-                                    uploadFile(event.target.files[0])
-                                }}/>
+                                <label for="file-upload" className="custom-file-upload">
+                                    <i class="fa fa-cloud-upload"></i>
+                                    Custom Upload
+                                    <input
+                                        id="file-upload"
+                                        type="file"
+                                        onChange={(event) => {
+                                            setSubmitting(true)
+                                            uploadFile(event.target.files[0])
+                                        }}/>
+                                </label>
+
                                 <Field className="select" as="select" name="status">
                                     <option value='public'>Public</option>
                                     <option value='private'>Private</option>
                                     <option value='onlyFriend'>Only friend</option>
                                 </Field>
-                            </div>
-                            <div className="form-group">
+
                                 <button className="addPost" type="submit" disabled={submitting}>Share</button>
                             </div>
                         </div>

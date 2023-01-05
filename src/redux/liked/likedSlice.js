@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getLike} from "../../services/likeService";
+import {getCountLikes, getLike} from "../../services/likeService";
 
 const initialState = {
-    likes: []
+    likes: [],
+    countLikes: []
 }
 const likeSlice = createSlice({
     name: 'likes',
@@ -11,6 +12,9 @@ const likeSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(getLike.fulfilled, (state, action) => {
             state.likes = action.payload.data;
+        })
+        builder.addCase(getCountLikes.fulfilled, (state, action) => {
+            state.countLikes = action.payload.data;
         })
     }
 })

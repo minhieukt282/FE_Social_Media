@@ -39,3 +39,16 @@ export const getLike = createAsyncThunk(
         return res.data
     }
 )
+
+export const getCountLikes = createAsyncThunk(
+    "get/countLikes",
+    async () => {
+        const token = JSON.parse(localStorage.getItem("token"))
+        const res = await axios.get('http://localhost:3001/likes/numbers', {
+            headers: {
+                'Authorization': "Bearer " + token
+            }
+        })
+        return res.data
+    }
+)

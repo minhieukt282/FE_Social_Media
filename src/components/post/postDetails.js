@@ -1,17 +1,20 @@
 import {Link} from "react-router-dom";
-import {IconButton} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import {MoreVert} from "@mui/icons-material";
 import React, {useEffect, useState} from "react";
 import "./post.css";
 import {createLikes, deleteLikes, getLike} from "../../services/likeService";
 import {createNotification, deleteNotification} from "../../services/notificationService";
 import {useDispatch, useSelector} from "react-redux";
+import {deletePosts, getPosts} from "../../services/postServices";
+import Swal from 'sweetalert2';
+import EditPost from "./EditPost";
 
-const PostDetails = ({socket, item, index}) => {
+
+const PostDetails = ({socket, item, countLike, isSetting,url}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
-
     useEffect(() => {
         dispatch(getLike())
     }, [like])
@@ -54,7 +57,6 @@ const PostDetails = ({socket, item, index}) => {
             postId: postId,
             type: "liked"
         }
-        console.log(dataNotice, "delete notice")
         const dataLike = {
             accountId: accountId,
             postId: postId
@@ -65,26 +67,23 @@ const PostDetails = ({socket, item, index}) => {
         }
     }
 
-    const handleNotificationComment = async (accountReceiver, postId) => {
-        //the comment table in the database has not been saved
-        const accountSent = accountId
-        const displayName = JSON.parse(localStorage.getItem("displayName"))
-        const dataNotice = {
-            displayName: displayName,
-            accountSent: accountSent,
-            accountReceiver: accountReceiver,
-            postId: postId,
-            type: "commented"
-        }
 
-        if (accountSent !== accountReceiver) {
-            await dispatch(createNotification(dataNotice))
-            socket.emit("commented", dataNotice)
-        }
+    const handleDeletePost = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await dispatch(deletePosts(item.postId));
+            }
+        })
     }
-
     let isLike = true
-
     if (likes !== undefined) {
         for (let i = 0; i < likes.length; i++) {
             if (likes[i].postId === item?.postId && likes[i].accountId === accountId) {
@@ -94,25 +93,55 @@ const PostDetails = ({socket, item, index}) => {
         }
     }
 
+    let icon = ''
+    if (item.status === 'public') {
+        icon = 'fa-earth-americas'
+    } else if (item.status === 'private') {
+        icon = 'fa-lock'
+    } else {
+        icon = 'fa-user-group'
+    }
+
     return (
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
                     <Link>
                         <img
-                            src={item?.imgAvt}
+                            src="image/avatar/images.jpg"
                             alt="my avatar"
                             className="postProfileImg"/>
                     </Link>
-                    <span className="postUsername">{item?.displayName}</span>
+                    <Link to={`/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
                     <span
-                        className="postDate">{new Date(item?.timePost).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
+                        className="postDate">{new Date(item?.timePost).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
+                    </span>
+                    <i className={`fa-solid ${icon}`}></i>
                 </div>
                 <div className="postTopRight">
-                    <span className="postDate">{item?.status}</span>
-                    <IconButton>
-                        <MoreVert className="postVertButton"/>
-                    </IconButton>
+                    {
+                        isSetting ? (
+                            <div style={{paddingRight: 20}} className="dropdown">
+                                <div type="button" data-toggle="dropdown"
+                                     data-display="static" aria-expanded="false">
+                                    <IconButton>
+                                        <MoreVert className="postVertButton"/>
+                                    </IconButton>
+                                </div>
+                                <div className="dropdown-menu dropdown-menu-lg-right">
+                                    <Button className="dropdown-item">
+                                        <EditPost item={item} url={url}></EditPost>
+                                    </Button>
+                                    <Button
+                                        className="dropdown-item"
+                                        to="/"
+                                        onClick={() => {
+                                            handleDeletePost()
+                                        }}>Delete status</Button>
+                                </div>
+                            </div>) : (<></>)
+                    }
+
                 </div>
             </div>
             <div className="postCenter">
@@ -122,35 +151,52 @@ const PostDetails = ({socket, item, index}) => {
                     alt=""
                     className="postImg"/>
             </div>
-            <hr style={{border: "0.5px solid"}}/>
+            <div className="postBottomFooter">
+                <div>
+                    <i className="fa-regular fa-thumbs-up"> {countLike}</i>
+                </div>
+            </div>
+
+            <hr/>
             <div className="postBottomFooter">
                 <div className="postBottomFooterItem">
                     <div>
                         {isLike ? (
-                            <button onClick={() => {
-                                handleNotificationLiked(item?.accountId, item?.postId)
-                            }}>Like
-                                {/*<i className="fa-solid fa-thumbs-up" >Like</i>*/}
+                            <button
+                                className="button"
+                                onClick={() => {
+                                    handleNotificationLiked(item?.accountId, item?.postId)
+                                }}><i className="fa-solid fa-thumbs-up"></i>
+                                <span className="span"> Like</span>
                             </button>
                         ) : (
-                            <button onClick={() => {
-                                handleNotificationDisliked(item?.accountId, item?.postId)
-                            }}>Dislike
-                                {/*<i className="fa-regular fa-thumbs-up">Dislike</i>*/}
+                            <button
+                                className="button"
+                                onClick={() => {
+                                    handleNotificationDisliked(item?.accountId, item?.postId)
+                                }}>
+                                <i className="fa-solid fa-thumbs-down"></i>
+                                <span className="span"> Dish like</span>
                             </button>
                         )}
                     </div>
                 </div>
-                <div className="postBottomFooterItem">
-                    <Link className="fa-solid fa-comment-dots">Comment</Link>
 
+                <div className="postBottomFooterItem">
+                    <button className="button">
+                        <i className="fa-solid fa-comment-dots"></i>
+                        <span className="span"> Comment</span>
+                    </button>
                 </div>
                 <div className="postBottomFooterItem">
-                    <Link className="fa-solid fa-share">Share</Link>
-
+                    <button className="button">
+                        <i className="fa-solid fa-share"></i>
+                        <span className="span">Share</span>
+                    </button>
                 </div>
             </div>
         </div>
     )
+
 }
 export default PostDetails

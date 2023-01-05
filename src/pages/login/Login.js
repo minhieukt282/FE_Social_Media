@@ -30,7 +30,7 @@ export default function Login({socket}) {
             .min(1)
             .max(15),
         password: Yup.string()
-            .required("Password is Required")
+            .required("Password is required")
             .min(1)
             .max(15)
     })
@@ -71,7 +71,7 @@ export default function Login({socket}) {
                                 <Form>
                                     <LoginInput type={"text"}
                                                 name="username"
-                                                placeholder={"Email Address"}
+                                                placeholder={"Username"}
                                                 onChange={handleLoginChange}/>
 
                                     <LoginInput type={"password"}

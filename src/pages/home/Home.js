@@ -21,7 +21,6 @@ export default function Home({socket}) {
                 accountId: JSON.parse(localStorage.getItem("accountId"))
             })
     }, [socket])
-
     return (
         <HomeCss>
             <div className={'home'}>
@@ -33,7 +32,7 @@ export default function Home({socket}) {
                 </div>
                 <div className="col-6">
                     <AddPost/>
-                    <Post socket={socket}/>
+                    <Post socket={socket} url={null}/>
                 </div>
                 <div className="col-3 mediaRight"><RightBar/></div>
             </div>
