@@ -17,9 +17,12 @@ export default function AddFriend({socket}) {
                 <Navbar socket={socket}/>
             </div>
             <div className="row">
-                <Sidebar></Sidebar>
+                <div className="col-3">
+                    <Sidebar></Sidebar>
+                </div>
+
                 <div className="col-6">
-                    <h2 style={{paddingTop:40}}>Lời mời kết bạn</h2>
+                    <h2 style={{paddingTop:40,paddingLeft:10}}>Friends Request</h2>
                     <hr/>
                     <div className="row">
                         <MultiActionAreaCard socket={socket}></MultiActionAreaCard>

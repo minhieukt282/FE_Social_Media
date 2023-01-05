@@ -63,6 +63,7 @@ const Navbar = ({socket}) => {
                     />
                 </div>
             </div>
+
             <div className="navbarRight">
                 <div style={{paddingRight: 20}}>
                     <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
