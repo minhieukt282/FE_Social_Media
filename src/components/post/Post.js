@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from "react";
 import "./post.css";
-import {IconButton} from "@mui/material";
-import {Favorite, MoreVert, ThumbUp} from "@mui/icons-material";
-import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
 import PostDetails from "./postDetails";
-import AddPost from "./AddPost";
 import {getCountLikes} from "../../services/likeService";
 
 const Post = ({socket, url}) => {

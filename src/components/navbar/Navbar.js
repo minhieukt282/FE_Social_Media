@@ -77,7 +77,6 @@ const Navbar = ({socket}) => {
                     }}/>
                         {noticeCome ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
-
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {

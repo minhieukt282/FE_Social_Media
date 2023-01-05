@@ -13,9 +13,9 @@ export default function ProfileItem({socket}) {
     const {accountId} = useParams()
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getAccount(accountId))
-    },[])
+    }, [])
 
     const accountInfo = useSelector(state => {
         return state.accountInfo.accountInfo
@@ -39,9 +39,8 @@ export default function ProfileItem({socket}) {
                         </div>
                     </div>
                 </div>
-           <br/>
+                <br/>
                 <div className="profileRightBottom">
-
                 </div>
             </div>
             <div className="col-12">

@@ -13,7 +13,6 @@ import {deletePosts, editPosts, getPosts} from "../../services/postServices";
 
 
 export default function EditPost({item,url}) {
-    console.log(url)
     const navigate = useNavigate()
     const postId = item.postId
     const [open, setOpen] = React.useState(false);
@@ -43,8 +42,9 @@ export default function EditPost({item,url}) {
             img: imgSent,
         };
         await dispatch(editPosts(data));
-        await navigate(`/home`)
-        // await navigate(`/${urlAccountId}`)
+        await dispatch(getPosts())
+        setOpen(false);
+
     };
 
     const uploadFile = (imageUpload) => {

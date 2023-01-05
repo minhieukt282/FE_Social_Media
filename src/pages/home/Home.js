@@ -12,7 +12,6 @@ export default function Home({socket}) {
                 accountId: JSON.parse(localStorage.getItem("accountId"))
             })
     }, [socket])
-
     return (
         <div>
             <div className={'home'}>
