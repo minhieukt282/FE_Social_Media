@@ -1,13 +1,13 @@
-.addPost{
+.editPost{
     color: white;
     background: #007bff;
-    position: absolute;
+    position: relative;
     width: 100px;
     height: 35px;
     border-radius: 10px;
     left: 100px;
     border: 1px solid #e5e2e2;
-    margin-left: 400px;
+    margin-left: 27px;
 }
 
 .post-group{
@@ -27,6 +27,13 @@
     padding: 6px 12px;
     cursor: pointer;
 }
+/*.editPost{*/
+/*    cursor: pointer;*/
+/*    margin-top: -14%;*/
+/*    margin-left: 14%;*/
+/*    !*padding: 6px 6px;*!*/
+/*    border: 1px solid*/
+/*}*/
 
 input[type="file"] {
     position: absolute;

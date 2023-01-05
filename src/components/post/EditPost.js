@@ -10,7 +10,7 @@ import {v4} from "uuid";
 import {useEffect, useState} from "react";
 import {storage} from "../../firebase";
 import {deletePosts, editPosts, getPosts} from "../../services/postServices";
-
+import "./editPost.css"
 
 export default function EditPost({item,url}) {
     const navigate = useNavigate()
@@ -71,7 +71,7 @@ export default function EditPost({item,url}) {
         <React.Fragment>
             <Link
                 color="neutral"
-                style={{color: "white"}}
+                style={{color: "#007bff" , backgroundColor:"white" , textDecoration: "none"}}
                 className={'btn-primary'}
                 onClick={() => setOpen(true)}
             >
@@ -79,7 +79,7 @@ export default function EditPost({item,url}) {
             </Link>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog
-                    style={{color: "black", width: 800, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
+                    style={{color: "black", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
                     aria-labelledby="basic-modal-dialog-title"
                     aria-describedby="basic-modal-dialog-description"
                     sx={{
@@ -94,7 +94,7 @@ export default function EditPost({item,url}) {
                         fontSize="1.25em"
                         mb="0.25em"
                     >
-                        Edit Post
+                        Edit
                     </Typography>
                     <Typography
                         id="basic-modal-dialog-description"
@@ -141,7 +141,7 @@ export default function EditPost({item,url}) {
                                         <option value='private'>Private</option>
                                         <option value='onlyFriend'>Only friend</option>
                                     </Field>
-                                    <button className="addPost" type="submit" disabled={submitting}>Edit</button>
+                                    <button className="editPost" type="submit" disabled={submitting}>Edit</button>
                                 </div>
                             </div>
                         </Form>

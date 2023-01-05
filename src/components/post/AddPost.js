@@ -77,8 +77,8 @@ export default function AddPost() {
                                        className={'form-control'}/>
                             </div>
                             <div className="form-group">
-                                <label for="file-upload" className="custom-file-upload">
-                                    <i class="fa fa-cloud-upload"></i>
+                                <label htmlFor="file-upload" className="custom-file-upload">
+                                    <i className="fa fa-cloud-upload"></i>
                                     Custom Upload
                                     <input
                                         id="file-upload"

@@ -64,13 +64,13 @@ const Navbar = ({socket}) => {
                 </div>
             </div>
             <div className="navbarRight">
-                <div style={{paddingRight: 20}}>
+                <div style={{paddingRight: 40}}>
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><ChatIcon/>
                     </Link>
                 </div>
 
-                <div style={{paddingRight: 20}} className="dropdown">
+                <div style={{paddingRight: 40}} className="dropdown">
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)

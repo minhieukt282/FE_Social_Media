@@ -116,6 +116,7 @@
     margin-right: 10px;
 }
 
+.
 .footerText{
     font-weight: 500;
 }
@@ -131,8 +132,8 @@
 
 .button{
     border: none;
-    background: white;
-    color: #007bff;
+    background-color: white;
+    color: #007bff;;
     padding: 5px;
     width: 150px;
 }

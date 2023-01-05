@@ -137,7 +137,7 @@ const PostDetails = ({socket, item, countLike, isSetting,url}) => {
                                         to="/"
                                         onClick={() => {
                                             handleDeletePost()
-                                        }}>Delete status</Button>
+                                        }}>Delete</Button>
                                 </div>
                             </div>) : (<></>)
                     }
