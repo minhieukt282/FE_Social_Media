@@ -111,7 +111,7 @@ const Navbar = ({socket}) => {
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
-                                if (item.type === "addFriends") {
+                                if (item.type === "addFriends" || item.type === "friends") {
                                     return (
                                         <Link className="notifications" style={{color: "black", textDecoration: "none"}}
                                               key={index} to={`/profile/${item?.accountSent}`} onClick={() => {

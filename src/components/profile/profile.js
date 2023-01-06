@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
-import {addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
+import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
 
 export default function ProfileItem({socket}) {
@@ -19,6 +19,7 @@ export default function ProfileItem({socket}) {
     const [isFriend, setIsFriend] = useState(false)
     const [isAccept, setIsAccept] = useState(false)
     const [isWaitRes, setIsWaitRes] = useState(false)
+    const [relationshipId, setRelationshipId] = useState(null)
     const userId = JSON.parse(localStorage.getItem("accountId"))
     const displayName = JSON.parse(localStorage.getItem("displayName"))
 
@@ -28,11 +29,11 @@ export default function ProfileItem({socket}) {
 
     useEffect(() => {
         dispatch(getFriend(accountId))
-    }, [accountId, dispatch])
+    }, [accountId, dispatch, isAccept, isFriend, isWaitRes])
 
     useEffect(() => {
         dispatch(getRelationship())
-    }, [accountId, dispatch, isAccept])
+    }, [accountId, dispatch, isAccept, isFriend, isWaitRes])
 
     const listFriends = useSelector(state => {
         return state.listFriend.listFriend
@@ -46,6 +47,8 @@ export default function ProfileItem({socket}) {
         return state.relationship.relationship
     })
 
+    console.log(relationship)
+
     useEffect(() => {
         let checkFriend
         let checkWait = false
@@ -56,6 +59,7 @@ export default function ProfileItem({socket}) {
                 checkFriend = relationship[i].isFriend
                 if (relationship[i].isFriend === false) {
                     if (relationship[i].accountRes === userId) {
+                        setRelationshipId(relationship[i].relationshipId)
                         checkAccept = true
                     }
                     checkWait = !relationship[i].isFriend
@@ -68,7 +72,7 @@ export default function ProfileItem({socket}) {
         setIsFriend(checkFriend)
         setIsWaitRes(checkWait)
         setIsAccept(checkAccept)
-    }, [accountId])
+    }, [accountId, isAccept, isFriend, isWaitRes])
 
     let isProfile = false
     if (userId === accountId) {
@@ -92,6 +96,20 @@ export default function ProfileItem({socket}) {
         }
         await dispatch(unfriend(data))
         await dispatch(deleteNotification(dataNotice))
+    }
+
+    const handleAccept = async (relationshipId) => {
+        setIsFriend(true)
+        const dataNotice = {
+            displayName: displayName,
+            accountSent: userId,
+            accountReceiver: accountId,
+            postId: 0,
+            type: "friends"
+        }
+        await dispatch(acceptFriends(relationshipId))
+        await dispatch(createNotification(dataNotice))
+        socket.emit("acceptFriend", dataNotice)
     }
 
     const handleAddFriend = async () => {
@@ -135,7 +153,7 @@ export default function ProfileItem({socket}) {
                                         isWaitRes ? (isAccept ? (
                                             <span style={{width: "15%"}}>
                                             <button style={{width: "50%"}} className="btn-req" onClick={() => {
-                                                // handleUnfriend()
+                                                handleAccept(relationshipId)
                                             }}>Accept
                                             </button>
                                             <button style={{width: "50%"}} className="btn-req" onClick={() => {
