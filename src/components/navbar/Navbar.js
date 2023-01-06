@@ -10,21 +10,25 @@ import ChatIcon from '@mui/icons-material/Chat';
 import {Field, Form, Formik} from "formik";
 import {getSearch} from "../../services/searchService";
 import {getRelationship} from "../../services/FriendServices";
+import {toast} from "react-toastify";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [noticeCome, setNoticeCome] = useState(false)
+    const [iconNotice, setIconNotice] = useState(false)
     const accountId = JSON.parse(localStorage.getItem('accountId'))
 
     useEffect(() => {
         socket?.on("getNotification", data => {
-            setNoticeCome(!noticeCome)
+            setNoticeCome(true)
+            setIconNotice(!iconNotice)
         })
     }, [socket])
 
     useEffect(() => {
         dispatch(showNotification())
+        setNoticeCome(false)
     }, [noticeCome])
 
     const notifications = useSelector(state => {
@@ -83,14 +87,10 @@ const Navbar = ({socket}) => {
                 <Link style={{textDecoration: "none", marginLeft: 50}} to="/friends"
                       className="fa-solid fa-users"></Link>
 
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>
-
             </div>
             <div className="navbarRight">
                 <div style={{paddingRight: 20}}>
-                    <Link style={{textDecoration: "none"}} to={`/${accountId}`} className="profile_link">
+                    <Link style={{textDecoration: "none"}} to={`/profile/${accountId}`} className="profile_link">
                         <img src={imgAvt} alt="" className="navbarImg"/>
                     </Link>
                 </div>
@@ -106,20 +106,35 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)
                     }}/>
-                        {noticeCome ? (<div className="right_notification">1</div>) : (<></>)}
+                        {iconNotice ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
-
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
-                                if (item.type === "friends") {
-                                    return (<Link key={index} to="/friends" onClick={() => {
-                                        setNoticeCome(false)
-                                    }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}</Link>)
+                                if (item.type === "addFriends") {
+                                    return (
+                                        <Link className="notifications" style={{color: "black", textDecoration: "none"}}
+                                              key={index} to={`/profile/${item?.accountSent}`} onClick={() => {
+                                            setIconNotice(false)
+                                        }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}
+                                            <br/></Link>
+                                    )
+                                } else if (item.type === "liked" || item.type === "comment") {
+                                    return (
+                                        <Link className="notifications"
+                                              style={{color: "black", textDecoration: "none"}}
+                                              key={index} to="/home" onClick={() => {
+                                            setIconNotice(false)
+                                        }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}
+                                            <br/></Link>
+                                    )
                                 } else {
-                                    return (<Link key={index} to="/register" onClick={() => {
-                                        setNoticeCome(false)
-                                    }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}</Link>)
+                                    return (
+                                        <Link className="notifications" style={{color: "black", textDecoration: "none"}}
+                                              key={index} to="/home" onClick={() => {
+                                            setNoticeCome(false)
+                                        }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}
+                                            <br/></Link>)
                                 }
                             }
                         })}

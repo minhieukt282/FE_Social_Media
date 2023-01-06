@@ -17,6 +17,7 @@ export default function ProfileItem({socket}) {
     const {accountId} = useParams()
     const dispatch = useDispatch();
     const [isFriend, setIsFriend] = useState(false)
+    const [isAccept, setIsAccept] = useState(false)
     const [isWaitRes, setIsWaitRes] = useState(false)
     const userId = JSON.parse(localStorage.getItem("accountId"))
     const displayName = JSON.parse(localStorage.getItem("displayName"))
@@ -31,7 +32,7 @@ export default function ProfileItem({socket}) {
 
     useEffect(() => {
         dispatch(getRelationship())
-    }, [accountId, dispatch])
+    }, [accountId, dispatch, isAccept])
 
     const listFriends = useSelector(state => {
         return state.listFriend.listFriend
@@ -48,19 +49,25 @@ export default function ProfileItem({socket}) {
     useEffect(() => {
         let checkFriend
         let checkWait = false
+        let checkAccept = false
         for (let i = 0; i < relationship.length; i++) {
-            if (relationship[i].accountReq === userId && relationship[i].accountRes === accountId) {
-                checkFriend = relationship[i].isAccept
-                checkWait = true
-                break
-            } else if (relationship[i].accountReq === accountId && relationship[i].accountRes === userId) {
-                checkFriend = relationship[i].isAccept
-                checkWait = true
+            if ((relationship[i].accountReq === userId && relationship[i].accountRes === accountId) ||
+                (relationship[i].accountReq === accountId && relationship[i].accountRes === userId)) {
+                checkFriend = relationship[i].isFriend
+                if (relationship[i].isFriend === false) {
+                    if (relationship[i].accountRes === userId) {
+                        checkAccept = true
+                    }
+                    checkWait = !relationship[i].isFriend
+                } else {
+                    checkWait = relationship[i].isFriend
+                }
                 break
             }
         }
         setIsFriend(checkFriend)
         setIsWaitRes(checkWait)
+        setIsAccept(checkAccept)
     }, [accountId])
 
     let isProfile = false
@@ -71,6 +78,7 @@ export default function ProfileItem({socket}) {
     const handleUnfriend = async () => {
         setIsFriend(false)
         setIsWaitRes(false)
+        setIsAccept(false)
         const data = {
             accountReq: userId,
             accountRes: accountId
@@ -120,13 +128,28 @@ export default function ProfileItem({socket}) {
                             <h4 className="profileInfoName">{accountInfo.displayName}</h4>
                             {
                                 isProfile ? (<button className="editProfile"><CreateIcon/>Edit Profile</button>) : (
-                                    isFriend ? (<button onClick={() => {
-                                        handleUnfriend()
-                                    }}>Unfriend</button>) : (isWaitRes ? (<button onClick={() => {
-                                        handleUnfriend()
-                                    }}>Wait | Cancel</button>) : (<button onClick={() => {
-                                        handleAddFriend()
-                                    }}>Add friend</button>)))
+                                    isFriend ? (
+                                        <button style={{width: "15%"}} className="btn-req" onClick={() => {
+                                            handleUnfriend()
+                                        }}>Unfriend</button>) : (
+                                        isWaitRes ? (isAccept ? (
+                                            <span style={{width: "15%"}}>
+                                            <button style={{width: "50%"}} className="btn-req" onClick={() => {
+                                                // handleUnfriend()
+                                            }}>Accept
+                                            </button>
+                                            <button style={{width: "50%"}} className="btn-req" onClick={() => {
+                                                handleUnfriend()
+                                            }}>Reject
+                                            </button>
+                                        </span>
+                                        ) : (
+                                            <button style={{width: "15%"}} className="btn-req" onClick={() => {
+                                                handleUnfriend()
+                                            }}>Wait | Cancel</button>)) : (
+                                            <button style={{width: "15%"}} className="btn-req" onClick={() => {
+                                                handleAddFriend()
+                                            }}>Add friend</button>)))
                             }
                         </div>
                     </div>
@@ -171,7 +194,7 @@ export default function ProfileItem({socket}) {
                                                 if (item.accountId !== accountId) {
                                                     return (
                                                         <div className="col-4" key={index}>
-                                                            <Link to={`/${item.accountId}`}>
+                                                            <Link to={`/profile/${item.accountId}`}>
                                                                 <Card sx={{maxWidth: 120}}>
                                                                     <CardMedia
                                                                         sx={{height: 120}}

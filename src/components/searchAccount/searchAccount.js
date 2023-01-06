@@ -19,13 +19,10 @@ export default function SearchAccount({socket}) {
             isWaitRes: false,
         }
         for (let i = 0; i < relationship.length; i++) {
-            if (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId) {
-                data.isFriend = relationship[i].isAccept
-                data. isWaitRes = true
-                break
-            } else if (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes) {
-                data.isFriend = relationship[i].isAccept
-                data. isWaitRes = true
+            if ((relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId) ||
+                (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes)) {
+                data.isFriend = relationship[i].isFriend
+                data.isWaitRes = true
                 break
             }
         }

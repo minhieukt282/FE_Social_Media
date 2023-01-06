@@ -33,12 +33,9 @@ export default function ListFriendCard({socket}) {
             isWaitRes: false,
         }
         for (let i = 0; i < relationship.length; i++) {
-            if (relationship[i].accountReq === accountRes && relationship[i].accountRes === userId) {
-                data.isFriend = relationship[i].isAccept
-                data.isWaitRes = true
-                break
-            } else if (relationship[i].accountReq === userId && relationship[i].accountRes === accountRes) {
-                data.isFriend = relationship[i].isAccept
+            if ((relationship[i].accountReq === accountRes && relationship[i].accountRes === userId)||
+                (relationship[i].accountReq === userId && relationship[i].accountRes === accountRes)) {
+                data.isFriend = relationship[i].isFriend
                 data.isWaitRes = true
                 break
             }
@@ -73,7 +70,7 @@ export default function ListFriendCard({socket}) {
                                             />
                                             <CardContent>
                                                 <Typography gutterBottom variant="h5" component="div">
-                                                    <Link to={`/${item.accountId}`}>{item.displayName}</Link>
+                                                    <Link to={`/profile/${item.accountId}`}>{item.displayName}</Link>
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
                                                     {item.location}

@@ -65,7 +65,7 @@ export default function AccountResult({item, initIsFriend, initIsWaitRes, socket
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            <Link to={`/${item.accountId}`}>{item.displayName}</Link>
+                            <Link to={`/profile/${item.accountId}`}>{item.displayName}</Link>
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {item.location}
@@ -74,11 +74,11 @@ export default function AccountResult({item, initIsFriend, initIsWaitRes, socket
                 </CardActionArea>
                 <CardActions>
                     {
-                        isFriend ? (<button onClick={() => {
+                        isFriend ? (<button className="btn-req" onClick={() => {
                             handleCancel(item.accountId)
-                        }}>Unfriend</button>) : (isWaitRes ? (<button onClick={() => {
+                        }}>Unfriend</button>) : (isWaitRes ? (<button className="btn-req" onClick={() => {
                             handleCancel(item.accountId)
-                        }}>Wait | Cancel</button>) : (<button onClick={() => {
+                        }}>Wait | Cancel</button>) : (<button className="btn-req" onClick={() => {
                             handleAddFriend(item.accountId)
                         }}>Add friend</button>))
                     }

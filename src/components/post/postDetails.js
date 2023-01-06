@@ -82,17 +82,7 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
             socket.emit("commented", dataNotice)
         }
     }
-
-    const handleEditPost = () => {
-
-    }
-
-    const handleDeletePost = () => {
-
-    }
-
     let isLike = true
-
     if (likes !== undefined) {
         for (let i = 0; i < likes.length; i++) {
             if (likes[i].postId === item?.postId && likes[i].accountId === accountId) {
@@ -112,7 +102,7 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                             alt="my avatar"
                             className="postProfileImg"/>
                     </Link>
-                    <Link to={`/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
+                    <Link to={`/profile/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
                     <span
                         className="postDate">{new Date(item?.timePost).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
                     <span className="postDate">{item?.status}</span>
@@ -127,12 +117,8 @@ const PostDetails = ({socket, item, countLike, isSetting}) => {
                                 </IconButton>
                             </div>
                             <div className="dropdown-menu dropdown-menu-lg-right">
-                                <Button className="dropdown-item" onClick={() => {
-                                    handleEditPost()
-                                }}>Edit status</Button>
-                                <Button className="dropdown-item" to="/" onClick={() => {
-                                    handleDeletePost()
-                                }}>Delete status</Button>
+                                <Button className="dropdown-item">Edit status</Button>
+                                <Button className="dropdown-item">Delete status</Button>
                             </div>
                         </div>) : (<></>)
                     }

@@ -1,16 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {showNotification} from "../../services/notificationService";
+import {toast} from "react-toastify";
 
 const initialState = {
     notification: []
 }
 
 const notificationSlice = createSlice({
-    name:'showNotification',
+    name: 'showNotification',
     initialState,
-    reducers:{},
-    extraReducers:builder => {
-        builder.addCase(showNotification.fulfilled,(state,action)=>{
+    reducers: {},
+    extraReducers: builder => {
+        builder.addCase(showNotification.fulfilled, (state, action) => {
+
             state.notification = action.payload.data
         })
     }

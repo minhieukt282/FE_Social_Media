@@ -48,10 +48,8 @@ const Post = ({socket, url}) => {
     const isRelationship = (accountRes) => {
         let flag = false
         for (let i = 0; i < relationship.length; i++) {
-            if (relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isAccept === true) {
-                flag = true
-                break
-            } else if (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId && relationship[i].isAccept === true) {
+            if ((relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isFriend === true) ||
+                (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId && relationship[i].isFriend === true)) {
                 flag = true
                 break
             }
