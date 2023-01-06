@@ -47,8 +47,6 @@ export default function ProfileItem({socket}) {
         return state.relationship.relationship
     })
 
-    console.log(relationship)
-
     useEffect(() => {
         let checkFriend
         let checkWait = false
@@ -145,7 +143,7 @@ export default function ProfileItem({socket}) {
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{accountInfo.displayName}</h4>
                             {
-                                isProfile ? (<button className="editProfile"><CreateIcon/>Edit Profile</button>) : (
+                                isProfile ? (<></>) : (
                                     isFriend ? (
                                         <button style={{width: "15%"}} className="btn-req" onClick={() => {
                                             handleUnfriend()
@@ -172,16 +170,14 @@ export default function ProfileItem({socket}) {
                         </div>
                     </div>
                 </div>
-                <div className="profileRightBottom">
-
-                </div>
+                <br/>
             </div>
             <div className="col-12">
                 <div className="row">
                     <div className="col-1"></div>
                     <div className="col-10">
                         <div className="row">
-                            <div style={{paddingTop: 30}} className="col-4">
+                            <div className="col-4">
                                 <div className="infoTable">
                                     <h3>Information</h3>
                                     <div className="detailInfo">
@@ -205,7 +201,7 @@ export default function ProfileItem({socket}) {
                                 </div>
                                 <br/>
                                 <Link to={`/friends/${accountId}`}><h2>Friends list</h2></Link>
-                                <div className="infoTable col-12">
+                                <div className="infoTableFriend">
                                     <div className="row">
                                         {
                                             listFriends?.map((item, index) => {

@@ -81,20 +81,8 @@ const Navbar = ({socket}) => {
                     </Formik>
                 </div>
             </div>
-            <div className="navbarCenter">
-                <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
 
-                <Link style={{textDecoration: "none", marginLeft: 50}} to="/friends"
-                      className="fa-solid fa-users"></Link>
-
-            </div>
             <div className="navbarRight">
-                <div style={{paddingRight: 20}}>
-                    <Link style={{textDecoration: "none"}} to={`/profile/${accountId}`} className="profile_link">
-                        <img src={imgAvt} alt="" className="navbarImg"/>
-                    </Link>
-                </div>
-
                 <div style={{paddingRight: 20}}>
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><ChatIcon/>
@@ -116,7 +104,8 @@ const Navbar = ({socket}) => {
                                         <Link className="notifications" style={{color: "black", textDecoration: "none"}}
                                               key={index} to={`/profile/${item?.accountSent}`} onClick={() => {
                                             setIconNotice(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}
+                                        }}>{new Date(item?.time).toLocaleString("en-US",
+                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
                                             <br/></Link>
                                     )
                                 } else if (item.type === "liked" || item.type === "comment") {
@@ -125,15 +114,17 @@ const Navbar = ({socket}) => {
                                               style={{color: "black", textDecoration: "none"}}
                                               key={index} to="/home" onClick={() => {
                                             setIconNotice(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}
-                                            <br/></Link>
-                                    )
+                                        }}>{new Date(item?.time).toLocaleString("en-US",
+                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                            <br/></Link>)
+
                                 } else {
                                     return (
                                         <Link className="notifications" style={{color: "black", textDecoration: "none"}}
                                               key={index} to="/home" onClick={() => {
                                             setNoticeCome(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}
+                                        }}>{new Date(item?.time).toLocaleString("en-US",
+                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
                                             <br/></Link>)
                                 }
                             }

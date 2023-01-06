@@ -12,9 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useSelector} from "react-redux";
 import PageNotFound from "./pages/pageNotFound/pageNotFound";
 import Navbar from "./components/navbar/Navbar";
-import Sidebar from "./components/sidebar/Sidebar";
-import AddPost from "./components/post/AddPost";
-import Post from "./components/post/Post";
 
 function App() {
     const [socket, setSocket] = useState(null)
@@ -26,7 +23,6 @@ function App() {
     const user = useSelector(state => {
         return state.loginWed.token
     })
-
     return (
         <>
             <div className="container">
@@ -35,10 +31,6 @@ function App() {
                     <Route path="/register" element={<Register/>}/>
                     {
                         user != null ?
-                            <div>
-                                <div className={'home'}>
-                                    <Navbar socket={socket}/>
-                                </div>
                                 <Route path="/">
                                     <Route path="/home" element={<Home socket={socket}/>}/>
                                     <Route path="/friends" element={<AddFriend socket={socket}/>}/>
@@ -47,7 +39,6 @@ function App() {
                                     <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
                                     <Route path="*" element={<PageNotFound/>}/>
                                 </Route>
-                            </div>
                             :
                             <Route path="*" element={<PageNotFound/>}/>
                     }

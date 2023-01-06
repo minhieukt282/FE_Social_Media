@@ -1,31 +1,43 @@
 import "./rightBar.css";
-import RssFeedIcon from '@mui/icons-material/RssFeed';
-import HomeIcon from '@mui/icons-material/Home';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import ChatIcon from '@mui/icons-material/Chat';
 import {Link} from "react-router-dom";
+import React from "react";
+import {useSelector} from "react-redux";
 
 export default function RightBar() {
+    const imgAvt = useSelector(state => {
+        return state.loginWed.imgAvt
+    })
     return (
-        <div style={{top: 20}} className="rightBar col-3">
+
+        <div style={{top: 80}} className="rightBar">
             <div className="rightBarWrapper">
-                <ul className="rightBarList">
-                    <li className="rightBarListItem">
-                        <RssFeedIcon className="rightBarIcon"></RssFeedIcon>
-                        <span className="rightBarListItemText">Feed</span>
-                    </li>
+                    <h2>Friend List</h2>
+                    <hr/>
+                    <ul className="rightBarList">
+                        <li className="rightBarListItem">
+                            <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                                <img src={imgAvt} alt="" className="navbarImg"/>
+                                <span className="rightBarListItemText">User Name</span>
+                            </Link>
 
-                    <li className="rightBarListItem">
-                        <HomeIcon className="rightBarIcon"></HomeIcon>
-                        <span className="rightBarListItemText">Home</span>
-                    </li>
+                        </li>
 
-                    <li className="rightBarListItem">
-                        <YouTubeIcon className="rightBarIcon"></YouTubeIcon>
-                        <span className="rightBarListItemText">Video</span>
-                    </li>
-                </ul>
-                <hr className="rightBarHr"/>
+                        <li className="rightBarListItem">
+                            <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                                <img src={imgAvt} alt="" className="navbarImg"/>
+                                <span className="rightBarListItemText">User Name</span>
+                            </Link>
+
+                        </li>
+
+                        <li className="rightBarListItem">
+                            <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                                <img src={imgAvt} alt="" className="navbarImg"/>
+                                <span className="rightBarListItemText">User Name</span>
+                            </Link>
+
+                        </li>
+                    </ul>
                 <span></span>
             </div>
         </div>

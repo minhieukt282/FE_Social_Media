@@ -5,7 +5,6 @@ const initialState = {
     accountId: JSON.parse(localStorage.getItem('accountId')),
     token: JSON.parse(localStorage.getItem('token')),
     displayName: JSON.parse(localStorage.getItem('displayName')),
-    username: JSON.parse(localStorage.getItem('username')),
     imgAvt: JSON.parse(localStorage.getItem('imgAvt'))
 }
 
@@ -18,13 +17,11 @@ const loginSlice = createSlice({
                 state.accountId = action.payload.data.accountId
                 state.token = action.payload.data.token
                 state.displayName = action.payload.data.displayName
-                state.username = action.payload.data.username
                 state.imgAvt = action.payload.data.imgAvt
                 if (state.accountId !== undefined && state.token !== undefined && state.displayName !== undefined) {
                     localStorage.setItem('accountId', JSON.stringify(action.payload.data.accountId))
                     localStorage.setItem('token', JSON.stringify(action.payload.data.token))
                     localStorage.setItem('displayName', JSON.stringify(action.payload.data.displayName))
-                    localStorage.setItem('username', JSON.stringify(action.payload.data.username))
                     localStorage.setItem('imgAvt', JSON.stringify(action.payload.data.imgAvt))
                 }
             }

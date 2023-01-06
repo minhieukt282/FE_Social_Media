@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import ListFriendCard from "../../components/listFriend/listFriendCard";
@@ -17,7 +17,9 @@ export default function ListFriend({socket}){
                 <Navbar socket={socket}/>
             </div>
             <div className="row">
-                <Sidebar></Sidebar>
+                <div className="col-3">
+                    <Sidebar></Sidebar>
+                </div>
                 <div className="col-6">
                     <h2 style={{paddingTop: 40}}>Friends list</h2>
                     <hr/>
@@ -25,6 +27,7 @@ export default function ListFriend({socket}){
                         <ListFriendCard socket={socket}/>
                     </div>
                 </div>
+                <div className="col-3"></div>
             </div>
         </div>
     )

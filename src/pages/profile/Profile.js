@@ -1,6 +1,6 @@
 import Navbar from "../../components/navbar/Navbar";
 import "./styleProfile.css"
-import ProfileItem from "../../components/profile/profile";
+import ProfileItem from "../../components/profile/profileItem";
 import {useEffect} from "react";
 
 export default function Profile({socket}) {
@@ -12,7 +12,7 @@ export default function Profile({socket}) {
     }, [socket])
     return (
         <>
-            <Navbar></Navbar>
+            <Navbar socket={socket}/>
             <ProfileItem socket={socket}></ProfileItem>
         </>
     )
