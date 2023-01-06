@@ -45,7 +45,6 @@ export const deletePosts = createAsyncThunk(
 export const editPosts = createAsyncThunk(
     "posts/edit",
     async (data) => {
-        console.log('dataEdit', data)
         const token = JSON.parse(localStorage.getItem("token"));
         const res = await axios.patch(`http://localhost:3001/posts/${data.postId}`, data, {
                 headers: {

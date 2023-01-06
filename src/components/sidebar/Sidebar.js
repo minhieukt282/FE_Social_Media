@@ -16,7 +16,7 @@ export default function Sidebar() {
         <div style={{top: 20}} className="sidebar col-3">
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
-                    <Link style={{textDecoration: "none"}} to={`/${posts.accountId}`} className="profile_link">
+                    <Link style={{textDecoration: "none"}} to={`/profile/${posts.accountId}`} className="profile_link">
                         <li className="sidebarListItem">
                             <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>
                             <span className="sidebarListItemText"> {posts.displayName}</span>
@@ -30,7 +30,7 @@ export default function Sidebar() {
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/friends">
                         <li className="sidebarListItem">
-                            <GroupIcon  className="sidebarIcon"></GroupIcon >
+                            <GroupIcon className="sidebarIcon"></GroupIcon>
                             <span className="sidebarListItemText">Friends</span>
                         </li>
                     </Link>

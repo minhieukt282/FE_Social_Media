@@ -27,13 +27,6 @@
     padding: 6px 12px;
     cursor: pointer;
 }
-/*.editPost{*/
-/*    cursor: pointer;*/
-/*    margin-top: -14%;*/
-/*    margin-left: 14%;*/
-/*    !*padding: 6px 6px;*!*/
-/*    border: 1px solid*/
-/*}*/
 
 input[type="file"] {
     position: absolute;
@@ -54,10 +47,9 @@ input[type="file"] {
     margin-left: 0%;
 }
 
-/*.file-upload{*/
-/*    margin-left: -5%;*/
-/*}*/
-
 .status{
     margin-left: 2%;
 }
+
+
+

@@ -95,8 +95,13 @@ const Navbar = ({socket}) => {
                 </div>
 
                 <div style={{paddingRight: 20}} className="dropdown">
-                    <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
-                          data-display="static" aria-expanded="false"><SettingsIcon/>
+                    <Link type="button"
+                          className="dropdown-toggle"
+                          data-toggle="dropdown"
+                          data-display="static"
+                          aria-expanded="false"
+                    >
+                        <SettingsIcon/>
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         <Link className="dropdown-item" href="#">Setting</Link>

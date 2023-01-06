@@ -185,9 +185,8 @@
 
 .dropdown-menu.dropdown-menu-lg-right.show{
     display: block;
-    width: 480%;
-    margin-right: -112%;
-
+    width: 315px;
+    margin-right: -64px;
     border-radius: 10px;
     border: 1px solid #e5e2e2;
 }

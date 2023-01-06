@@ -19,7 +19,6 @@ const Post = ({socket, url}) => {
     const posts = useSelector(state => {
         return state.posts.posts
     })
-
     const countLikes = useSelector(state => {
         return state.likes.countLikes
     })

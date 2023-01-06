@@ -1,34 +1,33 @@
 import * as React from 'react';
-import Modal from '@mui/joy/Modal';
-import ModalDialog from '@mui/joy/ModalDialog';
-import Typography from '@mui/joy/Typography';
+import {Link} from "react-router-dom";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import Typography from "@mui/joy/Typography";
 import {Field, Form, Formik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
-import {v4} from "uuid";
 import {useEffect, useState} from "react";
 import {storage} from "../../firebase";
-import {deletePosts, editPosts, getPosts} from "../../services/postServices";
-import "./editPost.css"
+import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
+import {useDispatch, useSelector} from "react-redux";
+import {v4} from "uuid";
+import {editAccount, getAccount} from "../../services/accountService";
 
-export default function EditPost({item}) {
-    const postId = item.postId
+
+export default function EditProfile({accountInfo}) {
+    const accountId = accountInfo.accountId
     const [open, setOpen] = React.useState(false);
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
     const imagesListRef = ref(storage, "images/");
-    const [submitting, setSubmitting] = useState(false)
+    const [submitting, setSubmitting] = useState(false);
     const dispatch = useDispatch();
-    const posts = useSelector((state) => {
-        return state.posts.posts
+    const accounts = useSelector((state) => {
+        return state.accountInfo.accountInfo
     })
-    let post = {}
-    posts.map(item => {
-        if (item.postId === postId) {
-            post = item
+    let account= {}
+        if (accounts.accountId === accountId){
+            account = accounts
         }
-    })
+
     const handleEdit = async (values) => {
         let imgSent
         if (img !== "") {
@@ -36,13 +35,12 @@ export default function EditPost({item}) {
         } else imgSent = values.img
         let data = {
             ...values,
-            img: imgSent,
-        };
-        await dispatch(editPosts(data));
-        await dispatch(getPosts())
-        setOpen(false);
-    };
-
+            img: imgSent
+        }
+        await dispatch(editAccount(data));
+        // await dispatch(getAccount())
+        setOpen(false)
+    }
     const uploadFile = (imageUpload) => {
         if (imageUpload == null) return;
         const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
@@ -63,15 +61,16 @@ export default function EditPost({item}) {
             })
         })
     }, []);
+
     return (
         <React.Fragment>
             <Link
                 color="neutral"
-                style={{color: "#007bff" , backgroundColor:"white" , textDecoration: "none"}}
+                style={{color: "#007bff", backgroundColor: "white", textDecoration: "none"}}
                 className={'btn-primary'}
                 onClick={() => setOpen(true)}
             >
-                Edit Post
+                Edit Profile
             </Link>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog
@@ -103,10 +102,11 @@ export default function EditPost({item}) {
                     <Formik
                         initialValues={
                             {
-                                content: post.contentPost,
-                                img: post.imgPost,
-                                postId: post.postId,
-                                status: post.status
+                                displayName: account.displayName,
+                                img: account.img,
+                                birthday: account.birthday,
+                                location: account.location,
+                                accountId: account.accountId
                             }
                         }
                         onSubmit={(values) => {
@@ -115,10 +115,17 @@ export default function EditPost({item}) {
                         <Form>
                             <div className={"post-group"}>
                                 <div className="form-group">
-                                    <Field as={'textarea'} style={{width: '100%'}} name={'content'}
-                                           className={'form-control'}/>
+                                    <label htmlFor=""> DisplayName</label>
+                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'} className={'form-control'}/>
                                 </div>
-
+                                <div>
+                                    <label htmlFor="">Location</label>
+                                    <Field type={'text'} style={{width: '100%'}} name={'location'} className={'form-control'}/>
+                                </div>
+                                <div>
+                                    <label htmlFor="">Birthday</label>
+                                    <Field type={'date'} name={'birthday'}  className={'form-control'}/>
+                                </div>
                                 <div className="form-group">
                                     <label className="custom-file-upload">
                                         <i className="fa fa-cloud-upload"></i>
@@ -132,18 +139,14 @@ export default function EditPost({item}) {
                                             }}/>
                                     </label>
 
-                                    <Field className="select" as="select" name="status">
-                                        <option value='public'>Public</option>
-                                        <option value='private'>Private</option>
-                                        <option value='onlyFriend'>Only friend</option>
-                                    </Field>
-                                    <button className="editPost" type="submit" disabled={submitting}>Edit</button>
+                                    <button className="editProfile" type="submit" disabled={submitting}>Edit</button>
                                 </div>
                             </div>
                         </Form>
                     </Formik>
                 </ModalDialog>
             </Modal>
+
         </React.Fragment>
-    );
+    )
 }

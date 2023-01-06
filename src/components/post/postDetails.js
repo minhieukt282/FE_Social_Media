@@ -108,11 +108,11 @@ const PostDetails = ({socket, item, countLike, isSetting,url}) => {
                 <div className="postTopLeft">
                     <Link>
                         <img
-                            src="image/avatar/images.jpg"
+                            src={item?.imgAvt}
                             alt="my avatar"
                             className="postProfileImg"/>
                     </Link>
-                    <Link to={`/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
+                    <Link to={`/profile/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
                     <span
                         className="postDate">{new Date(item?.timePost).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
                     </span>
@@ -176,7 +176,7 @@ const PostDetails = ({socket, item, countLike, isSetting,url}) => {
                                     handleNotificationDisliked(item?.accountId, item?.postId)
                                 }}>
                                 <i className="fa-solid fa-thumbs-down"></i>
-                                <span className="span"> Dish like</span>
+                                <span className="span"> Unlike</span>
                             </button>
                         )}
                     </div>
