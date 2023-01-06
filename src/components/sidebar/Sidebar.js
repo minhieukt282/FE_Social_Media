@@ -1,5 +1,4 @@
 import "./sidebar.css";
-import RssFeedIcon from '@mui/icons-material/RssFeed';
 import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -9,17 +8,17 @@ import React from "react";
 import {useSelector} from "react-redux";
 
 export default function Sidebar() {
-    const posts = useSelector(state => {
+    const accountInfo = useSelector(state => {
         return state.loginWed
     })
     return (
-        <div style={{top: 20}} className="sidebar col-3">
+        <div style={{top: 60}} className="sidebar col-3">
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
-                    <Link style={{textDecoration: "none"}} to={`/profile/${posts.accountId}`} className="profile_link">
+                    <Link style={{textDecoration: "none"}} to={`/profile/${accountInfo.accountId}`} className="profile_link">
                         <li className="sidebarListItem">
-                            <img src="image/avatar/images.jpg" alt="" className="navbarImg"/>
-                            <span className="sidebarListItemText"> {posts.displayName}</span>
+                            <img src={accountInfo.imgAvt} alt="" className="navbarImg"/>
+                            <span className="sidebarListItemText">{ accountInfo.displayName}</span>
                         </li>
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/home">
@@ -30,7 +29,7 @@ export default function Sidebar() {
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/friends">
                         <li className="sidebarListItem">
-                            <GroupIcon className="sidebarIcon"></GroupIcon>
+                            <GroupIcon  className="sidebarIcon"></GroupIcon >
                             <span className="sidebarListItemText">Friends</span>
                         </li>
                     </Link>
@@ -43,10 +42,6 @@ export default function Sidebar() {
                         <span className="sidebarListItemText">Chat</span>
                     </li>
                 </ul>
-                <hr className="sidebarHr"/>
-                <ul className="sidebarFriendList">
-                </ul>
-                <span></span>
             </div>
         </div>
     );

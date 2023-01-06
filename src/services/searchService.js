@@ -12,4 +12,5 @@ export const getSearch = createAsyncThunk(
         })
         return res.data
     }
+
 )

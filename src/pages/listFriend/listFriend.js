@@ -1,9 +1,9 @@
+import React, {useEffect} from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
-import MultiActionAreaCard from "../../components/cardFriend/card";
-import React, {useEffect} from "react";
+import ListFriendCard from "../../components/listFriend/listFriendCard";
 
-export default function AddFriend({socket}) {
+export default function ListFriend({socket}){
     useEffect(() => {
         if (socket != null)
             socket.emit("refresh", {
@@ -21,12 +21,13 @@ export default function AddFriend({socket}) {
                     <Sidebar></Sidebar>
                 </div>
                 <div className="col-6">
-                    <h2 style={{paddingTop:40,paddingLeft:10}}>Friends request</h2>
+                    <h2 style={{paddingTop: 40}}>Friends list</h2>
                     <hr/>
                     <div className="row">
-                        <MultiActionAreaCard socket={socket}></MultiActionAreaCard>
+                        <ListFriendCard socket={socket}/>
                     </div>
                 </div>
+                <div className="col-3"></div>
             </div>
         </div>
     )

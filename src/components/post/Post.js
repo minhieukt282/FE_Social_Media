@@ -1,15 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import "./post.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
 import PostDetails from "./postDetails";
 import {getCountLikes} from "../../services/likeService";
+import {getRelationship} from "../../services/FriendServices";
 
 const Post = ({socket, url}) => {
     const dispatch = useDispatch();
     const accountId = JSON.parse(localStorage.getItem("accountId"))
+
     useEffect(() => {
         dispatch(getPosts())
+    }, [])
+
+    useEffect(() => {
+        dispatch(getRelationship())
     }, [])
 
     useEffect(() => {
@@ -34,6 +40,22 @@ const Post = ({socket, url}) => {
         return count
     }
 
+    const relationship = useSelector(state => {
+        return state.relationship.relationship
+    })
+
+    const isRelationship = (accountRes) => {
+        let flag = false
+        for (let i = 0; i < relationship.length; i++) {
+            if ((relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isFriend === true) ||
+                (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId && relationship[i].isFriend === true)) {
+                flag = true
+                break
+            }
+        }
+        return flag
+    }
+
     if (url !== null) {
         if (url === accountId) {
             return (
@@ -56,7 +78,8 @@ const Post = ({socket, url}) => {
                 <div className="post">
                     {
                         posts.map((item, index) => {
-                            if (item.accountId === url && item.status === "public") {
+                            const isFriend = isRelationship(item?.accountId)
+                            if (item.accountId === url && (item.status === "public" || (item.status === "onlyFriend" && isFriend === true))) {
                                 const countLikeOfPost = findCountLikes(item.postId)
                                 return (
                                     <PostDetails key={index} socket={socket} item={item}
@@ -73,7 +96,9 @@ const Post = ({socket, url}) => {
             <div className="post">
                 {
                     posts.map((item, index) => {
-                        if ((item.accountId === accountId && item.status === "private") || item.status === "public") {
+                        const isFriend = isRelationship(item?.accountId)
+                        if ((item.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
+                            || (item.status === "onlyFriend" && isFriend === true)) {
                             const countLikeOfPost = findCountLikes(item.postId)
                             return (
                                 <PostDetails key={index} socket={socket} item={item}

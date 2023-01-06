@@ -6,6 +6,7 @@ import {useState} from "react";
 import * as Yup from "yup"
 import {useDispatch} from "react-redux";
 import {registerWed} from "../../services/registerServices";
+import {toast, ToastContainer} from "react-toastify";
 
 const registerInfos = {
     username: "",
@@ -27,7 +28,7 @@ export default function Register() {
     const loginValidation = Yup.object({
         username: Yup.string()
             .required("Username is required.")
-            .matches(/^[a-z0-9]+$/,"Username is a-z,0-9")
+            .matches(/^[a-z0-9]+$/, "Username is a-z,0-9")
             .min(1)
             .max(15),
         password: Yup.string()
@@ -35,7 +36,7 @@ export default function Register() {
             .min(1)
             .max(15),
         rePassword: Yup.string()
-            .required("RePassword is required")
+            .required("Confirm password is required")
             .min(1)
             .max(15)
     })
@@ -47,10 +48,16 @@ export default function Register() {
             if (message === "Account already exists") {
                 setMessage(message)
             } else {
+                toast.success('Account successfully created', {
+                    position: toast.POSITION.BOTTOM_LEFT
+                    // autoClose: 5000,
+                    // onClick: () => {
+                    // }
+                });
                 navigate("/login")
             }
         } else {
-            setMessage("Check your Repassword!!")
+            setMessage("Check your confirm password!!")
         }
     }
 
@@ -60,7 +67,7 @@ export default function Register() {
                 <div className="login_wrap">
                     <div className="login_1">
                         <img style={{width: 325, height: 160}} src="Image/Facebook-Logo-650x366.png" alt=""/>
-                        <span>An Social Page to make FriendShip</span>
+                        <span>A Social Page To Make Friendship</span>
                     </div>
                     <div className="login_2">
                         <div className="login_2_wrap">
@@ -97,16 +104,12 @@ export default function Register() {
                                     <button type={"submit"} className={"blue_btn"}>Sign Up</button>
                                 </Form>
                             </Formik>
-
                             <div>{message}</div>
-
-                            <div className="sign_splitter"></div>
                             <Link style={{textDecoration: "none", color: "white", width: "75%", marginLeft: 80}}
                                   to={"/login"}>
                                 <button className="blue_btn open_signup">Back to Login</button>
                             </Link>
                         </div>
-
                     </div>
                 </div>
                 <div className="/register"></div>

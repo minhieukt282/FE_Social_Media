@@ -1,21 +1,21 @@
 .addPost{
+
     color: white;
     background: #007bff;
-    position: absolute;
+    position: relative;
     width: 100px;
     height: 35px;
     border-radius: 10px;
-    left: 100px;
     border: 1px solid #e5e2e2;
     margin-left: 400px;
 }
 
 .post-group{
     margin-bottom: 1%;
-    margin-top: 1%;
+    margin-top: 10px;
     border: 1px solid #e5e2e2;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
     box-shadow: 1px 1px 1px 1px #e3e3e3;
 }
 
@@ -26,6 +26,13 @@
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
+}
+.addPost{
+    cursor: pointer;
+    margin-top: -15%;
+    margin-left: 30%;
+    padding: 6px 6px;
+    border: 1px solid
 }
 
 input[type="file"] {
@@ -47,10 +54,47 @@ input[type="file"] {
     margin-left: 0%;
 }
 
-/*.file-upload{*/
-/*    margin-left: -5%;*/
-/*}*/
+.file-upload{
+    margin-left: 5%;
+}
 
 .status{
     margin-left: 2%;
 }
+@media (max-width: 1480px) {
+    .addPost{
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .post-group{
+        width: 150%;
+    }
+
+    .addPost{
+        margin-top: 20px;
+    }
+}
+
+
+@media (max-width: 756px) {
+    .addPost{
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .post-group{
+        width: 150%;
+    }
+    .select{
+        padding: 0;
+        height: 40px;
+        padding-left: 20px;
+    }
+
+
+}
+

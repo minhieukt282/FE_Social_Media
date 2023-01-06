@@ -19,6 +19,7 @@ export default function EditPost({item}) {
     const [img, setImg] = useState("");
     const imagesListRef = ref(storage, "images/");
     const [submitting, setSubmitting] = useState(false)
+
     const dispatch = useDispatch();
     const posts = useSelector((state) => {
         return state.posts.posts
@@ -29,6 +30,7 @@ export default function EditPost({item}) {
             post = item
         }
     })
+
     const handleEdit = async (values) => {
         let imgSent
         if (img !== "") {
@@ -67,8 +69,7 @@ export default function EditPost({item}) {
         <React.Fragment>
             <Link
                 color="neutral"
-                style={{color: "#007bff" , backgroundColor:"white" , textDecoration: "none"}}
-                className={'btn-primary'}
+                style={{color: "#1976d2",textDecoration:"none"}}
                 onClick={() => setOpen(true)}
             >
                 Edit Post

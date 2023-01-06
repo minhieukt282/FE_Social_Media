@@ -1,6 +1,10 @@
 import {Link} from "react-router-dom";
-import {Button, IconButton} from "@mui/material";
+import {IconButton} from "@mui/material";
 import {MoreVert} from "@mui/icons-material";
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import ShareIcon from '@mui/icons-material/Share';
+import TextsmsIcon from '@mui/icons-material/Textsms';
 import React, {useEffect, useState} from "react";
 import "./post.css";
 import {createLikes, deleteLikes, getLike} from "../../services/likeService";
@@ -11,7 +15,7 @@ import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
 
 
-const PostDetails = ({socket, item, countLike, isSetting,url}) => {
+const PostDetails = ({socket, item, countLike, isSetting, url}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
@@ -129,21 +133,23 @@ const PostDetails = ({socket, item, countLike, isSetting,url}) => {
                                     </IconButton>
                                 </div>
                                 <div className="dropdown-menu dropdown-menu-lg-right">
-                                    <Button className="dropdown-item">
+                                    <button className="dropdown-item">
                                         <EditPost item={item} url={url}></EditPost>
-                                    </Button>
-                                    <Button
+                                    </button>
+                                    <button
                                         className="dropdown-item"
                                         to="/"
                                         onClick={() => {
                                             handleDeletePost()
-                                        }}>Delete</Button>
+                                        }}>Delete status
+                                    </button>
                                 </div>
                             </div>) : (<></>)
                     }
 
                 </div>
             </div>
+
             <div className="postCenter">
                 <span>{item?.contentPost}</span>
                 <img
@@ -160,37 +166,35 @@ const PostDetails = ({socket, item, countLike, isSetting,url}) => {
             <hr/>
             <div className="postBottomFooter">
                 <div className="postBottomFooterItem">
-                    <div>
-                        {isLike ? (
-                            <button
+                    {isLike ? (
+                        <button style={{marginLeft: 40}}
                                 className="button"
                                 onClick={() => {
                                     handleNotificationLiked(item?.accountId, item?.postId)
-                                }}><i className="fa-solid fa-thumbs-up"></i>
-                                <span className="span"> Like</span>
-                            </button>
-                        ) : (
-                            <button
+                                }}><ThumbUpOffAltIcon/>
+                            <span className="span"> Like</span>
+                        </button>
+                    ) : (
+                        <button style={{marginLeft: 20}}
                                 className="button"
                                 onClick={() => {
                                     handleNotificationDisliked(item?.accountId, item?.postId)
                                 }}>
-                                <i className="fa-solid fa-thumbs-down"></i>
-                                <span className="span"> Unlike</span>
-                            </button>
-                        )}
-                    </div>
+                            <ThumbDownAltIcon/>
+                            <span className="span"> UnLike</span>
+                        </button>
+                    )}
                 </div>
 
                 <div className="postBottomFooterItem">
                     <button className="button">
-                        <i className="fa-solid fa-comment-dots"></i>
+                        <TextsmsIcon/>
                         <span className="span"> Comment</span>
                     </button>
                 </div>
                 <div className="postBottomFooterItem">
                     <button className="button">
-                        <i className="fa-solid fa-share"></i>
+                        <ShareIcon/>
                         <span className="span">Share</span>
                     </button>
                 </div>

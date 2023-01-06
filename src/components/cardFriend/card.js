@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {acceptFriends, rejectFriends, waitingFriends} from "../../services/FriendServices";
 import {createNotification} from "../../services/notificationService";
+import {Link} from "react-router-dom";
 
 export default function MultiActionAreaCard({socket}) {
     const dispatch = useDispatch()
@@ -24,7 +25,7 @@ export default function MultiActionAreaCard({socket}) {
     const handleAccept = async (relationshipId, accountReceiver) => {
         const accountSent = JSON.parse(localStorage.getItem("accountId"))
         const displayName = JSON.parse(localStorage.getItem("displayName"))
-        const dataNotification = {
+        const dataNotice = {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
@@ -33,8 +34,8 @@ export default function MultiActionAreaCard({socket}) {
         }
         await dispatch(acceptFriends(relationshipId))
         setRefreshPage(!refreshPage)
-        await dispatch(createNotification(dataNotification))
-        socket.emit("acceptFriend", dataNotification)
+        await dispatch(createNotification(dataNotice))
+        socket.emit("acceptFriend", dataNotice)
     }
 
     const handleReject = async (relationshipId) => {
@@ -56,25 +57,27 @@ export default function MultiActionAreaCard({socket}) {
                                     alt="green iguana"
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {item?.displayName}
-                                    </Typography>
+                                    <Link to={`/profile/${item?.accountId}`}>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {item?.displayName}
+                                        </Typography>
+                                    </Link>
                                     <Typography variant="body2" color="text.secondary">
                                         {item?.location}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Button size="small" color="primary" onClick={() => {
+                                <button className="btn-req" onClick={() => {
                                     handleAccept(item?.relationshipId, item?.accountId)
                                 }}>
                                     Accept
-                                </Button>
-                                <Button size="small" color="primary" onClick={() => {
+                                </button>
+                                <button className="btn-req" onClick={() => {
                                     handleReject(item?.relationshipId)
                                 }}>
                                     Reject
-                                </Button>
+                                </button>
                             </CardActions>
                         </Card>
                     </div>
