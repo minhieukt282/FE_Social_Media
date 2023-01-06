@@ -44,7 +44,6 @@ export default function EditPost({item,url}) {
         await dispatch(editPosts(data));
         await dispatch(getPosts())
         setOpen(false);
-
     };
 
     const uploadFile = (imageUpload) => {
@@ -71,8 +70,7 @@ export default function EditPost({item,url}) {
         <React.Fragment>
             <Link
                 color="neutral"
-                style={{color: "white"}}
-                className={'btn-primary'}
+                style={{color: "#1976d2",textDecoration:"none"}}
                 onClick={() => setOpen(true)}
             >
                 Edit Post

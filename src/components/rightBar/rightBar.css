@@ -1,9 +1,7 @@
 .rightBar {
-    flex: 3;
     height: calc(100vh - 50px);
     overflow-y: scroll;
     position: fixed;
-    background-color: #f0f4fc;
 }
 
 .rightBarWrapper {
@@ -53,5 +51,11 @@
     .rightBarWrapper {
         padding: 0px;
         padding-right: 350px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .rightBar{
+        display: none;
     }
 }

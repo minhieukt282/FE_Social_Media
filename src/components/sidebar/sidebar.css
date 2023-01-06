@@ -1,9 +1,7 @@
 .sidebar {
-    flex: 3;
     height: calc(100vh - 50px);
-    overflow-y: scroll;
+    overflow-y:scroll;
     position: fixed;
-    background-color: #ECF3FF;
 }
 
 ::-webkit-scrollbar {
@@ -44,6 +42,6 @@
 
 @media (max-width: 500px) {
     .sidebarWrapper{
-        padding: 0px;
+        padding: 0;
     }
 }

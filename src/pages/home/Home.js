@@ -34,7 +34,9 @@ export default function Home({socket}) {
                     <AddPost/>
                     <Post socket={socket} url={null}/>
                 </div>
-                <div className="col-3 mediaRight"><RightBar/></div>
+                <div className="col-3 mediaRight">
+                    <RightBar/>
+                </div>
             </div>
         </HomeCss>
     )

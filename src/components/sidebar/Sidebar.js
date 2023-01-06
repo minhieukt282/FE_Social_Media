@@ -1,5 +1,4 @@
 import "./sidebar.css";
-import RssFeedIcon from '@mui/icons-material/RssFeed';
 import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -13,7 +12,7 @@ export default function Sidebar() {
         return state.loginWed
     })
     return (
-        <div style={{top: 20}} className="sidebar col-3">
+        <div style={{top: 60}} className="sidebar col-3">
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
                     <Link style={{textDecoration: "none"}} to={`/${posts.accountId}`} className="profile_link">

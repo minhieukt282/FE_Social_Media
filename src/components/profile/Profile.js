@@ -20,7 +20,8 @@ export default function ProfileItem({socket}) {
     }, [])
 
     const accountInfo = useSelector(state => {
-        return state.accountInfo.accountInfo
+        console.log(state)
+        return state.loginWed
     })
 
     return (
@@ -33,11 +34,11 @@ export default function ProfileItem({socket}) {
                                  src='https://wallup.net/wp-content/uploads/2016/01/73809-nature-lake-reflection-mountain-trees-748x468.jpg'
                                  alt="clear"/>
                             <img className="profileUserImg"
-                                 src={accountInfo.img} alt="clear"/>
+                                 src={accountInfo.imgAvt} alt="clear"/>
                         </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{accountInfo.displayName}</h4>
-                            {/*<button className="editProfile"><CreateIcon/>Edit Profile</button>*/}
+                            <button className="editProfile"><CreateIcon/>Edit Profile</button>
                         </div>
                     </div>
                 </div>
@@ -73,8 +74,8 @@ export default function ProfileItem({socket}) {
                                 <br/>
                                 <br/>
                                 <br/>
-                                <h2>Friend List</h2>
-                                <div className="infoTable col-12">
+                                <h2 className="friendTable">Friend List</h2>
+                                <div className="infoTableFriend">
                                     <div className="row">
                                         <div className="col-4">
                                             <Card sx={{maxWidth: 120}}>
