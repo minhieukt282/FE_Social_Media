@@ -5,7 +5,7 @@
     width: 25%;
     height: 600px;
     float: left;
-    border: 1px solid;
+    border:1px solid;
     box-sizing: border-box;
 }
 .mid{
@@ -16,4 +16,9 @@
     box-sizing: border-box;
     margin: 0 10px;
 }
+.col-6{
+    top: 60px;
+
+}
+
 

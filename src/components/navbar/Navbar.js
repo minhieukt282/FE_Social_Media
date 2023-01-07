@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./navbar.css";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,21 +7,29 @@ import {showNotification} from "../../services/notificationService";
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ChatIcon from '@mui/icons-material/Chat';
+import {Field, Form, Formik} from "formik";
+import {getSearch} from "../../services/searchService";
+import {getRelationship} from "../../services/FriendServices";
+import {toast} from "react-toastify";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [noticeCome, setNoticeCome] = useState(false)
+    const [iconNotice, setIconNotice] = useState(false)
     const accountId = JSON.parse(localStorage.getItem('accountId'))
 
     useEffect(() => {
         socket?.on("getNotification", data => {
-            setNoticeCome(!noticeCome)
+            setNoticeCome(true)
+            setIconNotice(!iconNotice)
         })
     }, [socket])
 
     useEffect(() => {
         dispatch(showNotification())
-    },[noticeCome])
+        setNoticeCome(false)
+    }, [noticeCome])
 
     const notifications = useSelector(state => {
         return state.notification.notification
@@ -34,6 +42,12 @@ const Navbar = ({socket}) => {
     const handleLogout = (accountId) => {
         localStorage.clear()
         socket.emit("offline", {accountId: accountId})
+    }
+
+    const handleSearch = async (values) => {
+        await dispatch(getSearch(values.searchKey))
+        await dispatch(getRelationship())
+        navigate('/search')
     }
 
     return (
@@ -56,31 +70,19 @@ const Navbar = ({socket}) => {
                                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
                     </Link>
-                    <input
-                        type="text"
-                        placeholder="Search on facebook"
-                        className="searchInput"
-                    />
+                    <Formik initialValues={{
+                        searchKey: ''
+                    }} onSubmit={values => {
+                        handleSearch(values)
+                    }}>
+                        <Form>
+                            <Field className="searchInput" placeholder="Search on facebook" name={'searchKey'}/>
+                        </Form>
+                    </Formik>
                 </div>
             </div>
-            <div className="navbarCenter">
-                <Link style={{textDecoration: "none", marginRight: 50}} to="/home" className="fa-solid fa-house"></Link>
 
-                <Link style={{textDecoration: "none", marginLeft: 50}} to="/addFriend"
-                      className="fa-solid fa-users"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-brands fa-youtube"></Link>
-
-                <Link style={{textDecoration: "none", marginLeft: 100}} className="fa-solid fa-house"></Link>
-
-            </div>
             <div className="navbarRight">
-                <div style={{paddingRight: 20}}>
-                    <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
-                        <img src={imgAvt} alt="" className="navbarImg"/>
-                    </Link>
-                </div>
-
                 <div style={{paddingRight: 20}}>
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
                           data-display="static" aria-expanded="false"><ChatIcon/>
@@ -92,20 +94,38 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)
                     }}/>
-                        {noticeCome ? (<div className="right_notification">1</div>) : (<></>)}
+                        {iconNotice ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
-
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
-                                if (item.type === "friends") {
-                                    return (<Link key={index} to="/addFriend" onClick={() => {
-                                        setNoticeCome(false)
-                                    }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}</Link>)
+                                if (item.type === "addFriends" || item.type === "friends") {
+                                    return (
+                                        <Link className="notifications" style={{color: "black", textDecoration: "none"}}
+                                              key={index} to={`/profile/${item?.accountSent}`} onClick={() => {
+                                            setIconNotice(false)
+                                        }}>{new Date(item?.time).toLocaleString("en-US",
+                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                            <br/></Link>
+                                    )
+                                } else if (item.type === "liked" || item.type === "comment") {
+                                    return (
+                                        <Link className="notifications"
+                                              style={{color: "black", textDecoration: "none"}}
+                                              key={index} to="/home" onClick={() => {
+                                            setIconNotice(false)
+                                        }}>{new Date(item?.time).toLocaleString("en-US",
+                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                            <br/></Link>)
+
                                 } else {
-                                    return (<Link key={index} to="/register" onClick={() => {
-                                        setNoticeCome(false)
-                                    }}>{new Date(item?.time).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})} | {item.content}</Link>)
+                                    return (
+                                        <Link className="notifications" style={{color: "black", textDecoration: "none"}}
+                                              key={index} to="/home" onClick={() => {
+                                            setNoticeCome(false)
+                                        }}>{new Date(item?.time).toLocaleString("en-US",
+                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                            <br/></Link>)
                                 }
                             }
                         })}
