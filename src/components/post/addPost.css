@@ -8,6 +8,15 @@
     border: 1px solid #e5e2e2;
 
 }
+.btn-req {
+    color: white;
+    background: #007bff;
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e5e2e2;
+    font-size: 15px;
+}
 
 .post-group{
     margin-bottom: 1%;
