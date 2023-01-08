@@ -40,7 +40,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
         }
         const dataLike = {
             accountId: accountId,
-            postId: postId,
+            postPostId: postId,
             displayName: displayName
         }
         await dispatch(createLikes(dataLike))
@@ -63,7 +63,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
         }
         const dataLike = {
             accountId: accountId,
-            postId: postId
+            postPostId: postId
         }
         dispatch(deleteLikes(dataLike))
         if (accountSent !== accountReceiver) {
