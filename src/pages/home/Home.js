@@ -17,9 +17,9 @@ export default function Home({socket}) {
 
     return (
         <div>
-            {/*<div className={'home'}>*/}
-            {/*    <Navbar socket={socket}/>*/}
-            {/*</div>*/}
+            <div className={'home'}>
+                <Navbar socket={socket}/>
+            </div>
             <div className="row">
                 <Sidebar></Sidebar>
                 <div className="col-6">

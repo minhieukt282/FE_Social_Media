@@ -98,6 +98,7 @@ const Post = ({socket, url}) => {
                 {
                     posts.map((item, index) => {
                         const isFriend = isRelationship(item?.accountId)
+                        // console.log(item.accountId, index, url)
                         if ((item.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
                             || (item.status === "onlyFriend" && isFriend === true)) {
                             const countLikeOfPost = findCountLikes(item.postId)

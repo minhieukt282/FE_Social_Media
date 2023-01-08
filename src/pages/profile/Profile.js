@@ -12,7 +12,7 @@ export default function Profile({socket}) {
     }, [socket])
     return (
         <>
-            <Navbar></Navbar>
+            <Navbar socket={socket}></Navbar>
             <ProfileItem socket={socket}></ProfileItem>
         </>
     )

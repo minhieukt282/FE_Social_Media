@@ -35,19 +35,16 @@ function App() {
                     <Route path="/register" element={<Register/>}/>
                     {
                         user != null ?
-                            <div>
-                                <div className={'home'}>
-                                    <Navbar socket={socket}/>
-                                </div>
-                                <Route path="/">
-                                    <Route path="/home" element={<Home socket={socket}/>}/>
-                                    <Route path="/friends" element={<AddFriend socket={socket}/>}/>
-                                    <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
-                                    <Route path="/search" element={<SearchResult socket={socket}/>}/>
-                                    <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
-                                    <Route path="*" element={<PageNotFound/>}/>
-                                </Route>
-                            </div>
+
+                            <Route path="/">
+                                <Route path="/home" element={<Home socket={socket}/>}/>
+                                <Route path="/friends" element={<AddFriend socket={socket}/>}/>
+                                <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
+                                <Route path="/search" element={<SearchResult socket={socket}/>}/>
+                                <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
+                                <Route path="*" element={<PageNotFound/>}/>
+                            </Route>
+
                             :
                             <Route path="*" element={<PageNotFound/>}/>
                     }
