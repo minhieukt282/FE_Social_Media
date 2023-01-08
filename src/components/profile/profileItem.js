@@ -50,14 +50,11 @@ export default function ProfileItem({socket}) {
         return state.relationship.relationship
     })
 
-    console.log("relationship", relationship)
-
     useEffect(() => {
         let checkFriend = IS_ADD
         for (let i = 0; i < relationship.length; i++) {
             if ((relationship[i].accountReq === userId && relationship[i].accountRes === accountId) ||
                 (relationship[i].accountReq === accountId && relationship[i].accountRes === userId)) {
-                console.log("relationship", relationship[i].isFriend)
                 if (relationship[i].isFriend) {
                     checkFriend = IS_FRIEND
                     setIsReLoad(true)
@@ -73,11 +70,8 @@ export default function ProfileItem({socket}) {
                 }
             }
         }
-        console.log("checkFriend", checkFriend)
         setIsFriend(checkFriend)
-    }, [accountId, isReload])
-
-    console.log("isFriend", isFriend)
+    }, [accountId, isReload, relationship])
 
     let isProfile = false
     if (userId === accountId) {
@@ -174,29 +168,6 @@ export default function ProfileItem({socket}) {
         }
     }
 
-    // isFriend ? (
-    //     <button style={{width: "15%"}} className="btn-req" onClick={() => {
-    //         handleUnfriend()
-    //     }}>Unfriend</button>) : (
-    //     isWaitRes ? (isAccept ? (
-    //         <span style={{width: "15%"}}>
-    //                                         <button style={{width: "50%"}} className="btn-req" onClick={() => {
-    //                                             handleAccept(relationshipId)
-    //                                         }}>Accept
-    //                                         </button>
-    //                                         <button style={{width: "50%"}} className="btn-req" onClick={() => {
-    //                                             handleUnfriend()
-    //                                         }}>Reject
-    //                                         </button>
-    //                                     </span>
-    //     ) : (
-    //         <button style={{width: "15%"}} className="btn-req" onClick={() => {
-    //             handleUnfriend()
-    //         }}>Wait | Cancel</button>)) : (
-    //         <button style={{width: "15%"}} className="btn-req" onClick={() => {
-    //             handleAddFriend()
-    //         }}>Add friend</button>))
-
     return (
         <>
             <div className="profile">
@@ -217,15 +188,14 @@ export default function ProfileItem({socket}) {
                         </div>
                     </div>
                 </div>
-                <div className="profileRightBottom">
-                </div>
+                <br/>
             </div>
             <div className="col-12">
                 <div className="row">
                     <div className="col-1"></div>
                     <div className="col-10">
                         <div className="row">
-                            <div style={{paddingTop: 30}} className="col-4">
+                            <div className="col-4">
                                 <div className="infoTable">
                                     <h3>Information</h3>
                                     <div className="detailInfo">
@@ -249,7 +219,7 @@ export default function ProfileItem({socket}) {
                                 </div>
                                 <br/>
                                 <Link to={`/friends/${accountId}`}><h2>Friends list</h2></Link>
-                                <div className="infoTable col-12">
+                                <div className="infoTableFriend">
                                     <div className="row">
                                         {
                                             listFriends?.map((item, index) => {

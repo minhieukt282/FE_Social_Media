@@ -22,5 +22,7 @@ export const store = configureStore({
         search: searchReducer,
         relationship: relationshipReducer,
         listFriend: listFriendReducer
-    }
+    }, middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: false,
+    }),
 })

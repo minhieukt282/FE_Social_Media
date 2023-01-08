@@ -66,7 +66,7 @@ const Post = ({socket, url}) => {
                             if (item.accountId === url) {
                                 const countLikeOfPost = findCountLikes(item.postId)
                                 return (
-                                    <PostDetails key={index} socket={socket} item={item}
+                                    <PostDetails key={index} socket={socket} item={item} url = {url}
                                                  countLike={countLikeOfPost} isSetting={true}/>
                                 )
                             }
