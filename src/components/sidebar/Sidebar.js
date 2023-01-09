@@ -15,10 +15,11 @@ export default function Sidebar() {
         <div style={{top: 60}} className="sidebar col-3">
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
-                    <Link style={{textDecoration: "none"}} to={`/profile/${accountInfo.accountId}`} className="profile_link">
+                    <Link style={{textDecoration: "none"}} to={`/profile/${accountInfo.accountId}`}
+                          className="profile_link">
                         <li className="sidebarListItem">
                             <img src={accountInfo.imgAvt} alt="" className="navbarImg"/>
-                            <span className="sidebarListItemText">{ accountInfo.displayName}</span>
+                            <span className="sidebarDisplayName">{accountInfo.displayName}</span>
                         </li>
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/home">
@@ -29,18 +30,16 @@ export default function Sidebar() {
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/friends">
                         <li className="sidebarListItem">
-                            <GroupIcon  className="sidebarIcon"></GroupIcon >
+                            <GroupIcon className="sidebarIcon"></GroupIcon>
                             <span className="sidebarListItemText">Friends</span>
                         </li>
                     </Link>
-                    <li className="sidebarListItem">
-                        <YouTubeIcon className="sidebarIcon"></YouTubeIcon>
-                        <span className="sidebarListItemText">Video</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <ChatIcon className="sidebarIcon"></ChatIcon>
-                        <span className="sidebarListItemText">Chat</span>
-                    </li>
+                    <Link style={{textDecoration: "none"}} to="/friends">
+                        <li className="sidebarListItem">
+                            <ChatIcon className="sidebarIcon"></ChatIcon>
+                            <span className="sidebarListItemText">Chat</span>
+                        </li>
+                    </Link>
                 </ul>
             </div>
         </div>

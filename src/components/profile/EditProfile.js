@@ -10,7 +10,7 @@ import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {useDispatch, useSelector} from "react-redux";
 import {v4} from "uuid";
 import {editAccount, getAccount} from "../../services/accountService";
-
+import "./editProfile.css"
 
 export default function EditProfile({accountInfo}) {
     const accountId = accountInfo.accountId
@@ -39,7 +39,6 @@ export default function EditProfile({accountInfo}) {
         }
         await dispatch(editAccount(data));
         // await dispatch(getAccount())
-        setOpen(false)
     }
     const uploadFile = (imageUpload) => {
         if (imageUpload == null) return;
@@ -111,6 +110,7 @@ export default function EditProfile({accountInfo}) {
                         }
                         onSubmit={(values) => {
                             handleEdit(values)
+                            setOpen(false)
                         }}>
                         <Form>
                             <div className={"post-group"}>
@@ -118,11 +118,11 @@ export default function EditProfile({accountInfo}) {
                                     <label htmlFor=""> DisplayName</label>
                                     <Field type={'text'} style={{width: '100%'}} name={'displayName'} className={'form-control'}/>
                                 </div>
-                                <div>
+                                <div className="form-group">
                                     <label htmlFor="">Location</label>
                                     <Field type={'text'} style={{width: '100%'}} name={'location'} className={'form-control'}/>
                                 </div>
-                                <div>
+                                <div className="form-group">
                                     <label htmlFor="">Birthday</label>
                                     <Field type={'date'} name={'birthday'}  className={'form-control'}/>
                                 </div>

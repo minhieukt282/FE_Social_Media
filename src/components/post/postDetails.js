@@ -15,21 +15,21 @@ import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
 
 
-const PostDetails = ({socket, item, countLike, isSetting, url}) => {
+const PostDetails = ({socket, item, countLike, isSetting, url, date}) => {
     const dispatch = useDispatch();
-    const [like, setLike] = useState(true)
+    const [like, setLike] = useState(true);
     const accountId = JSON.parse(localStorage.getItem("accountId"))
     useEffect(() => {
-        dispatch(getLike())
+        dispatch(getLike());
     }, [like])
 
     const likes = useSelector(state => {
-        return state.likes.likes
+        return state.likes.likes;
     })
 
     const handleNotificationLiked = async (accountReceiver, postId) => {
         setLike(!like)
-        const accountSent = accountId
+        const accountSent = accountId;
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const dataNotice = {
             displayName: displayName,
@@ -117,8 +117,8 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                             className="postProfileImg"/>
                     </Link>
                     <Link to={`/profile/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
-                    <span
-                        className="postDate">{new Date(item?.timePost).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
+                    <span className="postDate">
+                        {new Date(item?.timePost).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
                     </span>
                     <i className={`fa-solid ${icon}`}></i>
                 </div>

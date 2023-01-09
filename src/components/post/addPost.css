@@ -1,5 +1,4 @@
 .addPost{
-
     color: white;
     background: #007bff;
     position: relative;
@@ -7,7 +6,16 @@
     height: 35px;
     border-radius: 10px;
     border: 1px solid #e5e2e2;
-    margin-left: 400px;
+
+}
+.btn-req {
+    color: white;
+    background: #007bff;
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e5e2e2;
+    font-size: 15px;
 }
 
 .post-group{
@@ -20,7 +28,7 @@
 }
 
 .select {
-    margin-left: 3%;
+    margin-left: 15%;
     text-transform: none;
     border: 1px solid #ccc;
     display: inline-block;
@@ -51,16 +59,13 @@ input[type="file"] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
-    margin-left: 0%;
+
 }
 
 .file-upload{
     margin-left: 5%;
 }
 
-.status{
-    margin-left: 2%;
-}
 @media (max-width: 1480px) {
     .addPost{
         width: 100%;

@@ -11,33 +11,33 @@ export default function RightBar() {
 
         <div style={{top: 80}} className="rightBar">
             <div className="rightBarWrapper">
-                    <h2>Friend List</h2>
-                    <hr/>
-                    <ul className="rightBarList">
-                        <li className="rightBarListItem">
-                            <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
-                                <img src={imgAvt} alt="" className="navbarImg"/>
-                                <span className="rightBarListItemText">User Name</span>
-                            </Link>
+                <h2>Friend List</h2>
+                <hr/>
+                <ul className="rightBarList">
+                    <li className="rightBarListItem">
+                        <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                            <img src={imgAvt} alt="" className="navbarImg"/>
+                            <span className="rightBarListItemText">User Name</span>
+                        </Link>
 
-                        </li>
+                    </li>
 
-                        <li className="rightBarListItem">
-                            <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
-                                <img src={imgAvt} alt="" className="navbarImg"/>
-                                <span className="rightBarListItemText">User Name</span>
-                            </Link>
+                    <li className="rightBarListItem">
+                        <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                            <img src={imgAvt} alt="" className="navbarImg"/>
+                            <span className="rightBarListItemText">User Name</span>
+                        </Link>
 
-                        </li>
+                    </li>
 
-                        <li className="rightBarListItem">
-                            <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
-                                <img src={imgAvt} alt="" className="navbarImg"/>
-                                <span className="rightBarListItemText">User Name</span>
-                            </Link>
+                    <li className="rightBarListItem">
+                        <Link style={{textDecoration: "none"}} to="/profile" className="profile_link">
+                            <img src={imgAvt} alt="" className="navbarImg"/>
+                            <span className="rightBarListItemText">User Name</span>
+                        </Link>
 
-                        </li>
-                    </ul>
+                    </li>
+                </ul>
                 <span></span>
             </div>
         </div>

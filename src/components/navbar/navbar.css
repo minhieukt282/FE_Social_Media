@@ -81,12 +81,11 @@
     align-items: center;
     gap: 5px;
     cursor: pointer;
-    padding: 3px 10px 3px 6px;
+    /*padding: 3px 10px 3px 6px;*/
     border-radius: 50px;
     font-weight: 600;
     font-size: 14px;
     line-height: 19px;
-    margin-right: 10px;
 }
 
 .navbarImg {
@@ -187,11 +186,11 @@
 
 .dropdown-menu.dropdown-menu-lg-right.show {
     display: block;
-    width: 315px;
-    margin-right: -64px;
+    width: 400%;
     border-radius: 10px;
     border: 1px solid #e5e2e2;
     text-align: center;
+    left: -165px;
 }
 
 .notifications:hover {
