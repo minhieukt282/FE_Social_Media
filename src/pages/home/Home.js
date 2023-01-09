@@ -14,7 +14,6 @@ const HomeCss = styled.div`
   }
 `
 export default function Home({socket}) {
-
     useEffect(() => {
         if (socket != null)
             socket.emit("refresh", {

@@ -50,9 +50,6 @@ export default function Register() {
             } else {
                 toast.success('Account successfully created', {
                     position: toast.POSITION.BOTTOM_LEFT
-                    // autoClose: 5000,
-                    // onClick: () => {
-                    // }
                 });
                 navigate("/login")
             }
