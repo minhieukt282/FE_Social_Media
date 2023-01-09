@@ -12,9 +12,7 @@ import {storage} from "../../firebase";
 import {deletePosts, editPosts, getPosts} from "../../services/postServices";
 
 
-export default function EditPost({item,url}) {
-    const navigate = useNavigate()
-    const postId = item.postId
+export default function EditPost({item, url}) {
     const [open, setOpen] = React.useState(false);
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
@@ -24,12 +22,6 @@ export default function EditPost({item,url}) {
     const dispatch = useDispatch();
     const posts = useSelector((state) => {
         return state.posts.posts
-    })
-    let post = {}
-    posts.map(item => {
-        if (item.postId === postId) {
-            post = item
-        }
     })
 
     const handleEdit = async (values) => {
@@ -66,11 +58,12 @@ export default function EditPost({item,url}) {
             })
         })
     }, []);
+
     return (
         <React.Fragment>
             <Link
                 color="neutral"
-                style={{color: "#1976d2",textDecoration:"none"}}
+                style={{color: "#1976d2", textDecoration: "none"}}
                 onClick={() => setOpen(true)}
             >
                 Edit Post
@@ -105,10 +98,10 @@ export default function EditPost({item,url}) {
                     <Formik
                         initialValues={
                             {
-                                content: post.contentPost,
-                                img: post.imgPost,
-                                postId: post.postId,
-                                status: post.status
+                                content: item.content,
+                                img: item.img,
+                                postId: item.postId,
+                                status: item.status
                             }
                         }
                         onSubmit={(values) => {

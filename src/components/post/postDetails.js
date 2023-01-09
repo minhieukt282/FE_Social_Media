@@ -19,13 +19,13 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
-    useEffect(() => {
-        dispatch(getLike())
-    }, [like])
-
-    const likes = useSelector(state => {
-        return state.likes.likes
-    })
+    // useEffect(() => {
+    //     dispatch(getLike())
+    // }, [like])
+    //
+    // const likes = useSelector(state => {
+    //     return state.likes.likes
+    // })
 
     const handleNotificationLiked = async (accountReceiver, postId) => {
         setLike(!like)
@@ -35,12 +35,12 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            postId: postId,
+            postPostId: postId,
             type: "liked"
         }
         const dataLike = {
             accountId: accountId,
-            postId: postId,
+            postPostId: postId,
             displayName: displayName
         }
         await dispatch(createLikes(dataLike))
@@ -58,12 +58,12 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            postId: postId,
+            postPostId: postId,
             type: "liked"
         }
         const dataLike = {
             accountId: accountId,
-            postId: postId
+            postPostId: postId
         }
         dispatch(deleteLikes(dataLike))
         if (accountSent !== accountReceiver) {
@@ -71,26 +71,30 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
         }
     }
 
-
     const handleDeletePost = () => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Are you sure delete this status?',
+            text: "if you delete the status you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#007bff',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes'
         }).then(async (result) => {
             if (result.isConfirmed) {
+                const dataLike = {
+                    postPostId: item.postId
+                }
+                await dispatch(deleteLikes(dataLike))
                 await dispatch(deletePosts(item.postId));
             }
         })
     }
+
     let isLike = true
-    if (likes !== undefined) {
-        for (let i = 0; i < likes.length; i++) {
-            if (likes[i].postId === item?.postId && likes[i].accountId === accountId) {
+    if (item.likes.length !== 0) {
+        for (let i = 0; i < item.likes.length; i++) {
+            if (accountId === item.likes[i].accountId) {
                 isLike = false
                 break
             }
@@ -112,13 +116,13 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                 <div className="postTopLeft">
                     <Link>
                         <img
-                            src={item?.imgAvt}
+                            src={item.account.img}
                             alt="my avatar"
                             className="postProfileImg"/>
                     </Link>
-                    <Link to={`/profile/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
+                    <Link to={`/profile/${item.account.accountId}`} className="postUsername">{item.account.displayName}</Link>
                     <span
-                        className="postDate">{new Date(item?.timePost).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
+                        className="postDate">{new Date(item.timeUpdate).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
                     </span>
                     <i className={`fa-solid ${icon}`}></i>
                 </div>
@@ -150,9 +154,9 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
             </div>
 
             <div className="postCenter">
-                <span>{item?.contentPost}</span>
+                <span>{item.content}</span>
                 <img
-                    src={item?.imgPost}
+                    src={item.img}
                     alt=""
                     className="postImg"/>
             </div>
@@ -169,7 +173,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                         <button style={{marginLeft: 40}}
                                 className="button"
                                 onClick={() => {
-                                    handleNotificationLiked(item?.accountId, item?.postId)
+                                    handleNotificationLiked(item.account.accountId, item.postId)
                                 }}><ThumbUpOffAltIcon/>
                             <span className="span"> Like</span>
                         </button>
@@ -177,10 +181,10 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                         <button style={{marginLeft: 20}}
                                 className="button"
                                 onClick={() => {
-                                    handleNotificationDisliked(item?.accountId, item?.postId)
+                                    handleNotificationDisliked(item.account.accountId, item.postId)
                                 }}>
                             <ThumbDownAltIcon/>
-                            <span className="span"> UnLike</span>
+                            <span className="span"> Unlike</span>
                         </button>
                     )}
                 </div>

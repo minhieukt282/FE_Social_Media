@@ -11,6 +11,7 @@ import {Field, Form, Formik} from "formik";
 import {getSearch} from "../../services/searchService";
 import {getRelationship} from "../../services/FriendServices";
 import {toast} from "react-toastify";
+import Toastify from "../toastify/toastity";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
@@ -33,10 +34,6 @@ const Navbar = ({socket}) => {
 
     const notifications = useSelector(state => {
         return state.notification.notification
-    })
-
-    const imgAvt = useSelector(state => {
-        return state.loginWed.imgAvt
     })
 
     const handleLogout = (accountId) => {
@@ -110,14 +107,17 @@ const Navbar = ({socket}) => {
                                     )
                                 } else if (item.type === "liked" || item.type === "comment") {
                                     return (
-                                        <Link className="notifications"
-                                              style={{color: "black", textDecoration: "none"}}
-                                              key={index} to="/home" onClick={() => {
-                                            setIconNotice(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US",
-                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                            <br/></Link>)
-
+                                        <>
+                                            <Toastify displayName={item.displayName} content={item.content}/>
+                                            <Link className="notifications"
+                                                  style={{color: "black", textDecoration: "none"}}
+                                                  key={index} to="/home" onClick={() => {
+                                                setIconNotice(false)
+                                            }}>{new Date(item?.time).toLocaleString("en-US",
+                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                <br/></Link>
+                                        </>
+                                    )
                                 } else {
                                     return (
                                         <Link className="notifications" style={{color: "black", textDecoration: "none"}}
