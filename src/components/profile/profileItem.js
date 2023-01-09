@@ -148,6 +148,7 @@ export default function ProfileItem({socket}) {
                                         <button style={{width: "15%"}} className="btn-req" onClick={() => {
                                             handleUnfriend()
                                         }}>Unfriend</button>) : (
+
                                         isWaitRes ? (isAccept ? (
                                             <span style={{width: "15%"}}>
                                             <button style={{width: "50%"}} className="btn-req" onClick={() => {
