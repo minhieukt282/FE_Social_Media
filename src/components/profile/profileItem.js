@@ -88,7 +88,7 @@ export default function ProfileItem({socket}) {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "addFriends"
         }
         await dispatch(unfriend(data))
@@ -103,7 +103,7 @@ export default function ProfileItem({socket}) {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "friends"
         }
         await dispatch(acceptFriends(relationshipId))
@@ -123,7 +123,7 @@ export default function ProfileItem({socket}) {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "addFriends"
         }
         await dispatch(addFriend(data))

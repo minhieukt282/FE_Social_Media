@@ -63,10 +63,10 @@ export default function EditPost({item, url}) {
         <React.Fragment>
             <Link
                 color="neutral"
-                style={{color: "#1976d2", textDecoration: "none"}}
+                style={{color: "black", textDecoration: "none"}}
                 onClick={() => setOpen(true)}
             >
-                Edit Post
+                Edit post
             </Link>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog

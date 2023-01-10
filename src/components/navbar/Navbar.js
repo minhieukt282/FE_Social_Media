@@ -91,41 +91,48 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)
                     }}/>
-                        {iconNotice ? (<div className="right_notification">1</div>) : (<></>)}
+                        {iconNotice ? (<div className="right_notification"></div>) : (<></>)}
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
                                 if (item.type === "addFriends" || item.type === "friends") {
                                     return (
-                                        <Link className="notifications" style={{color: "black", textDecoration: "none"}}
-                                              key={index} to={`/profile/${item?.accountSent}`} onClick={() => {
-                                            setIconNotice(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US",
-                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                            <br/></Link>
-                                    )
-                                } else if (item.type === "liked" || item.type === "comment") {
-                                    return (
-                                        <>
-                                            <Toastify displayName={item.displayName} content={item.content}/>
+                                        <div key={index}>
                                             <Link className="notifications"
                                                   style={{color: "black", textDecoration: "none"}}
-                                                  key={index} to="/home" onClick={() => {
+                                                  to={`/profile/${item?.accountSent}`} onClick={() => {
                                                 setIconNotice(false)
                                             }}>{new Date(item?.time).toLocaleString("en-US",
                                                 {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
                                                 <br/></Link>
-                                        </>
+                                        </div>
+                                    )
+                                } else if (item.type === "liked" || item.type === "comment") {
+                                    return (
+                                        <div key={index}>
+                                            {/*<Toastify displayName={item.displayName} content={item.content}/>*/}
+                                            <Link className="notifications"
+                                                  style={{color: "black", textDecoration: "none"}}
+                                                  to="/home" onClick={() => {
+                                                setIconNotice(false)
+                                            }}>{new Date(item?.time).toLocaleString("en-US",
+                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                <br/></Link>
+                                        </div>
                                     )
                                 } else {
                                     return (
-                                        <Link className="notifications" style={{color: "black", textDecoration: "none"}}
-                                              key={index} to="/home" onClick={() => {
-                                            setNoticeCome(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US",
-                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                            <br/></Link>)
+                                        <div key={index}>
+                                            <Link className="notifications"
+                                                  style={{color: "black", textDecoration: "none"}}
+                                                  to="/home" onClick={() => {
+                                                setNoticeCome(false)
+                                            }}>{new Date(item?.time).toLocaleString("en-US",
+                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                <br/></Link>
+                                        </div>
+                                    )
                                 }
                             }
                         })}
@@ -137,6 +144,7 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><SettingsIcon/>
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
+                        <Link className="dropdown-item" to={`/profile/${accountId}`}>My profile</Link>
                         <Link className="dropdown-item" href="#">Setting</Link>
                         <Link className="dropdown-item" to="/login" onClick={() => {
                             handleLogout(accountId)

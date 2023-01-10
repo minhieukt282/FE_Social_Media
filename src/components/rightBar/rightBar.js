@@ -8,10 +8,9 @@ export default function RightBar() {
         return state.loginWed.imgAvt
     })
     return (
-
         <div style={{top: 80}} className="rightBar">
             <div className="rightBarWrapper">
-                    <h2>Friend List</h2>
+                    <h2>Online</h2>
                     <hr/>
                     <ul className="rightBarList">
                         <li className="rightBarListItem">

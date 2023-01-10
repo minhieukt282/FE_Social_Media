@@ -189,7 +189,8 @@
     width: 400%;
     border-radius: 10px;
     border: 1px solid #e5e2e2;
-    text-align: center;
+    text-align: left;
+    left: -250%;
 }
 
 .notifications:hover {
