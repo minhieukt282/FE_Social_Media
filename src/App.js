@@ -11,8 +11,7 @@ import Home from "./pages/Home/Home";
 import 'react-toastify/dist/ReactToastify.css';
 import {useSelector} from "react-redux";
 import PageNotFound from "./pages/pageNotFound/pageNotFound";
-import ScrollToTop from "react-scroll-to-top";
-
+import Message from "./pages/message/message";
 
 function App() {
     const [socket, setSocket] = useState(null)
@@ -20,10 +19,6 @@ function App() {
         const newSocket = io("http://localhost:5000");
         setSocket(newSocket)
     }, [setSocket])
-
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
 
     const user = useSelector(state => {
         return state.loginWed.token
@@ -33,7 +28,6 @@ function App() {
         <>
             <div className="container">
                 <Routes>
-
                     <Route path="/login" element={<Login socket={socket}/>}/>
                     <Route path="/register" element={<Register/>}/>
                     {
@@ -43,6 +37,7 @@ function App() {
                                     <Route path="/friends" element={<AddFriend socket={socket}/>}/>
                                     <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
                                     <Route path="/search" element={<SearchResult socket={socket}/>}/>
+                                    <Route path="/message" element={<Message socket={socket}/>}/>
                                     <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
                                     <Route path="*" element={<PageNotFound/>}/>
                                 </Route>

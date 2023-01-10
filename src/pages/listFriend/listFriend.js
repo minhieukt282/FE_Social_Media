@@ -18,7 +18,7 @@ export default function ListFriend({socket}){
             </div>
             <div className="row">
                 <div className="col-3">
-                    <Sidebar></Sidebar>
+                    <Sidebar/>
                 </div>
                 <div className="col-6">
                     <h2 style={{paddingTop: 40}}>Friends list</h2>

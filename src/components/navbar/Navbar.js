@@ -11,8 +11,8 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {Field, Form, Formik} from "formik";
 import {getSearch} from "../../services/searchService";
 import {getRelationship} from "../../services/FriendServices";
-// import {toast} from "react-toastify";
-// import Toastify from "../toastify/toastity";
+import {toast} from "react-toastify";
+import Toastify from "../toastify/toastity";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
@@ -111,7 +111,7 @@ const Navbar = ({socket}) => {
                                     )
                                 } else if (item.type === "liked" || item.type === "comment") {
                                     return (
-                                        <div className="notificationsDiv" key={index}>
+                                        <div key={index}>
                                             {/*<Toastify displayName={item.displayName} content={item.content}/>*/}
                                             <Link className="notifications"
                                                   style={{color: "black", textDecoration: "none"}}
@@ -145,6 +145,7 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><SettingsIcon/>
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
+                        <Link className="dropdown-item" to={`/profile/${accountId}`}>My profile</Link>
                         <Link className="dropdown-item" href="#">Setting</Link>
                         <Link className="dropdown-item" to="/login" onClick={() => {
                             handleLogout(accountId)
