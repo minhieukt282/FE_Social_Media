@@ -12,6 +12,7 @@ import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
+// import ScrollToTop from "react-scroll-to-top";
 
 const IS_FRIEND = 1
 const IS_ADD = 2
@@ -58,7 +59,7 @@ export default function ProfileItem({socket}) {
                 if (relationship[i].isFriend) {
                     checkFriend = IS_FRIEND
                     setIsReLoad(true)
-                    break
+                    break;
                 } else {
                     checkFriend = IS_WAIT
                     if (relationship[i].accountRes === userId) {
@@ -66,7 +67,7 @@ export default function ProfileItem({socket}) {
                         setRelationshipId(relationship[i].relationshipId)
                     }
                     setIsReLoad(true)
-                    break
+                    break;
                 }
             }
         }

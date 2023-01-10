@@ -23,13 +23,6 @@ export default function EditPost({item, url}) {
     const posts = useSelector((state) => {
         return state.posts.posts
     })
-    let post = {}
-    posts.map(item => {
-        if (item.postId === postId) {
-            post = item
-        }
-    })
-
     const handleEdit = async (values) => {
         let imgSent
         if (img !== "") {

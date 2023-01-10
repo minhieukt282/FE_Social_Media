@@ -3,7 +3,7 @@ import "./post.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
 import PostDetails from "./postDetails";
-import {getCountLikes} from "../../services/likeService";
+// import {getCountLikes} from "../../services/likeService";
 import {getRelationship} from "../../services/FriendServices";
 
 const Post = ({socket, url}) => {
