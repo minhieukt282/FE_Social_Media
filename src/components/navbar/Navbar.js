@@ -11,15 +11,13 @@ import {Field, Form, Formik} from "formik";
 import {getSearch} from "../../services/searchService";
 import {getRelationship} from "../../services/FriendServices";
 import {toast} from "react-toastify";
-import {showMessenger} from "../../services/messenger";
+import Toastify from "../toastify/toastity";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [noticeCome, setNoticeCome] = useState(false)
     const [iconNotice, setIconNotice] = useState(false)
-    const [messengerCome,setMessengerCome]= useState(false)
-    const [iconMessenger, setIconMessenger] = useState(false)
     const accountId = JSON.parse(localStorage.getItem('accountId'))
 
     useEffect(() => {
@@ -30,29 +28,12 @@ const Navbar = ({socket}) => {
     }, [socket])
 
     useEffect(() => {
-        socket?.on("getMessenger", data => {
-            setMessengerCome(true)
-            setIconMessenger(!iconMessenger)
-        })
-    }, [socket])
-
-    useEffect(() => {
         dispatch(showNotification())
         setNoticeCome(false)
     }, [noticeCome])
 
-    useEffect(()=>{
-        dispatch(showMessenger())
-        setMessengerCome(false)
-    },[messengerCome])
-
     const notifications = useSelector(state => {
         return state.notification.notification
-    })
-
-
-    const imgAvt = useSelector(state => {
-        return state.loginWed.imgAvt
     })
 
     const handleLogout = (accountId) => {
@@ -110,38 +91,48 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)
                     }}/>
-                        {iconNotice ? (<div className="right_notification">1</div>) : (<></>)}
+                        {iconNotice ? (<div className="right_notification"></div>) : (<></>)}
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
                                 if (item.type === "addFriends" || item.type === "friends") {
                                     return (
-                                        <Link className="notifications" style={{color: "black", textDecoration: "none"}}
-                                              key={index} to={`/profile/${item?.accountSent}`} onClick={() => {
-                                            setIconNotice(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US",
-                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                            <br/></Link>
+                                        <div key={index}>
+                                            <Link className="notifications"
+                                                  style={{color: "black", textDecoration: "none"}}
+                                                  to={`/profile/${item?.accountSent}`} onClick={() => {
+                                                setIconNotice(false)
+                                            }}>{new Date(item?.time).toLocaleString("en-US",
+                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                <br/></Link>
+                                        </div>
                                     )
                                 } else if (item.type === "liked" || item.type === "comment") {
                                     return (
-                                        <Link className="notifications"
-                                              style={{color: "black", textDecoration: "none"}}
-                                              key={index} to="/home" onClick={() => {
-                                            setIconNotice(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US",
-                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                            <br/></Link>)
-
+                                        <div key={index}>
+                                            {/*<Toastify displayName={item.displayName} content={item.content}/>*/}
+                                            <Link className="notifications"
+                                                  style={{color: "black", textDecoration: "none"}}
+                                                  to="/home" onClick={() => {
+                                                setIconNotice(false)
+                                            }}>{new Date(item?.time).toLocaleString("en-US",
+                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                <br/></Link>
+                                        </div>
+                                    )
                                 } else {
                                     return (
-                                        <Link className="notifications" style={{color: "black", textDecoration: "none"}}
-                                              key={index} to="/home" onClick={() => {
-                                            setNoticeCome(false)
-                                        }}>{new Date(item?.time).toLocaleString("en-US",
-                                            {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                            <br/></Link>)
+                                        <div key={index}>
+                                            <Link className="notifications"
+                                                  style={{color: "black", textDecoration: "none"}}
+                                                  to="/home" onClick={() => {
+                                                setNoticeCome(false)
+                                            }}>{new Date(item?.time).toLocaleString("en-US",
+                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                <br/></Link>
+                                        </div>
+                                    )
                                 }
                             }
                         })}

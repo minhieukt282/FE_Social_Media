@@ -29,7 +29,7 @@ export default function MultiActionAreaCard({socket}) {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            postId: 0,
+            postPostId: 0,
             type: "friends"
         }
         await dispatch(acceptFriends(relationshipId))

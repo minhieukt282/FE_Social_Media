@@ -13,34 +13,67 @@ import {useDispatch, useSelector} from "react-redux";
 import {deletePosts, getPosts} from "../../services/postServices";
 import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
 
+TimeAgo.addDefaultLocale(en)
+const timeAgo = new TimeAgo('en-US')
 
 const PostDetails = ({socket, item, countLike, isSetting, url}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
+    const [numberLikes, setNumberLikes] = useState(0)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
     useEffect(() => {
-        dispatch(getLike())
+        dispatch(getPosts())
     }, [like])
 
-    const likes = useSelector(state => {
-        return state.likes.likes
+    const posts = useSelector(state => {
+        return state.posts.posts
     })
+
+    useEffect(() => {
+        let count
+        for (let i = 0; i < posts.length; i++) {
+            if (posts[i].postId === item.postId) {
+                count = posts[i].likes.length
+            }
+        }
+        setNumberLikes(count)
+    }, [!like])
+
+
+    useEffect(() => {
+        let isLike = true
+        if (item.likes.length !== 0) {
+            for (let i = 0; i < item.likes.length; i++) {
+                if (accountId === item.likes[i].accountId) {
+                    isLike = false
+                    break
+                }
+            }
+        }
+        setLike(isLike)
+    }, [])
+
 
     const handleNotificationLiked = async (accountReceiver, postId) => {
         setLike(!like)
+        // isLike = false
+        // console.log(like)
         const accountSent = accountId
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const dataNotice = {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            postId: postId,
+            postPostId: postId,
             type: "liked"
         }
+
         const dataLike = {
             accountId: accountId,
-            postId: postId,
+            postPostId: postId,
             displayName: displayName
         }
         await dispatch(createLikes(dataLike))
@@ -52,18 +85,19 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
 
     const handleNotificationDisliked = async (accountReceiver, postId) => {
         setLike(!like)
+        // isLike = true
         const accountSent = accountId
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const dataNotice = {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            postId: postId,
+            postPostId: postId,
             type: "liked"
         }
         const dataLike = {
             accountId: accountId,
-            postId: postId
+            postPostId: postId
         }
         dispatch(deleteLikes(dataLike))
         if (accountSent !== accountReceiver) {
@@ -71,31 +105,26 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
         }
     }
 
-
     const handleDeletePost = () => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Are you sure delete this status?',
+            text: "if you delete the status you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#007bff',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes'
         }).then(async (result) => {
             if (result.isConfirmed) {
+                const dataLike = {
+                    postPostId: item.postId
+                }
+                await dispatch(deleteLikes(dataLike))
                 await dispatch(deletePosts(item.postId));
             }
         })
     }
-    let isLike = true
-    if (likes !== undefined) {
-        for (let i = 0; i < likes.length; i++) {
-            if (likes[i].postId === item?.postId && likes[i].accountId === accountId) {
-                isLike = false
-                break
-            }
-        }
-    }
+
 
     let icon = ''
     if (item.status === 'public') {
@@ -112,14 +141,18 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                 <div className="postTopLeft">
                     <Link>
                         <img
-                            src={item?.imgAvt}
+                            src={item.account.img}
                             alt="my avatar"
                             className="postProfileImg"/>
                     </Link>
-                    <Link to={`/profile/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
+                    <Link to={`/profile/${item.account.accountId}`}
+                          className="postUsername">{item.account.displayName}</Link>
                     <span
-                        className="postDate">{new Date(item?.timePost).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
+                        className="postDate">{new Date(item.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
                     </span>
+                    {/*<span*/}
+                    {/*    className="postDate">{timeAgo.format(Date.now() - 2*60*1000)}*/}
+                    {/*</span>*/}
                     <i className={`fa-solid ${icon}`}></i>
                 </div>
                 <div className="postTopRight">
@@ -150,37 +183,43 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
             </div>
 
             <div className="postCenter">
-                <span>{item?.contentPost}</span>
+                <span>{item.content}</span>
                 <img
-                    src={item?.imgPost}
+                    src={item.img}
                     alt=""
                     className="postImg"/>
             </div>
+
             <div className="postBottomFooter">
                 <div>
-                    <i className="fa-regular fa-thumbs-up"> {countLike}</i>
+                    <i className="fa-regular fa-thumbs-up"> {numberLikes}</i>
+                    {/*<i className="fa-regular fa-thumbs-up"> {countLike}</i>*/}
+                </div>
+                <div>
+                    4000 Comments
                 </div>
             </div>
 
             <hr/>
             <div className="postBottomFooter">
                 <div className="postBottomFooterItem">
-                    {isLike ? (
+                    {like ? (
                         <button style={{marginLeft: 40}}
                                 className="button"
                                 onClick={() => {
-                                    handleNotificationLiked(item?.accountId, item?.postId)
-                                }}><ThumbUpOffAltIcon/>
+                                    handleNotificationLiked(item.account.accountId, item.postId)
+                                }}>
+                            <ThumbUpOffAltIcon/>
                             <span className="span"> Like</span>
                         </button>
                     ) : (
                         <button style={{marginLeft: 20}}
                                 className="button"
                                 onClick={() => {
-                                    handleNotificationDisliked(item?.accountId, item?.postId)
+                                    handleNotificationDisliked(item.account.accountId, item.postId)
                                 }}>
                             <ThumbDownAltIcon/>
-                            <span className="span"> UnLike</span>
+                            <span className="span"> Unlike</span>
                         </button>
                     )}
                 </div>
