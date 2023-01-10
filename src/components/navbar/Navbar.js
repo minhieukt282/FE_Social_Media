@@ -91,7 +91,7 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)
                     }}/>
-                        {iconNotice ? (<div className="right_notification"></div>) : (<></>)}
+                        {iconNotice ? (<div className="right_notification">1</div>) : (<></>)}
                     </Link>
                     <div className="dropdown-menu dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {

@@ -22,45 +22,23 @@ const timeAgo = new TimeAgo('en-US')
 const PostDetails = ({socket, item, countLike, isSetting, url}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
-    const [numberLikes, setNumberLikes] = useState(0)
+    const [numberLikes, setNumberLikes] = useState(countLike)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
-    useEffect(() => {
-        dispatch(getPosts())
-    }, [like])
-
-    const posts = useSelector(state => {
-        return state.posts.posts
-    })
-
-    useEffect(() => {
-        let count
-        for (let i = 0; i < posts.length; i++) {
-            if (posts[i].postId === item.postId) {
-                count = posts[i].likes.length
-            }
-        }
-        setNumberLikes(count)
-    }, [!like])
-
 
     useEffect(() => {
         let isLike = true
-        if (item.likes.length !== 0) {
-            for (let i = 0; i < item.likes.length; i++) {
-                if (accountId === item.likes[i].accountId) {
-                    isLike = false
-                    break
-                }
+        for (let i = 0; i < item.likes.length; i++) {
+            if (accountId === item.likes[i].accountId) {
+                isLike = false
+                break
             }
         }
         setLike(isLike)
     }, [])
 
-
     const handleNotificationLiked = async (accountReceiver, postId) => {
         setLike(!like)
-        // isLike = false
-        // console.log(like)
+        setNumberLikes(numberLikes + 1)
         const accountSent = accountId
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const dataNotice = {
@@ -85,7 +63,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
 
     const handleNotificationDisliked = async (accountReceiver, postId) => {
         setLike(!like)
-        // isLike = true
+        setNumberLikes(numberLikes - 1)
         const accountSent = accountId
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const dataNotice = {
@@ -116,10 +94,10 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
             confirmButtonText: 'Yes'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const dataLike = {
+                const dataDelete = {
                     postPostId: item.postId
                 }
-                await dispatch(deleteLikes(dataLike))
+                await dispatch(deleteLikes(dataDelete))
                 await dispatch(deletePosts(item.postId));
             }
         })
@@ -171,7 +149,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                                     </button>
                                     <button
                                         className="dropdown-item"
-                                        to="/"
                                         onClick={() => {
                                             handleDeletePost()
                                         }}>Delete status
