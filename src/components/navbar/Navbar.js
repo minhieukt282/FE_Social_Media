@@ -11,12 +11,15 @@ import {Field, Form, Formik} from "formik";
 import {getSearch} from "../../services/searchService";
 import {getRelationship} from "../../services/FriendServices";
 import {toast} from "react-toastify";
+import {showMessenger} from "../../services/messenger";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [noticeCome, setNoticeCome] = useState(false)
     const [iconNotice, setIconNotice] = useState(false)
+    const [messengerCome,setMessengerCome]= useState(false)
+    const [iconMessenger, setIconMessenger] = useState(false)
     const accountId = JSON.parse(localStorage.getItem('accountId'))
 
     useEffect(() => {
@@ -27,13 +30,26 @@ const Navbar = ({socket}) => {
     }, [socket])
 
     useEffect(() => {
+        socket?.on("getMessenger", data => {
+            setMessengerCome(true)
+            setIconMessenger(!iconMessenger)
+        })
+    }, [socket])
+
+    useEffect(() => {
         dispatch(showNotification())
         setNoticeCome(false)
     }, [noticeCome])
 
+    useEffect(()=>{
+        dispatch(showMessenger())
+        setMessengerCome(false)
+    },[messengerCome])
+
     const notifications = useSelector(state => {
         return state.notification.notification
     })
+
 
     const imgAvt = useSelector(state => {
         return state.loginWed.imgAvt

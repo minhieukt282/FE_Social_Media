@@ -23,8 +23,10 @@ export default function EditPost({item,url}) {
 
     const dispatch = useDispatch();
     const posts = useSelector((state) => {
+        console.log(state)
         return state.posts.posts
     })
+
     let post = {}
     posts.map(item => {
         if (item.postId === postId) {

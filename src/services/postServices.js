@@ -53,6 +53,7 @@ export const editPosts = createAsyncThunk(
                 }
             }
         )
+        console.log(res)
         return res
     }
 )

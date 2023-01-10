@@ -190,6 +190,7 @@
     border-radius: 10px;
     border: 1px solid #e5e2e2;
     text-align: center;
+    left: -250%;
 }
 
 .notifications:hover {

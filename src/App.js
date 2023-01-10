@@ -7,7 +7,7 @@ import Register from "./pages/register/Register";
 import {io} from "socket.io-client";
 import SearchResult from "./pages/search/searchResult";
 import ListFriend from "./pages/listFriend/listFriend";
-import Home from "./pages/home/Home";
+import Home from "./pages/Home/Home";
 import 'react-toastify/dist/ReactToastify.css';
 import {useSelector} from "react-redux";
 import PageNotFound from "./pages/pageNotFound/pageNotFound";
