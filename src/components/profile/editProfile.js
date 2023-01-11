@@ -11,8 +11,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {v4} from "uuid";
 import {editAccount, getAccount} from "../../services/accountService";
 import "./editProfile.css"
-import * as Yup from "yup";
-import {loginWed} from "../../services/loginServices";
 
 export default function EditProfile({accountInfo}) {
     const accountId = accountInfo.accountId
@@ -25,8 +23,8 @@ export default function EditProfile({accountInfo}) {
     const accounts = useSelector((state) => {
         return state.accountInfo.accountInfo
     })
-    let account= {}
-    if (accounts.accountId === accountId){
+    let account = {}
+    if (accounts.accountId === accountId) {
         account = accounts
     }
 
@@ -40,7 +38,6 @@ export default function EditProfile({accountInfo}) {
             img: imgSent
         }
         await dispatch(editAccount(data));
-        // await dispatch(getAccount())
     }
     const uploadFile = (imageUpload) => {
         if (imageUpload == null) return;
@@ -62,13 +59,6 @@ export default function EditProfile({accountInfo}) {
             })
         })
     }, []);
-    const profileValidation = Yup.object({
-        displayName: Yup.string()
-            .required("Username is required.")
-            .matches(/^[A-Z a-z0-9]+$/, "Username is A-Z a-z,0-9")
-            .min(3)
-            .max(15)
-    })
 
     return (
         <React.Fragment>
@@ -117,7 +107,6 @@ export default function EditProfile({accountInfo}) {
                                 accountId: account.accountId
                             }
                         }
-                        validationSchema={profileValidation}
                         onSubmit={(values) => {
                             handleEdit(values)
                             setOpen(false)
@@ -126,15 +115,17 @@ export default function EditProfile({accountInfo}) {
                             <div className={"post-group"}>
                                 <div className="form-group">
                                     <label htmlFor=""> DisplayName</label>
-                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'} className={'form-control'}/>
+                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'}
+                                           className={'form-control'}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="">Location</label>
-                                    <Field type={'text'} style={{width: '100%'}} name={'location'} className={'form-control'}/>
+                                    <Field type={'text'} style={{width: '100%'}} name={'location'}
+                                           className={'form-control'}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="">Birthday</label>
-                                    <Field type={'date'} name={'birthday'}  className={'form-control'}/>
+                                    <Field type={'date'} name={'birthday'} className={'form-control'}/>
                                 </div>
                                 <div className="form-group">
                                     <label className="custom-file-upload">

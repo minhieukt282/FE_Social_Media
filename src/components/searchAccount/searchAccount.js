@@ -9,8 +9,6 @@ export default function SearchAccount({socket}) {
         return state.search.searchResult.listAccount
     });
 
-    console.log("accountResult", accountResult)
-
     const relationship = useSelector(state => {
         return state.relationship.relationship
     })

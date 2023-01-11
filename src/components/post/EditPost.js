@@ -24,6 +24,7 @@ export default function EditPost({item, url}) {
         return state.posts.posts
     })
     const handleEdit = async (values) => {
+        console.log(values)
         let imgSent
         if (img !== "") {
             imgSent = img

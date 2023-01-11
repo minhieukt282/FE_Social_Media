@@ -22,7 +22,7 @@ export default function Sidebar() {
                             <span className="sidebarDisplayName">{accountInfo.displayName}</span>
                         </li>
                     </Link>
-                    <Link style={{textDecoration: "none"}} to="/home">
+                    <Link style={{textDecoration: "none"}} to="/">
                         <li className="sidebarListItem">
                             <HomeIcon className="sidebarIcon"></HomeIcon>
                             <span className="sidebarListItemText">Home</span>

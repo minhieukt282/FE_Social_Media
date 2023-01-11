@@ -8,14 +8,13 @@ import {IconButton} from "@mui/material";
 import {MoreVert} from "@mui/icons-material";
 import {getPosts} from "../../services/postServices";
 
-const ShowComment = ({comment ,postPostId}) => {
-    console.log(comment)
+const ShowComment = ({comment, postPostId, isDelete}) => {
     const dispatch = useDispatch();
 
     const handleDeleteComment = () => {
         Swal.fire({
-            title: 'Are you sure delete this status?',
-            text: "if you delete the status you will not be able to restore it",
+            title: 'Are you sure delete this comment?',
+            text: "if you delete the comment you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#007bff',
@@ -28,7 +27,7 @@ const ShowComment = ({comment ,postPostId}) => {
                     displayName: comment.displayName,
                     img: comment.img,
                     postPostId: postPostId,
-                    accountId:comment.accountId,
+                    accountId: comment.accountId,
                     commentId: comment.commentId
                 }
                 await dispatch(deleteComments(dataDelete))
@@ -36,47 +35,60 @@ const ShowComment = ({comment ,postPostId}) => {
             }
         })
     }
-
     return (
         <div className="commentWrapper">
             <div className="commentTop">
-                <div className="commentTopLeft">
-                    <Link>
+                <div className="commentAvt col-1">
+                    <Link to={`/profile/${comment.accountId}`}>
                         <img
                             src={comment.img}
                             alt="my avatar"
                             className="commentProfileImg"/>
                     </Link>
-                    <Link to={`/profile/${comment.accountId}`}
-                          className="commentUsername">{comment.displayName}</Link>
-                    <span
-                        className="commentDate">{new Date(comment.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
-                    </span>
-
                 </div>
-                <div className="commentTopRight">
-                            <div style={{paddingRight: 20}} className="dropdown">
-                                <div type="button" data-toggle="dropdown"
-                                     data-display="static" aria-expanded="false">
-                                    <IconButton>
-                                        <MoreVert className="postVertButton"/>
-                                    </IconButton>
-                                </div>
-                                <div className="dropdown-menu dropdown-menu-lg-right">
-                                    <button
-                                        className="dropdown-item"
-                                        onClick={() => {
-                                            handleDeleteComment()
-                                        }}
-                                    >
-                                        Delete comment
-                                    </button>
+                <div className="userComment col-11">
+                    <div className={"commentCenter row"}>
+                        <div className="col-10 comment">
+                            <div className={"body-user-comment-body"}>
+                                <Link to={`/profile/${comment.accountId}`}
+                                      className="commentUsername">{`${comment.displayName} `}
+                                </Link>
+                                <span className="commentDate">
+                                    {new Date(comment.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
+                                </span>
+                                <div className="commentCenter">
+                                    <span>{comment.comment}</span>
                                 </div>
                             </div>
+                        </div>
+                        <div className={"col-1 comment"}>
+                            <div className="commentWrapper-right">
+                            {
+                                isDelete ? (<div className="commentTopRight">
+                                    <div style={{paddingRight: 20}} className="dropdown">
+                                        <div type="button" data-toggle="dropdown"
+                                             data-display="static" aria-expanded="false">
+                                            <IconButton>
+                                                <MoreVert className="postVertButton"/>
+                                            </IconButton>
+                                        </div>
+                                        <div className="dropdown-menu dropdown-menu-lg-right">
+                                            <button
+                                                className="dropdown-item"
+                                                onClick={() => {
+                                                    handleDeleteComment()
+                                                }}
+                                            >
+                                                Delete comment
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>) : (<></>)
+                            }
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="postCenter">
-                <span>{comment.comment}</span>
             </div>
         </div>
     )

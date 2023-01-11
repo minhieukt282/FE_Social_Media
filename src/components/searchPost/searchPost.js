@@ -25,33 +25,16 @@ export default function SearchPost({socket}) {
         return flag
     }
 
-    const countLikes = useSelector(state => {
-        return state.likes.countLikes
-    })
-
-    const findCountLikes = (postId) => {
-        let count = 0
-        for (let i = 0; i < countLikes.length; i++) {
-            if (countLikes[i].postId === postId) {
-                count = countLikes[i].countLike
-                break
-            }
-        }
-        return count
-    }
-
     return (
         <>
             {
                 postResults?.map((item, index) => {
                     const isFriend = isRelationship(item?.accountId)
-                    console.log(isFriend, index)
                     if (item?.status === 'public' || (item?.status === 'onlyFriend' && isFriend === true) || (item?.accountId === accountId)) {
-                        const countLikeOfPost = findCountLikes(item?.postId)
                         return (
                             <div className="col-12" key={index}>
-                                <PostDetails key={index} socket={socket} item={item}
-                                             countLike={countLikeOfPost} isSetting={false}/>
+                                <PostDetails key={index} socket={socket} item={item} countComment={item.comments.length}
+                                             countLike={item.likes.length} isSetting={false}/>
                             </div>
                         )
                     }

@@ -59,7 +59,7 @@ export default function ProfileItem({socket}) {
                 if (relationship[i].isFriend) {
                     checkFriend = IS_FRIEND
                     setIsReLoad(true)
-                    break;
+                    break
                 } else {
                     checkFriend = IS_WAIT
                     if (relationship[i].accountRes === userId) {
@@ -67,7 +67,7 @@ export default function ProfileItem({socket}) {
                         setRelationshipId(relationship[i].relationshipId)
                     }
                     setIsReLoad(true)
-                    break;
+                    break
                 }
             }
         }
@@ -206,7 +206,8 @@ export default function ProfileItem({socket}) {
                                         </div>
                                         <div className="detailInfoItem">
                                             <CakeIcon/>
-                                            <span className="detailInfoKey">Birthday: {accountInfo.birthday}</span>
+                                            <span
+                                                className="detailInfoKey">Birthday: {new Date(accountInfo.birthday).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
                                         </div>
                                         <div className="detailInfoItem">
                                             <LocationCityIcon/>
@@ -257,7 +258,3 @@ export default function ProfileItem({socket}) {
         </>
     )
 }
-
-
-
-

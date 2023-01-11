@@ -1,13 +1,11 @@
 import {Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {addComments} from "../../services/commentService";
-import React, {useState} from "react";
+import React from "react";
 import {getPosts} from "../../services/postServices";
 
-
-const AddComment = ({postPostId}) => {
+const AddComment = ({postPostId, img}) => {
     const dispatch = useDispatch();
-    const [submitting, setSubmitting] = useState(false)
     const handleAddComment = async (values) => {
         const data = {
             ...values,
@@ -18,11 +16,10 @@ const AddComment = ({postPostId}) => {
         }
         if (data.comment !== '') {
             await dispatch(addComments(data))
-        await dispatch(getPosts())
+            await dispatch(getPosts())
         }
     }
     return (
-
         <div>
             <Formik
                 initialValues={{
@@ -34,13 +31,21 @@ const AddComment = ({postPostId}) => {
                     })
                 }}>
                 <Form>
-                    <Field style={{width: '100%'}} name={'comment'}
-                           className='form-control'/>
-                    <button className="addComment" type="submit">Send</button>
+                    <div className={"postBottomFooter"}>
+                        <div className="col-1">
+                            <img src={img} alt="my avatar"
+                                 className="postProfileImg"/>
+                        </div>
+                        <div className="col-8">
+                            <Field style={{width: '100%'}} name={'comment'} className='form-control comment'/>
+                        </div>
+                        <div className="col-3">
+                            <button className="addComment" type="submit">Send</button>
+                        </div>
+                    </div>
                 </Form>
             </Formik>
         </div>
-
     )
 }
 
