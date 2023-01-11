@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import "./post.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
-import PostDetails from "./postDetails";
+import PostDetails from "./PostDetails";
 import {getRelationship} from "../../services/FriendServices";
 
-const Post = ({socket, url}) => {
+const Posts = ({socket, url}) => {
     const dispatch = useDispatch();
     const accountId = JSON.parse(localStorage.getItem("accountId"))
 
@@ -92,4 +92,4 @@ const Post = ({socket, url}) => {
 };
 
 
-export default Post;
+export default Posts;

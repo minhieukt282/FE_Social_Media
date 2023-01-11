@@ -14,10 +14,10 @@ const accountInfoSlice = createSlice({
             state.accountInfo = action.payload.data
         })
         builder.addCase(editAccount.fulfilled,(state, action)=>{
+            console.log(action)
             state.accountInfo = action.payload[0]
         })
     }
-
 })
 
 export default accountInfoSlice.reducer

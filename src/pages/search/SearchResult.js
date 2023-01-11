@@ -1,9 +1,10 @@
-import React, {useEffect} from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
-import ListFriendCard from "../../components/listFriend/listFriendCard";
+import React, {useEffect} from "react";
+import SearchAccount from "../../components/searchAccount/SearchAccount";
+import SearchPost from "../../components/searchPost/SearchPost";
 
-export default function ListFriend({socket}){
+export default function SearchResult({socket}) {
     useEffect(() => {
         if (socket != null)
             socket.emit("refresh", {
@@ -21,13 +22,13 @@ export default function ListFriend({socket}){
                     <Sidebar></Sidebar>
                 </div>
                 <div className="col-6">
-                    <h2 style={{paddingTop: 40}}>Friends list</h2>
+                    <h2 style={{paddingTop: 40}}>Result</h2>
                     <hr/>
                     <div className="row">
-                        <ListFriendCard socket={socket}/>
+                        <SearchAccount socket={socket}/>
+                        <SearchPost socket={socket}></SearchPost>
                     </div>
                 </div>
-                <div className="col-3"></div>
             </div>
         </div>
     )

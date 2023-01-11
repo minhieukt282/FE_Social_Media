@@ -1,6 +1,6 @@
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
-import MultiActionAreaCard from "../../components/cardFriend/card";
+import MultiActionAreaCard from "../../components/cardFriend/Card";
 import React, {useEffect} from "react";
 
 export default function AddFriend({socket}) {

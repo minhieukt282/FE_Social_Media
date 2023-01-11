@@ -1,10 +1,10 @@
 import './home.css'
-import Post from "../../components/post/Post";
+import Posts from "../../components/post/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
 import React, {useEffect} from "react";
 import AddPost from "../../components/post/AddPost";
 import Navbar from "../../components/navbar/Navbar";
-import RightBar from "../../components/rightBar/rightBar";
+import RightBar from "../../components/rightBar/RightBar";
 import styled from "styled-components"
 
 const HomeCss = styled.div`
@@ -33,7 +33,7 @@ export default function Home({socket}) {
                 </div>
                 <div className="col-6">
                     <AddPost/>
-                    <Post socket={socket} url={null}/>
+                    <Posts socket={socket} url={null}/>
                 </div>
                 <div className="col-3 mediaRight">
                     <RightBar/>

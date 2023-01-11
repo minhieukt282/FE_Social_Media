@@ -6,14 +6,15 @@
     height: 35px;
     border-radius: 10px;
     border: 1px solid #e5e2e2;
-
 }
 
-.form-control {
+.form-control1 {
+    background-color: #d5e5fd;
     margin-left: 5px;
     margin-right: 400px;
     border-radius: 10px;
 }
+
 .post-group{
     margin-bottom: 1%;
     margin-top: 10px;
@@ -31,13 +32,14 @@
     padding: 6px 12px;
     cursor: pointer;
 }
-.addPost{
-    cursor: pointer;
-    margin-top: -15%;
-    margin-left: 30%;
-    padding: 6px 6px;
-    border: 1px solid
-}
+
+/*.addPost{*/
+/*    cursor: pointer;*/
+/*    margin-top: -15%;*/
+/*    margin-left: 30%;*/
+/*    padding: 6px 6px;*/
+/*    border: 1px solid*/
+/*}*/
 
 input[type="file"] {
     position: absolute;

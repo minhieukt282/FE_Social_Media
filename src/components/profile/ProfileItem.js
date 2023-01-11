@@ -4,7 +4,7 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CakeIcon from '@mui/icons-material/Cake';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import Post from "../post/Post";
+import Posts from "../post/Posts";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
@@ -12,7 +12,7 @@ import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
-import EditProfile from "./editProfile";
+import EditProfile from "./EditProfile";
 
 export default function ProfileItem({socket}) {
     const {accountId} = useParams()
@@ -229,7 +229,7 @@ export default function ProfileItem({socket}) {
                             </div>
                             <div className="col-8">
                                 {isProfile ? (<AddPost/>) : (<></>)}
-                                <Post socket={socket} url={accountId}/>
+                                <Posts socket={socket} url={accountId}/>
                             </div>
                         </div>
                     </div>

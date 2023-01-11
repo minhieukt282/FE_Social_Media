@@ -1,6 +1,6 @@
 import Navbar from "../../components/navbar/Navbar";
 import "./styleProfile.css"
-import ProfileItem from "../../components/profile/profileItem";
+import ProfileItem from "../../components/profile/ProfileItem";
 import {useEffect} from "react";
 
 export default function Profile({socket}) {
