@@ -62,14 +62,11 @@ export default function EditProfile({accountInfo}) {
 
     return (
         <React.Fragment>
-            <Link
-                color="neutral"
-                style={{color: "#007bff", backgroundColor: "white", textDecoration: "none"}}
-                className={'btn-primary'}
+            <span
                 onClick={() => setOpen(true)}
             >
                 Edit Profile
-            </Link>
+            </span>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog
                     style={{color: "black", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
@@ -127,10 +124,9 @@ export default function EditProfile({accountInfo}) {
                                     <label htmlFor="">Birthday</label>
                                     <Field type={'date'} name={'birthday'} className={'form-control'}/>
                                 </div>
-                                <div className="form-group">
-                                    <label className="custom-file-upload">
-                                        <i className="fa fa-cloud-upload"></i>
-                                        Custom Upload
+                                <div className="d-flex justify-content-between">
+                                    <label className="custom-file-upload mb-0">
+                                        <i className="fas fa-camera"></i> Photo
                                         <input
                                             id="file-upload"
                                             type="file"
@@ -139,8 +135,7 @@ export default function EditProfile({accountInfo}) {
                                                 uploadFile(event.target.files[0])
                                             }}/>
                                     </label>
-
-                                    <button className="editProfile" type="submit" disabled={submitting}>Edit</button>
+                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
                                 </div>
                             </div>
                         </Form>

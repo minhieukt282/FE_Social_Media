@@ -219,9 +219,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                 showForm ? (
                     <>
                         <hr/>
-                        <div className="postBottomFooter">
-                            <AddComment postPostId={item.postId} img={item.account.img} />
-                        </div>
+                        <AddComment postPostId={item.postId} img={item.account.img} />
                     </>
                 ) : (<></>)
             }

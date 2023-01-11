@@ -214,9 +214,9 @@ export default function ProfileItem({socket}) {
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
                                         {
-                                            isProfile ? (<button className="editButton"><CreateIcon/>
+                                            isProfile ? (<div className={'text-center'}><button className="btn btn-secondary"><CreateIcon/>
                                                 <EditProfile accountInfo={accountInfo}/>
-                                            </button>) : (<></>)
+                                            </button></div>) : (<></>)
                                         }
                                     </div>
                                 </div>

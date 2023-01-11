@@ -23,19 +23,19 @@ export default function Sidebar() {
                         </li>
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/">
-                        <li className="sidebarListItem">
+                        <li className="mb-3">
                             <HomeIcon className="sidebarIcon"></HomeIcon>
                             <span className="sidebarListItemText">Home</span>
                         </li>
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/friends">
-                        <li className="sidebarListItem">
+                        <li className="mb-3">
                             <GroupIcon className="sidebarIcon"></GroupIcon>
                             <span className="sidebarListItemText">Friends</span>
                         </li>
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/friends">
-                        <li className="sidebarListItem">
+                        <li className="mb-3">
                             <ChatIcon className="sidebarIcon"></ChatIcon>
                             <span className="sidebarListItemText">Chat</span>
                         </li>
