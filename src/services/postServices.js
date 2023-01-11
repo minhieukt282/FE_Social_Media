@@ -17,7 +17,7 @@ export const getPosts = createAsyncThunk(
 export const addPosts = createAsyncThunk(
     "posts/add",
     async (data) => {
-        const token = JSON.parse(localStorage.getItem("token"))
+    const token = JSON.parse(localStorage.getItem("token"))
         const res = await axios.post('http://localhost:3001/posts', data, {
                 headers: {
                     'Authorization': "Bearer " + token

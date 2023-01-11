@@ -11,7 +11,6 @@ import Home from "./pages/home/Home";
 import 'react-toastify/dist/ReactToastify.css';
 import {useSelector} from "react-redux";
 import PageNotFound from "./pages/pageNotFound/pageNotFound";
-import Navbar from "./components/navbar/Navbar";
 
 function App() {
     const [socket, setSocket] = useState(null)

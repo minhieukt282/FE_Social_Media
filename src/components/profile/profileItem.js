@@ -12,6 +12,7 @@ import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
+import EditProfile from "./editProfile";
 
 export default function ProfileItem({socket}) {
     const {accountId} = useParams()
@@ -194,7 +195,8 @@ export default function ProfileItem({socket}) {
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
                                         {
-                                            isProfile ? (<button className="editButton"><CreateIcon/>Edit Profile
+                                            isProfile ? (<button className="editButton"><CreateIcon/>
+                                                <EditProfile accountInfo={accountInfo}/>
                                             </button>) : (<></>)
                                         }
                                     </div>
