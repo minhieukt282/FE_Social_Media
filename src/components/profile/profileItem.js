@@ -12,6 +12,7 @@ import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
+import EditProfile from "./editProfile";
 
 const IS_FRIEND = 1
 const IS_ADD = 2
@@ -58,7 +59,7 @@ export default function ProfileItem({socket}) {
                 if (relationship[i].isFriend) {
                     checkFriend = IS_FRIEND
                     setIsReLoad(true)
-                    break
+                    break;
                 } else {
                     checkFriend = IS_WAIT
                     if (relationship[i].accountRes === userId) {
@@ -66,7 +67,7 @@ export default function ProfileItem({socket}) {
                         setRelationshipId(relationship[i].relationshipId)
                     }
                     setIsReLoad(true)
-                    break
+                    break;
                 }
             }
         }
@@ -88,7 +89,7 @@ export default function ProfileItem({socket}) {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "addFriends"
         }
         await dispatch(unfriend(data))
@@ -103,7 +104,7 @@ export default function ProfileItem({socket}) {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "friends"
         }
         await dispatch(acceptFriends(relationshipId))
@@ -123,7 +124,7 @@ export default function ProfileItem({socket}) {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "addFriends"
         }
         await dispatch(addFriend(data))
@@ -212,7 +213,8 @@ export default function ProfileItem({socket}) {
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
                                         {
-                                            isProfile ? (<button className="editButton"><CreateIcon/>Edit Profile
+                                            isProfile ? (<button className="editButton"><CreateIcon/>
+                                                <EditProfile accountInfo={accountInfo}/>
                                             </button>) : (<></>)
                                         }
                                     </div>

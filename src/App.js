@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Login from "./pages/login/Login";
 import AddFriend from "./pages/AddFriends/AddFriend";
@@ -7,10 +7,11 @@ import Register from "./pages/register/Register";
 import {io} from "socket.io-client";
 import SearchResult from "./pages/search/searchResult";
 import ListFriend from "./pages/listFriend/listFriend";
-import Home from "./pages/home/Home";
+import Home from "./pages/Home/Home";
 import 'react-toastify/dist/ReactToastify.css';
 import {useSelector} from "react-redux";
 import PageNotFound from "./pages/pageNotFound/pageNotFound";
+import Message from "./pages/message/message";
 
 function App() {
     const [socket, setSocket] = useState(null)
@@ -22,6 +23,12 @@ function App() {
     const user = useSelector(state => {
         return state.loginWed.token
     })
+
+    const { pathname } = useLocation();
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[pathname]);
 
     return (
         <>
@@ -36,6 +43,7 @@ function App() {
                                     <Route path="/friends" element={<AddFriend socket={socket}/>}/>
                                     <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
                                     <Route path="/search" element={<SearchResult socket={socket}/>}/>
+                                    <Route path="/message" element={<Message socket={socket}/>}/>
                                     <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
                                     <Route path="*" element={<PageNotFound/>}/>
                                 </Route>

@@ -1,16 +1,13 @@
 import {Field, Form, Formik} from "formik";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-// import {useNavigate} from "react-router-dom";
 import {storage} from "../../firebase";
 import {addPosts, getPosts} from "../../services/postServices";
 import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {v4} from "uuid";
 import "./addPost.css";
 
-
 export default function AddPost() {
-
     const dispatch = useDispatch();
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
@@ -92,7 +89,6 @@ export default function AddPost() {
                                     <option value='private'>Private</option>
                                     <option value='onlyFriend'>Only friend</option>
                                 </Field>
-
                                 <button className="addPost" type="submit" disabled={submitting}>Share</button>
                             </div>
                         </div>

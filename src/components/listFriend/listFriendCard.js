@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./listFriendCard.css"
 import {getFriend} from "../../services/FriendServices";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -59,7 +60,7 @@ export default function ListFriendCard({socket}) {
                             )
                         } else {
                             return (
-                                <div className="col-4" key={index}>
+                                <div className="col-4 cardFriend" key={index}>
                                     <Card sx={{maxWidth: 300}}>
                                         <CardActionArea>
                                             <CardMedia
