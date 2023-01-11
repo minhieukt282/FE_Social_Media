@@ -49,10 +49,7 @@ export default function Register() {
                 setMessage(message)
             } else {
                 toast.success('Account successfully created', {
-                    position: toast.POSITION.BOTTOM_LEFT
-                    // autoClose: 5000,
-                    // onClick: () => {
-                    // }
+                    position: toast.POSITION.TOP_CENTER
                 });
                 navigate("/login")
             }

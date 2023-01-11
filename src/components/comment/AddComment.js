@@ -1,11 +1,10 @@
 import {Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {addComments} from "../../services/commentService";
-import React, {useState} from "react";
+import React from "react";
 import {getPosts} from "../../services/postServices";
 
-
-const AddComment = ({postPostId,img}) => {
+const AddComment = ({postPostId, img}) => {
     const dispatch = useDispatch();
     const handleAddComment = async (values) => {
         const data = {
@@ -21,7 +20,6 @@ const AddComment = ({postPostId,img}) => {
         }
     }
     return (
-
         <div>
             <Formik
                 initialValues={{
@@ -35,7 +33,7 @@ const AddComment = ({postPostId,img}) => {
                 <Form>
                     <div className={"postBottomFooter"}>
                         <div className="col-1">
-                            <img src={img}  alt="my avatar"
+                            <img src={img} alt="my avatar"
                                  className="postProfileImg"/>
                         </div>
                         <div className="col-8">
@@ -48,7 +46,6 @@ const AddComment = ({postPostId,img}) => {
                 </Form>
             </Formik>
         </div>
-
     )
 }
 

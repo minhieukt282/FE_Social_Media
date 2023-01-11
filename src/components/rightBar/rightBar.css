@@ -47,6 +47,13 @@
     color: #000;
 }
 
+.rightBarOnline{
+    margin-top: 20px;
+    margin-left: -20px;
+    position: relative;
+    padding: 2px;
+}
+
 
 @media (max-width: 500px) {
     .rightBarWrapper {

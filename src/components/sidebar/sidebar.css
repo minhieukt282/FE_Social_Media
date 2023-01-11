@@ -41,6 +41,12 @@
     font-weight: bold;
 }
 
+.sidebarDisplayName{
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
 @media (max-width: 500px) {
     .sidebarWrapper{
         padding: 0;

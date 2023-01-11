@@ -77,8 +77,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
             accountId: accountId,
             postPostId: postId
         }
-        console.log(dataLike)
-
         dispatch(deleteLikes(dataLike))
         if (accountSent !== accountReceiver) {
             await dispatch(deleteNotification(dataNotice))
@@ -87,8 +85,8 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
 
     const handleDeletePost = () => {
         Swal.fire({
-            title: 'Are you sure delete this status?',
-            text: "if you delete the status you will not be able to restore it",
+            title: 'Are you sure delete this comment?',
+            text: "if you delete the comment you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#007bff',

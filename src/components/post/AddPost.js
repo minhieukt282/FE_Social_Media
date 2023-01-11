@@ -2,14 +2,12 @@ import {Field, Form, Formik} from "formik";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {storage} from "../../firebase";
-import {addPosts, getPosts} from "../../services/postServices";
+import {addPosts} from "../../services/postServices";
 import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {v4} from "uuid";
 import "./addPost.css";
 
-
 export default function AddPost() {
-
     const dispatch = useDispatch();
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");

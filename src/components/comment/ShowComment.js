@@ -13,8 +13,8 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
 
     const handleDeleteComment = () => {
         Swal.fire({
-            title: 'Are you sure delete this status?',
-            text: "if you delete the status you will not be able to restore it",
+            title: 'Are you sure delete this comment?',
+            text: "if you delete the comment you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#007bff',
@@ -39,7 +39,7 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
         <div className="commentWrapper">
             <div className="commentTop">
                 <div className="commentAvt col-1">
-                    <Link>
+                    <Link to={`/profile/${comment.accountId}`}>
                         <img
                             src={comment.img}
                             alt="my avatar"
@@ -51,7 +51,7 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
                         <div className="col-10 comment">
                             <div className={"body-user-comment-body"}>
                                 <Link to={`/profile/${comment.accountId}`}
-                                      className="commentUsername">{comment.displayName}
+                                      className="commentUsername">{`${comment.displayName} `}
                                 </Link>
                                 <span className="commentDate">
                                     {new Date(comment.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
@@ -90,7 +90,6 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
                     </div>
                 </div>
             </div>
-            <div className="postBottomFooter"></div>
         </div>
     )
 }
