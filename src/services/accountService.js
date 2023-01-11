@@ -5,7 +5,7 @@ export const getAccount = createAsyncThunk(
     "account/getAccount",
     async (accountId) => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get(`http://localhost:3001/accounts/${accountId}`, {
+        const res = await axios.get(`http://118.70.117.39:3001/accounts/${accountId}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -18,7 +18,7 @@ export const editAccount = createAsyncThunk(
     "account/editAccount",
     async (data)=>{
         const token = JSON.parse(localStorage.getItem("token"));
-        const res = await axios.patch(`http://localhost:3001/accounts`,data,{
+        const res = await axios.patch(`http://118.70.117.39:3001/accounts`,data,{
             headers: {
                 'Authorization': "Bearer " + token
             }

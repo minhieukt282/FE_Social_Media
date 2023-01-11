@@ -65,7 +65,6 @@ export default function EditProfile({accountInfo}) {
     const profileValidation = Yup.object({
         displayName: Yup.string()
             .required("Username is required.")
-            .matches(/^[A-Z a-z0-9]+$/, "Username is A-Z a-z,0-9")
             .min(3)
             .max(15)
     })

@@ -5,7 +5,7 @@ export const createLikes = createAsyncThunk(
     "create/likes",
     async (data) => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.post('http://localhost:3001/likes', data, {
+        const res = await axios.post('http://118.70.117.39:3001/likes', data, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -18,7 +18,7 @@ export const deleteLikes = createAsyncThunk(
     "delete/likes",
     async (data) => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.delete(`http://localhost:3001/likes/${data.accountId}/${data.postPostId}`, {
+        const res = await axios.delete(`http://118.70.117.39:3001/likes/${data.accountId}/${data.postPostId}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -31,7 +31,7 @@ export const getLike = createAsyncThunk(
     "get/likes",
     async () => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get('http://localhost:3001/likes', {
+        const res = await axios.get('http://118.70.117.39:3001/likes', {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -44,7 +44,7 @@ export const getCountLikes = createAsyncThunk(
     "get/countLikes",
     async () => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get('http://localhost:3001/likes/numbers', {
+        const res = await axios.get('http://118.70.117.39:3001/likes/numbers', {
             headers: {
                 'Authorization': "Bearer " + token
             }

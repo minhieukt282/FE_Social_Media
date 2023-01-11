@@ -92,17 +92,20 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)
                     }}/>
-                        {iconNotice ? (<div className="right_notification"><FiberManualRecordIcon style={{color:"red"}}/></div>) : (<></>)}
+                        {iconNotice ? (
+                            <div className="right_notification"><FiberManualRecordIcon style={{color: "red"}}/>
+                            </div>) : (<></>)}
                     </Link>
-                    <div id="dropdown-Notifications" className="dropdown-menu dropdown-Notifications dropdown-menu-lg-right">
+                    <div id="dropdown-Notifications"
+                         className="dropdown-menu dropdown-Notifications dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
                                 if (item.type === "addFriends" || item.type === "friends") {
                                     return (
-                                        <div key={index}>
-                                            <Link className="notifications"
-                                                  style={{color: "black", textDecoration: "none"}}
-                                                  to={`/profile/${item?.accountSent}`} onClick={() => {
+                                        <div className="notifications" key={index}>
+                                            <Link
+                                                style={{color: "black", textDecoration: "none"}}
+                                                to={`/profile/${item?.accountSent}`} onClick={() => {
                                                 setIconNotice(false)
                                             }}>{new Date(item?.time).toLocaleString("en-US",
                                                 {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
@@ -111,11 +114,11 @@ const Navbar = ({socket}) => {
                                     )
                                 } else if (item.type === "liked" || item.type === "comment") {
                                     return (
-                                        <div key={index}>
+                                        <div className="notifications" key={index}>
                                             {/*<Toastify displayName={item.displayName} content={item.content}/>*/}
-                                            <Link className="notifications"
-                                                  style={{color: "black", textDecoration: "none"}}
-                                                  to="/home" onClick={() => {
+                                            <Link
+                                                style={{color: "black", textDecoration: "none"}}
+                                                to="/home" onClick={() => {
                                                 setIconNotice(false)
                                             }}>{new Date(item?.time).toLocaleString("en-US",
                                                 {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
@@ -124,10 +127,10 @@ const Navbar = ({socket}) => {
                                     )
                                 } else {
                                     return (
-                                        <div key={index}>
-                                            <Link className="notifications"
-                                                  style={{color: "black", textDecoration: "none"}}
-                                                  to="/home" onClick={() => {
+                                        <div className="notifications" key={index}>
+                                            <Link
+                                                style={{color: "black", textDecoration: "none"}}
+                                                to="/home" onClick={() => {
                                                 setNoticeCome(false)
                                             }}>{new Date(item?.time).toLocaleString("en-US",
                                                 {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
