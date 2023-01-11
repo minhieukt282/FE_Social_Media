@@ -1,0 +1,164 @@
+
+.profile {
+    display: flex;
+    background: linear-gradient(to bottom, #999966 0%, #ffffff 54%);
+}
+
+.profileRight {
+    flex: 9;
+}
+
+.profileCover {
+    height: 400px;
+    position: relative;
+}
+
+.profileCoverImg {
+    width: 80%;
+    height: 300px;
+    object-fit: cover;
+    position: absolute;
+    left: 150px;
+    border-radius: 10px;
+}
+
+.profileUserImg {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 210px;
+    border: 3px solid #f5f3f3;
+}
+
+
+.profileInfo {
+    font-size: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.profileInfoName {
+    font-size: 30px;
+}
+
+.profileInfoDesc {
+    font-weight: 300;
+}
+
+.profileRightBottom {
+    display: flex;
+}
+
+.col-6 {
+    justify-content: center;
+
+}
+
+.infoTable {
+    border: 1px solid #eeeded;
+    padding: 3%;
+    border-radius: 10px;
+    box-shadow: 2px 2px #ece9e9;
+}
+
+.infoTableFriend {
+    border: 1px solid #eeeded;
+    padding: 3%;
+    border-radius: 10px;
+    box-shadow: 2px 2px #ece9e9;
+}
+
+.detailInfoItem {
+    padding-top: 10px;
+}
+
+.editButton {
+    font-size: 18px;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.editButton:hover {
+    background: #ece9e9;
+}
+
+.editProfile {
+    position: relative;
+    left: 450px;
+    width: 200px;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 18px;
+}
+
+.editProfile:hover {
+    background: #ece9e9;
+}
+
+.container {
+    max-width: 1600px;
+}
+
+.col-4 {
+    padding: 10px;
+}
+
+@media (max-width: 1100px) {
+    .editProfile {
+        left: 0;
+    }
+
+    .post {
+        width: 120%;
+    }
+
+    .post-group {
+        width: 120%;
+    }
+}
+
+@media (max-width: 800px) {
+    .select {
+        padding: 0;
+        height: 40px;
+    }
+
+    .post {
+        width: 120%;
+    }
+
+    .post-group {
+        width: 120%;
+    }
+
+    .infoTable {
+        margin-left: -60px;
+    }
+
+    .infoTableFriend {
+        margin-left: -60px;
+    }
+
+    .friendTable {
+        margin-left: -60px
+    }
+    .profileCoverImg{
+        left: 80px;
+    }
+}
+
+@media (max-width: 630px) {
+    .profileCoverImg{
+        left: 50px;
+    }
+}

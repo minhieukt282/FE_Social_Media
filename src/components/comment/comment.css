@@ -1,0 +1,39 @@
+.form-control{
+margin-right: 410px;
+}
+
+.addComment{
+    margin-right: 410px;
+    color: white;
+    background: #007bff;
+    position: relative;
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid
+}
+
+.commentProfileImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.commentWrapper {
+    margin-top: 30px;
+    border: 1px solid #e5e2e2;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 1px 1px 1px 1px #e3e3e3;
+}
+.commentTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.commentTopLeft {
+    display: flex;
+    align-items: center;
+}
