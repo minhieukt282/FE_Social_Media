@@ -2,11 +2,11 @@ import {Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {addComments} from "../../services/commentService";
 import React, {useState} from "react";
+import {getPosts} from "../../services/postServices";
 
 
 const AddComment = ({postPostId}) => {
     const dispatch = useDispatch();
-    const [submitting, setSubmitting] = useState(false)
     const handleAddComment = async (values) => {
         const data = {
             ...values,
@@ -17,7 +17,7 @@ const AddComment = ({postPostId}) => {
         }
         if (data.comment !== '') {
             await dispatch(addComments(data))
-
+            await dispatch(getPosts())
         }
     }
     return (

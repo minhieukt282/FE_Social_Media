@@ -6,9 +6,9 @@ import {deleteComments} from "../../services/commentService";
 import "./comment.css"
 import {IconButton} from "@mui/material";
 import {MoreVert} from "@mui/icons-material";
+import {getPosts} from "../../services/postServices";
 
-const ShowComment = ({comment ,postPostId}) => {
-    console.log(comment)
+const ShowComment = ({comment, postPostId, isDelete}) => {
     const dispatch = useDispatch();
 
     const handleDeleteComment = () => {
@@ -27,10 +27,11 @@ const ShowComment = ({comment ,postPostId}) => {
                     displayName: comment.displayName,
                     img: comment.img,
                     postPostId: postPostId,
-                    accountId:comment.accountId,
+                    accountId: comment.accountId,
                     commentId: comment.commentId
                 }
                 await dispatch(deleteComments(dataDelete))
+                await dispatch(getPosts())
             }
         })
     }
@@ -52,26 +53,28 @@ const ShowComment = ({comment ,postPostId}) => {
                     </span>
 
                 </div>
-                <div className="commentTopRight">
-                            <div style={{paddingRight: 20}} className="dropdown">
-                                <div type="button" data-toggle="dropdown"
-                                     data-display="static" aria-expanded="false">
-                                    <IconButton>
-                                        <MoreVert className="postVertButton"/>
-                                    </IconButton>
-                                </div>
-                                <div className="dropdown-menu dropdown-menu-lg-right">
-                                    <button
-                                        className="dropdown-item"
-                                        onClick={() => {
-                                            handleDeleteComment()
-                                        }}
-                                    >
-                                        Delete comment
-                                    </button>
-                                </div>
+                {
+                    isDelete ? (<div className="commentTopRight">
+                        <div style={{paddingRight: 20}} className="dropdown">
+                            <div type="button" data-toggle="dropdown"
+                                 data-display="static" aria-expanded="false">
+                                <IconButton>
+                                    <MoreVert className="postVertButton"/>
+                                </IconButton>
                             </div>
-                </div>
+                            <div className="dropdown-menu dropdown-menu-lg-right">
+                                <button
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                        handleDeleteComment()
+                                    }}
+                                >
+                                    Delete comment
+                                </button>
+                            </div>
+                        </div>
+                    </div>) : (<></>)
+                }
             </div>
             <div className="postCenter">
                 <span>{comment.comment}</span>

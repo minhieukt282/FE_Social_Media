@@ -9,6 +9,7 @@ import {useSelector} from "react-redux";
 
 export default function Sidebar() {
     const accountInfo = useSelector(state => {
+        console.log(state)
         return state.loginWed
     })
     return (

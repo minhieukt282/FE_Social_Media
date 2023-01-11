@@ -18,6 +18,7 @@ const Post = ({socket, url}) => {
     }, [])
 
     const posts = useSelector(state => {
+        console.log(state.posts.posts)
         return state.posts.posts
     })
 
