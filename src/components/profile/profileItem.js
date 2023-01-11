@@ -12,6 +12,7 @@ import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
+import EditProfile from "./editProfile";
 
 const IS_FRIEND = 1
 const IS_ADD = 2
@@ -205,14 +206,15 @@ export default function ProfileItem({socket}) {
                                         </div>
                                         <div className="detailInfoItem">
                                             <CakeIcon/>
-                                            <span className="detailInfoKey">Birthday: {accountInfo.birthday}</span>
+                                            <span className="detailInfoKey">Birthday: {new Date(accountInfo.birthday).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
                                         </div>
                                         <div className="detailInfoItem">
                                             <LocationCityIcon/>
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
                                         {
-                                            isProfile ? (<button className="editButton"><CreateIcon/>Edit Profile
+                                            isProfile ? (<button className="editButton"><CreateIcon/>
+                                                <EditProfile accountInfo={accountInfo}/>
                                             </button>) : (<></>)
                                         }
                                     </div>

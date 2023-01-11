@@ -20,7 +20,7 @@ export default function SearchResult({socket}) {
             <hr/>
             <div className="row">
                 <SearchAccount socket={socket}/>
-                <SearchPost socket={socket}></SearchPost>
+                <SearchPost socket={socket}/>
             </div>
         </>
     )

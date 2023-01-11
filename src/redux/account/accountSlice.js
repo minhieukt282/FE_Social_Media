@@ -1,19 +1,23 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getAccount} from "../../services/accountService";
+import {editAccount, getAccount} from "../../services/accountService";
 
 const initialState = {
     accountInfo: []
 }
 
 const accountInfoSlice = createSlice({
-    name:'accountInfo',
+    name: 'accountInfo',
     initialState,
-    reducers:{},
-    extraReducers:builder => {
-        builder.addCase(getAccount.fulfilled,(state,action)=>{
+    reducers: {},
+    extraReducers: builder => {
+        builder.addCase(getAccount.fulfilled, (state, action) => {
             state.accountInfo = action.payload.data
         })
+        builder.addCase(editAccount.fulfilled, (state, action) => {
+            state.accountInfo = action.payload[0]
+        })
     }
+
 })
 
 export default accountInfoSlice.reducer

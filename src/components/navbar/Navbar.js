@@ -42,6 +42,7 @@ const Navbar = ({socket}) => {
     }
 
     const handleSearch = async (values) => {
+        console.log()
         await dispatch(getSearch(values.searchKey))
         await dispatch(getRelationship())
         navigate('/search')
@@ -70,6 +71,7 @@ const Navbar = ({socket}) => {
                     <Formik initialValues={{
                         searchKey: ''
                     }} onSubmit={values => {
+                        console.log(values)
                         handleSearch(values)
                     }}>
                         <Form>
