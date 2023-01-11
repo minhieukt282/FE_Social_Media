@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Login from "./pages/login/Login";
 import AddFriend from "./pages/AddFriends/AddFriend";
@@ -15,10 +15,15 @@ import Init from "./pages/init";
 
 function App() {
     const [socket, setSocket] = useState(null)
+    const {pathname} = useLocation();
     useEffect(() => {
         const newSocket = io("http://localhost:5000");
         setSocket(newSocket)
     }, [setSocket])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname]);
 
     return (
         <>

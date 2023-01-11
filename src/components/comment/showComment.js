@@ -13,8 +13,8 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
 
     const handleDeleteComment = () => {
         Swal.fire({
-            title: 'Are you sure delete this status?',
-            text: "if you delete the status you will not be able to restore it",
+            title: 'Are you sure delete this comment?',
+            text: "if you delete the comment you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#007bff',

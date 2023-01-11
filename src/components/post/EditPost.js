@@ -23,7 +23,6 @@ export default function EditPost({item, url}) {
     const posts = useSelector((state) => {
         return state.posts.posts
     })
-
     const handleEdit = async (values) => {
         console.log(values)
         let imgSent
@@ -67,7 +66,7 @@ export default function EditPost({item, url}) {
                 style={{color: "black", textDecoration: "none"}}
                 onClick={() => setOpen(true)}
             >
-                Edit post
+                Edit Post
             </Link>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog

@@ -1,7 +1,6 @@
 .messageBox{
     padding: 10px;
     margin: 3px;
-    border-radius: 15px;
     /*display: inline-block;*/
     clear: both;
     width: auto;
@@ -13,6 +12,7 @@
     float: right;
     background-color: #221aef;
     color: white;
+    border-radius: 15px 10px 20px 5px;
     text-align: right;
 }
 
@@ -21,5 +21,5 @@
     text-align: left;
     background-color: rgb(142, 154, 140);
     color: white;
-    
+    border-radius: 5px 20px 10px 15px;
 }

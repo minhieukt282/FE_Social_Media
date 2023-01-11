@@ -1073,7 +1073,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Host>localhost</Host>
     </user>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/DaoAnh
     <table id="312" parent="302" name="account">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
@@ -1103,7 +1106,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="319" parent="312" name="accountId">
+<<<<<<< HEAD
+      <AutoIncrement>15327723645360235</AutoIncrement>
+=======
       <AutoIncrement>15810496250164721</AutoIncrement>
+>>>>>>> origin/ha2
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1194,7 +1201,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="336" parent="314" name="likeId">
+<<<<<<< HEAD
+      <AutoIncrement>16657371925424609</AutoIncrement>
+=======
       <AutoIncrement>1</AutoIncrement>
+>>>>>>> origin/ha2
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1225,7 +1236,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="342" parent="315" name="notificationId">
+<<<<<<< HEAD
+      <AutoIncrement>16695496958313581</AutoIncrement>
+=======
       <AutoIncrement>16569882667189723</AutoIncrement>
+>>>>>>> origin/ha2
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1255,6 +1270,16 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
+<<<<<<< HEAD
+    <column id="348" parent="315" name="type">
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <column id="349" parent="315" name="time">
+      <DataType>timestamp|0s</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+=======
     <column id="348" parent="315" name="time">
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
@@ -1263,6 +1288,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <column id="349" parent="315" name="type">
       <DataType>varchar(255)|0s</DataType>
+>>>>>>> origin/ha2
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
@@ -1277,7 +1303,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="352" parent="316" name="postId">
+<<<<<<< HEAD
+      <AutoIncrement>5</AutoIncrement>
+=======
       <AutoIncrement>13</AutoIncrement>
+>>>>>>> origin/ha2
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1320,7 +1350,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="360" parent="317" name="relationshipId">
+<<<<<<< HEAD
+      <AutoIncrement>16679480931486071</AutoIncrement>
+=======
       <AutoIncrement>77109470532037313</AutoIncrement>
+>>>>>>> origin/ha2
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1352,7 +1386,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="366" parent="318" name="id">
+<<<<<<< HEAD
+      <AutoIncrement>16691955588141249</AutoIncrement>
+=======
       <AutoIncrement>16074943537153879</AutoIncrement>
+>>>>>>> origin/ha2
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1377,6 +1415,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
+<<<<<<< HEAD
 >>>>>>> origin/ha2
+=======
+=======
+>>>>>>> origin/minhieukt
+>>>>>>> origin/DaoAnh
   </database-model>
 </dataSource>

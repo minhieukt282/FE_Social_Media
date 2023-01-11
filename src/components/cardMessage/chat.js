@@ -1,7 +1,7 @@
 import ReactScrollToBottom from "react-scroll-to-bottom";
 import {Field, Form, Formik} from "formik";
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNotification} from "../../services/notificationService";
 import {showMessage} from "../../services/messageService";
@@ -40,7 +40,6 @@ export default function Chat({socket}) {
             break
         }
     }
-
     const handleSentMessage = async ({text}) => {
         socket.emit("sentMessage", {roomId: room, accountId: accountId, message: text})
         const dataNotice = {
@@ -55,43 +54,49 @@ export default function Chat({socket}) {
     }
 
     return (
-        <div className="chatPage">
-            <div style={{width: "100%"}}>
-                <ReactScrollToBottom className="chatBox">
-                    {
-                        messages.map((item, index) => {
-                            if (+item.roomId === +relationshipId) {
-                                return (
-                                    <div key={index}>
-                                        <Message user={item.accountId === accountId ? '' : item.accountId} item={item}
-                                                 classs={item.accountId === accountId ? 'right' : 'left'}/>
-                                    </div>
-                                )
-                            }
-                        })
-                    }
-                </ReactScrollToBottom>
-                <div className="inputBox">
-                    <Formik initialValues={
-                        {text: ''}
-                    } onSubmit={(values, {resetForm}) => {
-                        if (values.text !== '') {
-                            handleSentMessage(values).then(() => {
-                                resetForm()
-                            });
+        <div>
+            <div className="imgChat">
+                <img style={{width: 50, height: 50}} src={userInfo.img} alt="" className="navbarImg"/>
+                <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo.displayName}</h4>
+            </div>
+
+            <div className="chatPage">
+                <div className="chatGroup">
+                    <ReactScrollToBottom className="chatBox">
+                        {
+                            messages.map((item, index) => {
+                                if (+item.roomId === +relationshipId) {
+                                    return (
+                                        <div key={index}>
+                                            <Message user={item.accountId === accountId ? '' : item.accountId}
+                                                     item={item}
+                                                     classs={item.accountId === accountId ? 'right' : 'left'}/>
+                                        </div>
+                                    )
+                                }
+                            })
                         }
-                    }
-                    }>
-                        <Form>
-                            <div className='row'>
-                                <Field as={'input'} style={{width: '100%'}} name={'text'}
-                                       className='chatInput col-10'/>
-                                <button type="submit" className="sendBtn col-2">Sent</button>
-                            </div>
-                        </Form>
-                    </Formik>
-                    {/*<input onKeyPress={(event) => event.key === 'Enter' ? send() : null} type="text" id="chatInput"/>*/}
-                    {/*<button type="submit" className="sendBtn">Sent</button>*/}
+                    </ReactScrollToBottom>
+                    <div className="inputBox">
+                        <Formik initialValues={
+                            {text: ''}
+                        } onSubmit={(values, {resetForm}) => {
+                            if (values.text !== '') {
+                                handleSentMessage(values).then(() => {
+                                    resetForm()
+                                });
+                            }
+                        }
+                        }>
+                            <Form>
+                                <div className='row' style={{paddingLeft: 15, paddingTop: 10}}>
+                                    <Field as={'input'} style={{width: '100%'}} name={'text'}
+                                           className='chatInput col-10'/>
+                                    <button type="submit" className="sendBtn col-2">Sent</button>
+                                </div>
+                            </Form>
+                        </Formik>
+                    </div>
                 </div>
             </div>
         </div>

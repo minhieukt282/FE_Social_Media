@@ -1,4 +1,4 @@
-.addPost{
+.addPost {
     color: white;
     background: #007bff;
     position: relative;
@@ -6,6 +6,10 @@
     height: 35px;
     border-radius: 10px;
     border: 1px solid #e5e2e2;
+    cursor: pointer;
+    margin-top: -15%;
+    margin-left: 30%;
+    padding: 6px 6px;
 
 }
 .btn-req {
@@ -18,12 +22,7 @@
     font-size: 15px;
 }
 
-.form-control {
-    margin-left: 5px;
-    margin-right: 400px;
-    border-radius: 10px;
-}
-.post-group{
+.post-group {
     margin-bottom: 1%;
     margin-top: 10px;
     border: 1px solid #e5e2e2;
@@ -40,13 +39,6 @@
     padding: 6px 12px;
     cursor: pointer;
 }
-.addPost{
-    cursor: pointer;
-    margin-top: -15%;
-    margin-left: 30%;
-    padding: 6px 6px;
-    border: 1px solid
-}
 
 input[type="file"] {
     position: absolute;
@@ -55,8 +47,18 @@ input[type="file"] {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0,0,0,0);
+    clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+.btn-req {
+    color: white;
+    background: #007bff;
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e5e2e2;
+    font-size: 15px;
 }
 
 .custom-file-upload {
@@ -64,47 +66,55 @@ input[type="file"] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
-
 }
 
-.file-upload{
+.file-upload {
     margin-left: 5%;
 }
 
 @media (max-width: 1480px) {
-    .addPost{
+    .addPost {
         width: 100%;
         margin-left: 0;
         margin-top: 20px;
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
     .post-group{
-        width: 150%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .post-group {
+        width: 100%;
     }
 
-    .addPost{
+    .post{
+        width: 100%;
+    }
+
+    .addPost {
         margin-top: 20px;
     }
 }
 
 
 @media (max-width: 756px) {
-    .addPost{
+    .addPost {
         margin-left: 0;
         margin-top: 20px;
     }
 
-    .post-group{
+    .post-group {
         width: 150%;
     }
-    .select{
+
+    .select {
         padding: 0;
         height: 40px;
-        padding-left: 20px;
+        /*padding-left: 20px;*/
     }
-
-
 }
 

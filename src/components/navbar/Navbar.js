@@ -7,6 +7,7 @@ import {showNotification} from "../../services/notificationService";
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ChatIcon from '@mui/icons-material/Chat';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {Field, Form, Formik} from "formik";
 import {getSearch} from "../../services/searchService";
 import {getRelationship} from "../../services/FriendServices";
@@ -93,17 +94,20 @@ const Navbar = ({socket}) => {
                           data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
                         setNoticeCome(false)
                     }}/>
-                        {iconNotice ? (<div className="right_notification">1</div>) : (<></>)}
+                        {iconNotice ? (
+                            <div className="right_notification"><FiberManualRecordIcon style={{color: "red"}}/>
+                            </div>) : (<></>)}
                     </Link>
-                    <div className="dropdown-menu dropdown-menu-lg-right">
+                    <div id="dropdown-Notifications"
+                         className="dropdown-menu dropdown-Notifications dropdown-menu-lg-right">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
                                 if (item.type === "addFriends" || item.type === "friends") {
                                     return (
-                                        <div key={index}>
-                                            <Link className="notifications"
-                                                  style={{color: "black", textDecoration: "none"}}
-                                                  to={`/profile/${item?.accountSent}`} onClick={() => {
+                                        <div className="notifications" key={index}>
+                                            <Link
+                                                style={{color: "black", textDecoration: "none"}}
+                                                to={`/profile/${item?.accountSent}`} onClick={() => {
                                                 setIconNotice(false)
                                             }}>{new Date(item?.time).toLocaleString("en-US",
                                                 {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
@@ -112,8 +116,8 @@ const Navbar = ({socket}) => {
                                     )
                                 } else if (item.type === "liked" || item.type === "comment") {
                                     return (
-                                        <div key={index}>
-                                            <Link className="notifications"
+                                        <div className="notifications" key={index}>
+                                            <Link
                                                   style={{color: "black", textDecoration: "none"}}
                                                   to="/home" onClick={() => {
                                                 setIconNotice(false)
@@ -124,8 +128,8 @@ const Navbar = ({socket}) => {
                                     )
                                 } else if (item.type === "message") {
                                     return (
-                                        <div key={index}>
-                                            <Link className="notifications"
+                                        <div className="notifications" key={index}>
+                                            <Link
                                                   style={{color: "black", textDecoration: "none"}}
                                                   to={`/message`} onClick={() => {
                                                 setIconNotice(false)
@@ -136,10 +140,10 @@ const Navbar = ({socket}) => {
                                     )
                                 } else {
                                     return (
-                                        <div key={index}>
-                                            <Link className="notifications"
-                                                  style={{color: "black", textDecoration: "none"}}
-                                                  to="/home" onClick={() => {
+                                        <div className="notifications" key={index}>
+                                            <Link
+                                                style={{color: "black", textDecoration: "none"}}
+                                                to="/home" onClick={() => {
                                                 setNoticeCome(false)
                                             }}>{new Date(item?.time).toLocaleString("en-US",
                                                 {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}

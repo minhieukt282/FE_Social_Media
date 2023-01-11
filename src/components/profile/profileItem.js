@@ -206,7 +206,8 @@ export default function ProfileItem({socket}) {
                                         </div>
                                         <div className="detailInfoItem">
                                             <CakeIcon/>
-                                            <span className="detailInfoKey">Birthday: {new Date(accountInfo.birthday).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
+                                            <span
+                                                className="detailInfoKey">Birthday: {new Date(accountInfo.birthday).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
                                         </div>
                                         <div className="detailInfoItem">
                                             <LocationCityIcon/>
@@ -257,7 +258,3 @@ export default function ProfileItem({socket}) {
         </>
     )
 }
-
-
-
-
