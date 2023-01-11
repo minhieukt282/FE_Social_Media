@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Login from "./pages/login/Login";
 import AddFriend from "./pages/AddFriends/AddFriend";
@@ -23,6 +23,12 @@ function App() {
     const user = useSelector(state => {
         return state.loginWed.token
     })
+
+    const { pathname } = useLocation();
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[pathname]);
 
     return (
         <>
