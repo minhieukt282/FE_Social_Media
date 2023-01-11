@@ -17,6 +17,7 @@ export const createLikes = createAsyncThunk(
 export const deleteLikes = createAsyncThunk(
     "delete/likes",
     async (data) => {
+        console.log(data)
         const token = JSON.parse(localStorage.getItem("token"))
         const res = await axios.delete(`http://localhost:3001/likes/${data.accountId}/${data.postId}`, {
             headers: {

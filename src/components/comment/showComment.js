@@ -35,49 +35,60 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
             }
         })
     }
-
     return (
         <div className="commentWrapper">
             <div className="commentTop">
-                <div className="commentTopLeft">
+                <div className="commentAvt col-1">
                     <Link>
                         <img
                             src={comment.img}
                             alt="my avatar"
                             className="commentProfileImg"/>
                     </Link>
-                    <Link to={`/profile/${comment.accountId}`}
-                          className="commentUsername">{comment.displayName}</Link>
-                    <span
-                        className="commentDate">{new Date(comment.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
-                    </span>
-
                 </div>
-                {
-                    isDelete ? (<div className="commentTopRight">
-                        <div style={{paddingRight: 20}} className="dropdown">
-                            <div type="button" data-toggle="dropdown"
-                                 data-display="static" aria-expanded="false">
-                                <IconButton>
-                                    <MoreVert className="postVertButton"/>
-                                </IconButton>
-                            </div>
-                            <div className="dropdown-menu dropdown-menu-lg-right">
-                                <button
-                                    className="dropdown-item"
-                                    onClick={() => {
-                                        handleDeleteComment()
-                                    }}
-                                >
-                                    Delete comment
-                                </button>
+                <div className="userComment col-11">
+                    <div className={"commentCenter row"}>
+                        <div className="col-10 comment">
+                            <div className={"body-user-comment-body"}>
+                                <Link to={`/profile/${comment.accountId}`}
+                                      className="commentUsername">{comment.displayName}
+                                </Link>
+                                <span className="commentDate">
+                                    {new Date(comment.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
+                                </span>
+                                <div className="commentCenter">
+                                    <span>{comment.comment}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>) : (<></>)
-                }
-            </div>
-            <div className="postCenter">
-                <span>{comment.comment}</span>
+                        <div className={"col-1 comment"}>
+                            <div className="commentWrapper-right">
+                            {
+                                isDelete ? (<div className="commentTopRight">
+                                    <div style={{paddingRight: 20}} className="dropdown">
+                                        <div type="button" data-toggle="dropdown"
+                                             data-display="static" aria-expanded="false">
+                                            <IconButton>
+                                                <MoreVert className="postVertButton"/>
+                                            </IconButton>
+                                        </div>
+                                        <div className="dropdown-menu dropdown-menu-lg-right">
+                                            <button
+                                                className="dropdown-item"
+                                                onClick={() => {
+                                                    handleDeleteComment()
+                                                }}
+                                            >
+                                                Delete comment
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>) : (<></>)
+                            }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="postBottomFooter"></div>
         </div>

@@ -1,0 +1,224 @@
+Index: src/components/profile/profileItem.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import CreateIcon from \"@mui/icons-material/Create\";\r\nimport PortraitIcon from \"@mui/icons-material/Portrait\";\r\nimport LocationCityIcon from \"@mui/icons-material/LocationCity\";\r\nimport CakeIcon from '@mui/icons-material/Cake';\r\nimport Card from '@mui/material/Card';\r\nimport CardMedia from '@mui/material/CardMedia';\r\nimport Post from \"../post/Post\";\r\nimport {Link, useParams} from \"react-router-dom\";\r\nimport {useDispatch, useSelector} from \"react-redux\";\r\nimport {useEffect, useState} from \"react\";\r\nimport {getAccount} from \"../../services/accountService\";\r\nimport AddPost from \"../post/AddPost\";\r\nimport {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from \"../../services/FriendServices\";\r\nimport {createNotification, deleteNotification} from \"../../services/notificationService\";\r\nimport EditProfile from \"./editProfile\";\r\n\r\nexport default function ProfileItem({socket}) {\r\n    const {accountId} = useParams()\r\n    const dispatch = useDispatch();\r\n    const [isFriend, setIsFriend] = useState(false)\r\n    const [isAccept, setIsAccept] = useState(false)\r\n    const [isWaitRes, setIsWaitRes] = useState(false)\r\n    const [relationshipId, setRelationshipId] = useState(null)\r\n    const userId = JSON.parse(localStorage.getItem(\"accountId\"))\r\n    const displayName = JSON.parse(localStorage.getItem(\"displayName\"))\r\n\r\n    useEffect(() => {\r\n        dispatch(getAccount(accountId))\r\n    }, [accountId, dispatch])\r\n\r\n    useEffect(() => {\r\n        dispatch(getFriend(accountId))\r\n    }, [accountId, dispatch, isAccept, isFriend, isWaitRes])\r\n\r\n    useEffect(() => {\r\n        dispatch(getRelationship())\r\n    }, [accountId, dispatch, isAccept, isFriend, isWaitRes])\r\n\r\n    const listFriends = useSelector(state => {\r\n        return state.listFriend.listFriend\r\n    })\r\n\r\n    const accountInfo = useSelector(state => {\r\n        return state.accountInfo.accountInfo\r\n    })\r\n\r\n    const relationship = useSelector(state => {\r\n        return state.relationship.relationship\r\n    })\r\n\r\n    useEffect(() => {\r\n        let checkFriend\r\n        let checkWait = false\r\n        let checkAccept = false\r\n        for (let i = 0; i < relationship.length; i++) {\r\n            if ((relationship[i].accountReq === userId && relationship[i].accountRes === accountId) ||\r\n                (relationship[i].accountReq === accountId && relationship[i].accountRes === userId)) {\r\n                checkFriend = relationship[i].isFriend\r\n                if (relationship[i].isFriend === false) {\r\n                    if (relationship[i].accountRes === userId) {\r\n                        setRelationshipId(relationship[i].relationshipId)\r\n                        checkAccept = true\r\n                    }\r\n                    checkWait = !relationship[i].isFriend\r\n                } else {\r\n                    checkWait = relationship[i].isFriend\r\n                }\r\n                break\r\n            }\r\n        }\r\n        setIsFriend(checkFriend)\r\n        setIsWaitRes(checkWait)\r\n        setIsAccept(checkAccept)\r\n    }, [accountId, isAccept, isFriend, isWaitRes])\r\n\r\n    let isProfile = false\r\n    if (userId === accountId) {\r\n        isProfile = true\r\n    }\r\n\r\n    const handleUnfriend = async () => {\r\n        setIsFriend(false)\r\n        setIsWaitRes(false)\r\n        setIsAccept(false)\r\n        const data = {\r\n            accountReq: userId,\r\n            accountRes: accountId\r\n        }\r\n        const dataNotice = {\r\n            displayName: displayName,\r\n            accountSent: userId,\r\n            accountReceiver: accountId,\r\n            postId: 0,\r\n            type: \"addFriends\"\r\n        }\r\n        await dispatch(unfriend(data))\r\n        await dispatch(deleteNotification(dataNotice))\r\n    }\r\n\r\n    const handleAccept = async (relationshipId) => {\r\n        setIsFriend(true)\r\n        const dataNotice = {\r\n            displayName: displayName,\r\n            accountSent: userId,\r\n            accountReceiver: accountId,\r\n            postId: 0,\r\n            type: \"friends\"\r\n        }\r\n        await dispatch(acceptFriends(relationshipId))\r\n        await dispatch(createNotification(dataNotice))\r\n        socket.emit(\"acceptFriend\", dataNotice)\r\n    }\r\n\r\n    const handleAddFriend = async () => {\r\n        setIsWaitRes(true)\r\n        const data = {\r\n            accountReq: userId,\r\n            accountRes: accountId\r\n        }\r\n        const dataNotice = {\r\n            displayName: displayName,\r\n            accountSent: userId,\r\n            accountReceiver: accountId,\r\n            postId: 0,\r\n            type: \"addFriends\"\r\n        }\r\n        await dispatch(addFriend(data))\r\n        await dispatch(createNotification(dataNotice))\r\n        socket.emit(\"addFriends\", dataNotice)\r\n    }\r\n\r\n    return (\r\n        <>\r\n            <div className=\"profile\">\r\n                <div className=\"profileRight\">\r\n                    <div className=\"profileRightTop\">\r\n                        <div className=\"profileCover\">\r\n                            <img className=\"profileCoverImg\"\r\n                                 src='https://wallup.net/wp-content/uploads/2016/01/73809-nature-lake-reflection-mountain-trees-748x468.jpg'\r\n                                 alt=\"clear\"/>\r\n                            <img className=\"profileUserImg\"\r\n                                 src={accountInfo.img} alt=\"clear\"/>\r\n                        </div>\r\n                        <div className=\"profileInfo\">\r\n                            <h4 className=\"profileInfoName\">{accountInfo.displayName}</h4>\r\n                            {\r\n                                isProfile ? (<></>) : (\r\n                                    isFriend ? (\r\n                                        <button style={{width: \"15%\"}} className=\"btn-req\" onClick={() => {\r\n                                            handleUnfriend()\r\n                                        }}>Unfriend</button>) : (\r\n                                        isWaitRes ? (isAccept ? (\r\n                                            <span style={{width: \"15%\"}}>\r\n                                            <button style={{width: \"50%\"}} className=\"btn-req\" onClick={() => {\r\n                                                handleAccept(relationshipId)\r\n                                            }}>Accept\r\n                                            </button>\r\n                                            <button style={{width: \"50%\"}} className=\"btn-req\" onClick={() => {\r\n                                                handleUnfriend()\r\n                                            }}>Reject\r\n                                            </button>\r\n                                        </span>\r\n                                        ) : (\r\n                                            <button style={{width: \"15%\"}} className=\"btn-req\" onClick={() => {\r\n                                                handleUnfriend()\r\n                                            }}>Wait | Cancel</button>)) : (\r\n                                            <button style={{width: \"15%\"}} className=\"btn-req\" onClick={() => {\r\n                                                handleAddFriend()\r\n                                            }}>Add friend</button>)))\r\n                            }\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <br/>\r\n            </div>\r\n            <div className=\"col-12\">\r\n                <div className=\"row\">\r\n                    <div className=\"col-1\"></div>\r\n                    <div className=\"col-10\">\r\n                        <div className=\"row\">\r\n                            <div className=\"col-4\">\r\n                                <div className=\"infoTable\">\r\n                                    <h3>Information</h3>\r\n                                    <div className=\"detailInfo\">\r\n                                        <div className=\"detailInfoItem\">\r\n                                            <PortraitIcon/>\r\n                                            <span className=\"detailInfoKey\">Real name: {accountInfo.displayName}</span>\r\n                                        </div>\r\n                                        <div className=\"detailInfoItem\">\r\n                                            <CakeIcon/>\r\n                                            <span className=\"detailInfoKey\">Birthday: {accountInfo.birthday}</span>\r\n                                        </div>\r\n                                        <div className=\"detailInfoItem\">\r\n                                            <LocationCityIcon/>\r\n                                            <span className=\"detailInfoKey\">City: {accountInfo.location}</span>\r\n                                        </div>\r\n                                        {\r\n                                            isProfile ? (<button className=\"editButton\"><CreateIcon/>\r\n                                                <EditProfile accountInfo={accountInfo}/>\r\n                                            </button>) : (<></>)\r\n                                        }\r\n                                    </div>\r\n                                </div>\r\n                                <br/>\r\n                                <Link to={`/friends/${accountId}`}><h2>Friends list</h2></Link>\r\n                                <div className=\"infoTableFriend\">\r\n                                    <div className=\"row\">\r\n                                        {\r\n                                            listFriends?.map((item, index) => {\r\n                                                if (item.accountId !== accountId) {\r\n                                                    return (\r\n                                                        <div className=\"col-4\" key={index}>\r\n                                                            <Link to={`/profile/${item.accountId}`}>\r\n                                                                <Card sx={{maxWidth: 120}}>\r\n                                                                    <CardMedia\r\n                                                                        sx={{height: 120}}\r\n                                                                        image={`${item.img}`}\r\n                                                                        title={`${item.displayName}`}\r\n                                                                    />\r\n                                                                </Card>\r\n                                                            </Link>\r\n                                                        </div>\r\n                                                    )\r\n                                                }\r\n                                            })\r\n                                        }\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <div className=\"col-8\">\r\n                                {isProfile ? (<AddPost/>) : (<></>)}\r\n                                <Post socket={socket} url={accountId}/>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div className=\"col-1\"></div>\r\n                </div>\r\n            </div>\r\n        </>\r\n    )\r\n}\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/profile/profileItem.js b/src/components/profile/profileItem.js
+--- a/src/components/profile/profileItem.js	(revision 357667a7773e439f8d2228d1c69a9d96683ec7bd)
++++ b/src/components/profile/profileItem.js	(date 1673406482296)
+@@ -14,13 +14,16 @@
+ import {createNotification, deleteNotification} from "../../services/notificationService";
+ import EditProfile from "./editProfile";
+ 
++const IS_FRIEND = 1
++const IS_ADD = 2
++const IS_WAIT = 3;
++const IS_ACCEPT = 4;
+ export default function ProfileItem({socket}) {
+     const {accountId} = useParams()
+     const dispatch = useDispatch();
+-    const [isFriend, setIsFriend] = useState(false)
+-    const [isAccept, setIsAccept] = useState(false)
+-    const [isWaitRes, setIsWaitRes] = useState(false)
++    const [isFriend, setIsFriend] = useState(null)
+     const [relationshipId, setRelationshipId] = useState(null)
++    const [isReload, setIsReLoad] = useState(false)
+     const userId = JSON.parse(localStorage.getItem("accountId"))
+     const displayName = JSON.parse(localStorage.getItem("displayName"))
+ 
+@@ -30,11 +33,11 @@
+ 
+     useEffect(() => {
+         dispatch(getFriend(accountId))
+-    }, [accountId, dispatch, isAccept, isFriend, isWaitRes])
++    }, [accountId, isReload, dispatch])
+ 
+     useEffect(() => {
+         dispatch(getRelationship())
+-    }, [accountId, dispatch, isAccept, isFriend, isWaitRes])
++    }, [accountId, isReload, dispatch])
+ 
+     const listFriends = useSelector(state => {
+         return state.listFriend.listFriend
+@@ -49,29 +52,27 @@
+     })
+ 
+     useEffect(() => {
+-        let checkFriend
+-        let checkWait = false
+-        let checkAccept = false
++        let checkFriend = IS_ADD
+         for (let i = 0; i < relationship.length; i++) {
+             if ((relationship[i].accountReq === userId && relationship[i].accountRes === accountId) ||
+                 (relationship[i].accountReq === accountId && relationship[i].accountRes === userId)) {
+-                checkFriend = relationship[i].isFriend
+-                if (relationship[i].isFriend === false) {
++                if (relationship[i].isFriend) {
++                    checkFriend = IS_FRIEND
++                    setIsReLoad(true)
++                    break
++                } else {
++                    checkFriend = IS_WAIT
+                     if (relationship[i].accountRes === userId) {
++                        checkFriend = IS_ACCEPT
+                         setRelationshipId(relationship[i].relationshipId)
+-                        checkAccept = true
+                     }
+-                    checkWait = !relationship[i].isFriend
+-                } else {
+-                    checkWait = relationship[i].isFriend
+-                }
+-                break
++                    setIsReLoad(true)
++                    break
++                }
+             }
+         }
+         setIsFriend(checkFriend)
+-        setIsWaitRes(checkWait)
+-        setIsAccept(checkAccept)
+-    }, [accountId, isAccept, isFriend, isWaitRes])
++    }, [accountId, isReload, relationship])
+ 
+     let isProfile = false
+     if (userId === accountId) {
+@@ -79,9 +80,7 @@
+     }
+ 
+     const handleUnfriend = async () => {
+-        setIsFriend(false)
+-        setIsWaitRes(false)
+-        setIsAccept(false)
++        setIsFriend(IS_ADD)
+         const data = {
+             accountReq: userId,
+             accountRes: accountId
+@@ -95,10 +94,11 @@
+         }
+         await dispatch(unfriend(data))
+         await dispatch(deleteNotification(dataNotice))
++        await setIsReLoad(!isReload)
+     }
+ 
+     const handleAccept = async (relationshipId) => {
+-        setIsFriend(true)
++        setIsFriend(IS_FRIEND)
+         const dataNotice = {
+             displayName: displayName,
+             accountSent: userId,
+@@ -106,13 +106,16 @@
+             postId: 0,
+             type: "friends"
+         }
++
+         await dispatch(acceptFriends(relationshipId))
+         await dispatch(createNotification(dataNotice))
+         socket.emit("acceptFriend", dataNotice)
++        await setIsReLoad(!isReload)
++
+     }
+ 
+     const handleAddFriend = async () => {
+-        setIsWaitRes(true)
++        setIsFriend(IS_WAIT)
+         const data = {
+             accountReq: userId,
+             accountRes: accountId
+@@ -129,6 +132,43 @@
+         socket.emit("addFriends", dataNotice)
+     }
+ 
++    const buttonRender = () => {
++        if (isFriend === IS_FRIEND) {
++            return (
++                <button style={{width: "15%"}} className="btn-req" onClick={() => {
++                    handleUnfriend()
++                }}>Unfriend</button>
++            )
++        } else if (isFriend === IS_ADD) {
++            return (
++                <button style={{width: "15%"}} className="btn-req" onClick={() => {
++                    handleAddFriend()
++                }}>Add friend</button>
++            )
++        } else if (isFriend === IS_WAIT) {
++            return (
++                <button style={{width: "15%"}} className="btn-req" onClick={() => {
++                    handleUnfriend()
++                }}>Wait | Cancel</button>
++            )
++        } else if (isFriend === IS_ACCEPT) {
++            return (
++                <span style={{width: "15%"}}>
++                    <button style={{width: "50%"}} className="btn-req"
++                            onClick={() => {
++                                handleAccept(relationshipId)
++                            }}>Accept
++                    </button>
++                    <button style={{width: "50%"}} className="btn-req"
++                            onClick={() => {
++                                handleUnfriend()
++                            }}>Reject
++                    </button>
++                </span>
++            )
++        }
++    }
++
+     return (
+         <>
+             <div className="profile">
+@@ -144,29 +184,7 @@
+                         <div className="profileInfo">
+                             <h4 className="profileInfoName">{accountInfo.displayName}</h4>
+                             {
+-                                isProfile ? (<></>) : (
+-                                    isFriend ? (
+-                                        <button style={{width: "15%"}} className="btn-req" onClick={() => {
+-                                            handleUnfriend()
+-                                        }}>Unfriend</button>) : (
+-                                        isWaitRes ? (isAccept ? (
+-                                            <span style={{width: "15%"}}>
+-                                            <button style={{width: "50%"}} className="btn-req" onClick={() => {
+-                                                handleAccept(relationshipId)
+-                                            }}>Accept
+-                                            </button>
+-                                            <button style={{width: "50%"}} className="btn-req" onClick={() => {
+-                                                handleUnfriend()
+-                                            }}>Reject
+-                                            </button>
+-                                        </span>
+-                                        ) : (
+-                                            <button style={{width: "15%"}} className="btn-req" onClick={() => {
+-                                                handleUnfriend()
+-                                            }}>Wait | Cancel</button>)) : (
+-                                            <button style={{width: "15%"}} className="btn-req" onClick={() => {
+-                                                handleAddFriend()
+-                                            }}>Add friend</button>)))
++                                isProfile ? (<></>) : (<>{buttonRender()}</>)
+                             }
+                         </div>
+                     </div>
+@@ -195,9 +213,10 @@
+                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
+                                         </div>
+                                         {
+-                                            isProfile ? (<button className="editButton"><CreateIcon/>
+-                                                <EditProfile accountInfo={accountInfo}/>
+-                                            </button>) : (<></>)
++                                            isProfile ? (
++                                                <button className="editButton"><CreateIcon/>
++                                                    <EditProfile accountInfo={accountInfo}/>
++                                                </button>) : (<></>)
+                                         }
+                                     </div>
+                                 </div>
+@@ -240,6 +259,3 @@
+     )
+ }
+ 
+-
+-
+-

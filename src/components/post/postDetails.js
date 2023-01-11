@@ -17,7 +17,6 @@ import AddComment from "../comment/addComment";
 import CommentDetails from "../comment/commentDetails";
 
 
-
 const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
@@ -78,6 +77,8 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
             accountId: accountId,
             postPostId: postId
         }
+        console.log(dataLike)
+
         dispatch(deleteLikes(dataLike))
         if (accountSent !== accountReceiver) {
             await dispatch(deleteNotification(dataNotice))
@@ -206,7 +207,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                         setShowForm(!showForm)
                     }}>
                         <TextsmsIcon/>
-                        <span className="span"> Comment</span>
+                        <span className="span">Comment</span>
                     </button>
                 </div>
                 <div className="postBottomFooterItem">
@@ -221,7 +222,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                     <>
                         <hr/>
                         <div className="postBottomFooter">
-                            <AddComment postPostId={item.postId}/>
+                            <AddComment postPostId={item.postId} img={item.account.img} />
                         </div>
                     </>
                 ) : (<></>)

@@ -71,7 +71,7 @@ export default function AddPost() {
                                 <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1">What are you
                                     thinking?</label>
                                 <Field as={'textarea'} style={{width: '100%'}} name={'content'}
-                                       className={'form-control'}/>
+                                       className={'form-control1'}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="file-upload" className="custom-file-upload">
@@ -85,13 +85,11 @@ export default function AddPost() {
                                             uploadFile(event.target.files[0])
                                         }}/>
                                 </label>
-
                                 <Field className="select" as="select" name="status">
                                     <option value='public'>Public</option>
                                     <option value='private'>Private</option>
                                     <option value='onlyFriend'>Only friend</option>
                                 </Field>
-
                                 <button className="addPost" type="submit" disabled={submitting}>Share</button>
                             </div>
                         </div>

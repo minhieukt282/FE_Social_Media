@@ -33,6 +33,7 @@ export default function EditPost({item,url}) {
     })
 
     const handleEdit = async (values) => {
+        console.log(values)
         let imgSent
         if (img !== "") {
             imgSent = img

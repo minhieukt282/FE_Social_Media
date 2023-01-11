@@ -18,7 +18,6 @@ const Post = ({socket, url}) => {
     }, [])
 
     const posts = useSelector(state => {
-        console.log(state.posts.posts)
         return state.posts.posts
     })
 
@@ -46,7 +45,7 @@ const Post = ({socket, url}) => {
                         posts.map((item, index) => {
                             if (item.account.accountId === url) {
                                 return (
-                                    <PostDetails key={index} socket={socket} item={item} url = {url}
+                                    <PostDetails key={index} socket={socket} item={item} url = {url} countComment={item.comments.length}
                                                  countLike={item.likes.length} isSetting={true}/>
                                 )
                             }
@@ -62,7 +61,7 @@ const Post = ({socket, url}) => {
                             const isFriend = isRelationship(item?.account.accountId)
                             if (item.account.accountId === url && (item.status === "public" || (item.status === "onlyFriend" && isFriend === true))) {
                                 return (
-                                    <PostDetails key={index} socket={socket} item={item}
+                                    <PostDetails key={index} socket={socket} item={item} countComment={item.comments.length}
                                                  countLike={item.likes.length} isSetting={false}/>
                                 )
                             }
