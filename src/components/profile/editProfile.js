@@ -11,6 +11,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {v4} from "uuid";
 import {editAccount, getAccount} from "../../services/accountService";
 import "./editProfile.css"
+import * as Yup from "yup";
+import {loginWed} from "../../services/loginServices";
 
 export default function EditProfile({accountInfo}) {
     const accountId = accountInfo.accountId
@@ -60,6 +62,13 @@ export default function EditProfile({accountInfo}) {
             })
         })
     }, []);
+    const profileValidation = Yup.object({
+        displayName: Yup.string()
+            .required("Username is required.")
+            .matches(/^[A-Z a-z0-9]+$/, "Username is A-Z a-z,0-9")
+            .min(3)
+            .max(15)
+    })
 
     return (
         <React.Fragment>
@@ -108,6 +117,7 @@ export default function EditProfile({accountInfo}) {
                                 accountId: account.accountId
                             }
                         }
+                        validationSchema={profileValidation}
                         onSubmit={(values) => {
                             handleEdit(values)
                             setOpen(false)
