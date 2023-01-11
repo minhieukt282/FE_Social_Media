@@ -19,6 +19,12 @@ export default function Chat({socket}) {
         dispatch(showMessage())
     }, [isSent])
 
+    useEffect(() => {
+        socket?.on("getNotification", data => {
+            dispatch(showMessage())
+        })
+    }, [socket])
+
     const messages = useSelector(state => {
         return state.message.message
     })
@@ -45,13 +51,12 @@ export default function Chat({socket}) {
             type: "message"
         }
         await dispatch(createNotification(dataNotice))
-        socket.emit("liked", dataNotice)
         setIsSent(!isSent)
     }
 
     return (
         <div className="chatPage">
-            <div>
+            <div style={{width: "100%"}}>
                 <ReactScrollToBottom className="chatBox">
                     {
                         messages.map((item, index) => {

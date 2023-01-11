@@ -1,5 +1,5 @@
 .chatPage {
-    background-color: rgb(31, 29, 29);
+    /*background-color: rgb(31, 29, 29);*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,8 +38,9 @@
 
 
 .chatBox {
-    height: 70%;
+    height: 80vh;
     box-sizing: border-box;
+
 }
 
 .inputBox {
