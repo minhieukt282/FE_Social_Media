@@ -50,7 +50,7 @@ const Navbar = ({socket}) => {
     return (
         <div className="navbarContainer">
             <div className="navbarLeft">
-                <Link to="/home" style={{textDecoration: "none"}}>
+                <Link to="/" style={{textDecoration: "none"}}>
                     <span className="logo">
                         <img
                             src="https://1.bp.blogspot.com/-S8HTBQqmfcs/XN0ACIRD9PI/AAAAAAAAAlo/FLhccuLdMfIFLhocRjWqsr9cVGdTN_8sgCPcBGAYYCw/s1600/f_logo_RGB-Blue_1024.png"
