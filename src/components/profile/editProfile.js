@@ -13,10 +13,10 @@ import {editAccount, getAccount} from "../../services/accountService";
 import "./editProfile.css"
 import * as Yup from "yup";
 import {loginWed} from "../../services/loginServices";
+import CreateIcon from "@mui/icons-material/Create";
 
-export default function EditProfile({accountInfo}) {
+export default function EditProfile({accountInfo, open, handleClose, ...props}) {
     const accountId = accountInfo.accountId
-    const [open, setOpen] = React.useState(false);
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
     const imagesListRef = ref(storage, "images/");
@@ -25,8 +25,12 @@ export default function EditProfile({accountInfo}) {
     const accounts = useSelector((state) => {
         return state.accountInfo.accountInfo
     })
-    let account= {}
-    if (accounts.accountId === accountId){
+    let account = {}
+    const [open2, setOpen2] = useState(false)
+    const handleClose2 = () => {
+        setOpen2(false)
+    }
+    if (accounts.accountId === accountId) {
         account = accounts
     }
 
@@ -71,15 +75,16 @@ export default function EditProfile({accountInfo}) {
 
     return (
         <React.Fragment>
+            <button className="editButton" onClick={() => setOpen2(true)}><CreateIcon/>
             <Link
                 color="neutral"
                 style={{color: "#007bff", backgroundColor: "white", textDecoration: "none"}}
                 className={'btn-primary'}
-                onClick={() => setOpen(true)}
             >
                 Edit Profile
             </Link>
-            <Modal open={open} onClose={() => setOpen(false)}>
+            </button>
+            <Modal open={open2} onClose={handleClose2}>
                 <ModalDialog
                     style={{color: "black", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
                     aria-labelledby="basic-modal-dialog-title"
@@ -119,21 +124,23 @@ export default function EditProfile({accountInfo}) {
                         validationSchema={profileValidation}
                         onSubmit={(values) => {
                             handleEdit(values)
-                            setOpen(false)
+                            //setOpen(false)
                         }}>
                         <Form>
                             <div className={"post-group"}>
                                 <div className="form-group">
                                     <label htmlFor=""> DisplayName</label>
-                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'} className={'form-control'}/>
+                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'}
+                                           className={'form-control'}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="">Location</label>
-                                    <Field type={'text'} style={{width: '100%'}} name={'location'} className={'form-control'}/>
+                                    <Field type={'text'} style={{width: '100%'}} name={'location'}
+                                           className={'form-control'}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="">Birthday</label>
-                                    <Field type={'date'} name={'birthday'}  className={'form-control'}/>
+                                    <Field type={'date'} name={'birthday'} className={'form-control'}/>
                                 </div>
                                 <div className="form-group">
                                     <label className="custom-file-upload">

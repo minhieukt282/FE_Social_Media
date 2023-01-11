@@ -13,12 +13,14 @@ import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
 import EditProfile from "./editProfile";
+import * as React from "react";
 
 const IS_FRIEND = 1
 const IS_ADD = 2
 const IS_WAIT = 3;
 const IS_ACCEPT = 4;
 export default function ProfileItem({socket}) {
+
     const {accountId} = useParams()
     const dispatch = useDispatch();
     const [isFriend, setIsFriend] = useState(null)
@@ -26,6 +28,8 @@ export default function ProfileItem({socket}) {
     const [isReload, setIsReLoad] = useState(false)
     const userId = JSON.parse(localStorage.getItem("accountId"))
     const displayName = JSON.parse(localStorage.getItem("displayName"))
+    const [open, setOpen] = React.useState(false);
+    console.log(open, '1')
 
     useEffect(() => {
         dispatch(getAccount(accountId))
@@ -39,6 +43,14 @@ export default function ProfileItem({socket}) {
         dispatch(getRelationship())
     }, [accountId, isReload, dispatch])
 
+    const handleOpen = () => {
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        console.log(1)
+        setOpen(false);
+    }
     const listFriends = useSelector(state => {
         return state.listFriend.listFriend
     })
@@ -213,9 +225,9 @@ export default function ProfileItem({socket}) {
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
                                         {
-                                            isProfile ? (<button className="editButton"><CreateIcon/>
-                                                <EditProfile accountInfo={accountInfo}/>
-                                            </button>) : (<></>)
+                                            isProfile ? (
+                                                <EditProfile accountInfo={accountInfo}  handleClose={handleClose} open={open}></EditProfile>
+                                           ) : (<></>)
                                         }
                                     </div>
                                 </div>
