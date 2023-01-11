@@ -89,7 +89,7 @@ export default function AddPost() {
                                     <option value='private'>Private</option>
                                     <option value='onlyFriend'>Only friend</option>
                                 </Field>
-                                <button className="addPost" type="submit" disabled={submitting}>Share</button>
+                                <button className="addPost" type="submit">Share</button>
                             </div>
                         </div>
                     </Form>

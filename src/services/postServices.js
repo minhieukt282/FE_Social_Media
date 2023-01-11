@@ -5,7 +5,7 @@ export const getPosts = createAsyncThunk(
     "posts/get",
     async () => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get('http://118.70.117.39:3001/posts', {
+        const res = await axios.get('http://localhost:3001/posts', {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -18,7 +18,7 @@ export const addPosts = createAsyncThunk(
     "posts/add",
     async (data) => {
     const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.post('http://118.70.117.39:3001/posts', data, {
+        const res = await axios.post('http://localhost:3001/posts', data, {
                 headers: {
                     'Authorization': "Bearer " + token
                 }
@@ -32,7 +32,7 @@ export const deletePosts = createAsyncThunk(
     "posts/delete",
     async (postId) => {
         const token = JSON.parse(localStorage.getItem("token"));
-        const res = await axios.delete(`http://118.70.117.39:3001/posts/${postId}`, {
+        const res = await axios.delete(`http://localhost:3001/posts/${postId}`, {
                 headers: {
                     'Authorization': "Bearer " + token
                 }
@@ -47,7 +47,7 @@ export const editPosts = createAsyncThunk(
     async (data) => {
         console.log('dataEdit', data)
         const token = JSON.parse(localStorage.getItem("token"));
-        const res = await axios.patch(`http://118.70.117.39:3001/posts/${data.postId}`, data, {
+        const res = await axios.patch(`http://localhost:3001/posts/${data.postId}`, data, {
                 headers: {
                     'Authorization': "Bearer " + token
                 }

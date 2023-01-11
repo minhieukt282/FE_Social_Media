@@ -2,13 +2,18 @@ import React, {useEffect} from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import ListFriendCard from "../../components/listFriend/listFriendCard";
+import RightBar from "../../components/rightBar/rightBar";
 
-export default function ListFriend({socket}){
+export default function ListFriend({socket}) {
     useEffect(() => {
-        if (socket != null)
+        if (socket != null) {
             socket.emit("refresh", {
                 accountId: JSON.parse(localStorage.getItem("accountId"))
             })
+            socket.emit("findUser", {
+                accountId: JSON.parse(localStorage.getItem("accountId"))
+            })
+        }
     }, [socket])
 
     return (
@@ -21,13 +26,15 @@ export default function ListFriend({socket}){
                     <Sidebar/>
                 </div>
                 <div className="col-6">
-                    <h2 style={{paddingTop: 40}}>Friends list</h2>
+                    <h2 style={{paddingTop: 20, paddingLeft: 10}}>Friends list</h2>
                     <hr/>
                     <div className="row">
                         <ListFriendCard socket={socket}/>
                     </div>
                 </div>
-                <div className="col-3"></div>
+                <div className="col-3 mediaRight">
+                    <RightBar socket={socket}/>
+                </div>
             </div>
         </div>
     )

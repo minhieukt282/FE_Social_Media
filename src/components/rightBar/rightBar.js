@@ -1,16 +1,27 @@
 import "./rightBar.css";
 import {Link} from "react-router-dom";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getFriend} from "../../services/FriendServices";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import UserOnline from "./userOnline";
 
 export default function RightBar({socket}) {
     const dispatch = useDispatch()
     const accountId = JSON.parse(localStorage.getItem("accountId"))
+    const [listUser, setListUser] = useState([])
+    let isOnline = false
 
     useEffect(() => {
         dispatch(getFriend(accountId))
+        socket?.on("userOnline", data => {
+            setListUser(data.listUser)
+        })
+        if (socket != null){
+            socket.emit("findUser", {
+                accountId: JSON.parse(localStorage.getItem("accountId"))
+            })
+        }
     }, [socket])
 
     const listFriends = useSelector(state => {
@@ -26,16 +37,19 @@ export default function RightBar({socket}) {
                     {
                         listFriends.map((item, index) => {
                             if (item.accountId !== accountId) {
+                                for (let i = 0; i < listUser.length; i++) {
+                                    if (listUser[i].accountId === item.accountId) {
+                                        isOnline = true
+                                        break
+                                    }
+                                }
                                 return (
                                     <li className="rightBarListItem" key={index}>
-                                        <Link style={{textDecoration: "none"}} to="/message" className="profile_link">
-                                            <img src={item.img} alt="" className="navbarImg"/>
-                                            <FiberManualRecordIcon className="rightBarOnline"/>
-                                            <span className="rightBarListItemText">{item.displayName}</span>
-                                        </Link>
+                                        <UserOnline item={item} isOnline={isOnline}/>
                                     </li>
                                 )
                             }
+
                         })
                     }
                 </ul>

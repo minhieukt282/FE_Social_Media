@@ -43,7 +43,7 @@ function App() {
                                     <Route path="/friends" element={<AddFriend socket={socket}/>}/>
                                     <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
                                     <Route path="/search" element={<SearchResult socket={socket}/>}/>
-                                    <Route path="/message" element={<Message socket={socket}/>}/>
+                                    <Route path="/message/:relationshipId" element={<Message socket={socket}/>}/>
                                     <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
                                     <Route path="*" element={<PageNotFound/>}/>
                                 </Route>

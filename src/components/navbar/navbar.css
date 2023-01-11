@@ -93,7 +93,7 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1px solid white;
+    border: 2px solid #b2afaf;
     transform: translateX(-1px);
 }
 
@@ -193,11 +193,13 @@
 }
 
 #dropdown-Notifications{
+    max-height: 60vh;
     width: 600%;
     border-radius: 10px;
     border: 1px solid #e5e2e2;
     text-align: left;
     left: -450%;
+    overflow: scroll;
 }
 
 .notifications{

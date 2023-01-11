@@ -10,6 +10,7 @@ import searchReducer from "./search/searchSlice"
 import relationshipReducer from "./relationship/relationshipSlice"
 import listFriendReducer from "./listFriend/listFriendSlice"
 import commentReducer from "./comment/commentSlice";
+import messageReducer from "./message/messageSlice"
 
 export const store = configureStore({
     reducer: {
@@ -23,7 +24,8 @@ export const store = configureStore({
         search: searchReducer,
         relationship: relationshipReducer,
         listFriend: listFriendReducer,
-        comments: commentReducer
+        comments: commentReducer,
+        message: messageReducer
     }, middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: false,
     }),

@@ -115,10 +115,21 @@ const Navbar = ({socket}) => {
                                 } else if (item.type === "liked" || item.type === "comment") {
                                     return (
                                         <div className="notifications" key={index}>
-                                            {/*<Toastify displayName={item.displayName} content={item.content}/>*/}
                                             <Link
-                                                style={{color: "black", textDecoration: "none"}}
-                                                to="/home" onClick={() => {
+                                                  style={{color: "black", textDecoration: "none"}}
+                                                  to="/home" onClick={() => {
+                                                setIconNotice(false)
+                                            }}>{new Date(item?.time).toLocaleString("en-US",
+                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                <br/></Link>
+                                        </div>
+                                    )
+                                } else if (item.type === "message") {
+                                    return (
+                                        <div className="notifications" key={index}>
+                                            <Link
+                                                  style={{color: "black", textDecoration: "none"}}
+                                                  to={`/message`} onClick={() => {
                                                 setIconNotice(false)
                                             }}>{new Date(item?.time).toLocaleString("en-US",
                                                 {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}

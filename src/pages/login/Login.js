@@ -26,7 +26,7 @@ export default function Login({socket}) {
     const loginValidation = Yup.object({
         username: Yup.string()
             .required("Username is required.")
-            .matches(/^[a-z0-9]+$/,"Username is a-z,0-9")
+            .matches(/^[a-z0-9]+$/, "Username is a-z,0-9")
             .min(1)
             .max(15),
         password: Yup.string()
