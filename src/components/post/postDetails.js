@@ -9,19 +9,24 @@ import React, {useEffect, useState} from "react";
 import "./post.css";
 import {createLikes, deleteLikes, getLike} from "../../services/likeService";
 import {createNotification, deleteNotification} from "../../services/notificationService";
-import {useDispatch, useSelector} from "react-redux";
-import {deletePosts, getPosts} from "../../services/postServices";
+import {useDispatch} from "react-redux";
+import {deletePosts} from "../../services/postServices";
 import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
+import AddComment from "../comment/addComment";
+import CommentDetails from "../comment/commentDetails";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
-const PostDetails = ({socket, item, countLike, isSetting, url}) => {
+
+const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
+    const [showForm, setShowForm] = useState(false)
+    const [showForm1, setShowForm1] = useState(false)
     const [numberLikes, setNumberLikes] = useState(countLike)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
 
@@ -128,9 +133,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                     <span
                         className="postDate">{new Date(item.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
                     </span>
-                    {/*<span*/}
-                    {/*    className="postDate">{timeAgo.format(Date.now() - 2*60*1000)}*/}
-                    {/*</span>*/}
                     <i className={`fa-solid ${icon}`}></i>
                 </div>
                 <div className="postTopRight">
@@ -149,6 +151,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                                     </button>
                                     <button
                                         className="dropdown-item"
+                                        to="/"
                                         onClick={() => {
                                             handleDeletePost()
                                         }}>Delete status
@@ -158,7 +161,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                     }
                 </div>
             </div>
-
             <div className="postCenter">
                 <span>{item.content}</span>
                 <img
@@ -170,10 +172,13 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
             <div className="postBottomFooter">
                 <div>
                     <i className="fa-regular fa-thumbs-up"> {numberLikes}</i>
-                    {/*<i className="fa-regular fa-thumbs-up"> {countLike}</i>*/}
                 </div>
                 <div>
-                    4000 Comments
+                    <button className="button" onClick={() => {
+                        setShowForm1(!showForm1)
+                    }}>
+                        {countComment} Comments
+                    </button>
                 </div>
             </div>
 
@@ -202,7 +207,9 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                 </div>
 
                 <div className="postBottomFooterItem">
-                    <button className="button">
+                    <button className="button" onClick={() => {
+                        setShowForm(!showForm)
+                    }}>
                         <TextsmsIcon/>
                         <span className="span"> Comment</span>
                     </button>
@@ -214,6 +221,27 @@ const PostDetails = ({socket, item, countLike, isSetting, url}) => {
                     </button>
                 </div>
             </div>
+            {
+                showForm ? (
+                    <>
+                        <hr/>
+                        <div className="postBottomFooter">
+                            <AddComment postPostId={item.postId}/>
+                        </div>
+                    </>
+                ) : (<></>)
+            }
+
+            {
+                showForm1 ? (
+                    <>
+                        <hr/>
+                        <div className="postBottomFooter1">
+                            <CommentDetails item={item.comments} postPostId={item.postId}/>
+                        </div>
+                    </>
+                ) : (<></>)
+            }
         </div>
     )
 

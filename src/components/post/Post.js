@@ -3,7 +3,6 @@ import "./post.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
 import PostDetails from "./postDetails";
-// import {getCountLikes} from "../../services/likeService";
 import {getRelationship} from "../../services/FriendServices";
 
 const Post = ({socket, url}) => {
@@ -18,11 +17,8 @@ const Post = ({socket, url}) => {
         dispatch(getRelationship())
     }, [])
 
-    // useEffect(() => {
-    //     dispatch(getCountLikes())
-    // }, [])
-
     const posts = useSelector(state => {
+        console.log(state.posts.posts)
         return state.posts.posts
     })
 
@@ -33,8 +29,7 @@ const Post = ({socket, url}) => {
     const isRelationship = (accountRes) => {
         let flag = false
         for (let i = 0; i < relationship.length; i++) {
-            if ((relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isFriend === true) ||
-                (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId && relationship[i].isFriend === true)) {
+            if ((relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isFriend === true) || (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId && relationship[i].isFriend === true)) {
                 flag = true
                 break
             }
@@ -44,54 +39,39 @@ const Post = ({socket, url}) => {
 
     if (url !== null) {
         if (url === accountId) {
-            return (
-                <div className="post">
-                    {
-                        posts.map((item, index) => {
-                            if (item.account.accountId === url) {
-                                return (
-                                    <PostDetails key={index} socket={socket} item={item} url = {url}
-                                                 countLike={item.likes.length} isSetting={true}/>
-                                )
-                            }
-                        })
+            return (<div className="post">
+                {posts.map((item, index) => {
+                    if (item.account.accountId === url) {
+                        return (<PostDetails key={index} socket={socket} item={item} url={url}
+                                             countLike={item.likes.length} isSetting={true}/>)
                     }
-                </div>
-            );
+                })}
+            </div>);
         } else {
-            return (
-                <div className="post">
-                    {
-                        posts.map((item, index) => {
-                            const isFriend = isRelationship(item?.account.accountId)
-                            if (item.account.accountId === url && (item.status === "public" || (item.status === "onlyFriend" && isFriend === true))) {
-                                return (
-                                    <PostDetails key={index} socket={socket} item={item}
-                                                 countLike={item.likes.length} isSetting={false}/>
-                                )
-                            }
-                        })
+            return (<div className="post">
+                {posts.map((item, index) => {
+                    const isFriend = isRelationship(item?.account.accountId)
+                    if (item.account.accountId === url && (item.status === "public" || (item.status === "onlyFriend" && isFriend === true))) {
+                        return (<PostDetails key={index} socket={socket} item={item}
+                                             countLike={item.likes.length}
+                                             isSetting={false}/>)
                     }
-                </div>
-            );
+                })}
+            </div>);
         }
     } else {
-        return (
-            <div className="post">
-                {
-                    posts.map((item, index) => {
-                        const isFriend = isRelationship(item?.account.accountId)
-                        if ((item.account.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
-                            || (item.status === "onlyFriend" && isFriend === true)) {
-                            return (
-                                <PostDetails key={index} socket={socket} item={item}
-                                             countLike={item.likes.length} isSetting={false}/>
-                            )
-                        }
-                    })
+        return (<div className="post">
+            {posts.map((item, index) => {
+                console.log(item)
+                const isFriend = isRelationship(item?.account.accountId)
+                if ((item.account.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public" || (item.status === "onlyFriend" && isFriend === true)) {
+                    return (<PostDetails key={index} socket={socket} item={item}
+                                         countComment={item.comments.length}
+                                         countLike={item.likes.length}
+                                         isSetting={false}/>)
                 }
-            </div>
-        );
+            })}
+        </div>);
     }
 
 };
