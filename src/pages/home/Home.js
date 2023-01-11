@@ -6,6 +6,7 @@ import AddPost from "../../components/post/AddPost";
 import Navbar from "../../components/navbar/Navbar";
 import RightBar from "../../components/rightBar/rightBar";
 
+
 // const HomeCss = styled.div`
 //   div[class^=col] {
 //     padding-left: 0 !important;
@@ -14,10 +15,12 @@ import RightBar from "../../components/rightBar/rightBar";
 // `
 export default function Home({socket}) {
     useEffect(() => {
-        if (socket != null)
+        if (socket != null) {
             socket.emit("refresh", {
                 accountId: JSON.parse(localStorage.getItem("accountId"))
             })
+
+        }
     }, [socket])
 
     return (
