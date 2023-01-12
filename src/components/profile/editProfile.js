@@ -12,7 +12,6 @@ import {v4} from "uuid";
 import {editAccount, getAccount} from "../../services/accountService";
 import "./editProfile.css"
 import * as Yup from "yup";
-import {loginWed} from "../../services/loginServices";
 import CreateIcon from "@mui/icons-material/Create";
 
 export default function EditProfile({accountInfo, open, handleClose, ...props}) {
