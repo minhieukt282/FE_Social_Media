@@ -1,11 +1,12 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import {constants} from "../constants";
 
 export const getPosts = createAsyncThunk(
     "posts/get",
     async () => {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get('http://localhost:3001/posts', {
+        const res = await axios.get(`${constants.API_URL}/posts`, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -18,7 +19,7 @@ export const addPosts = createAsyncThunk(
     "posts/add",
     async (data) => {
     const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.post('http://localhost:3001/posts', data, {
+        const res = await axios.post(`${constants.API_URL}/posts`, data, {
                 headers: {
                     'Authorization': "Bearer " + token
                 }
@@ -32,7 +33,7 @@ export const deletePosts = createAsyncThunk(
     "posts/delete",
     async (postId) => {
         const token = JSON.parse(localStorage.getItem("token"));
-        const res = await axios.delete(`http://localhost:3001/posts/${postId}`, {
+        const res = await axios.delete(`${constants.API_URL}/posts/${postId}`, {
                 headers: {
                     'Authorization': "Bearer " + token
                 }
@@ -47,13 +48,12 @@ export const editPosts = createAsyncThunk(
     async (data) => {
         console.log('dataEdit', data)
         const token = JSON.parse(localStorage.getItem("token"));
-        const res = await axios.patch(`http://localhost:3001/posts/${data.postId}`, data, {
+        const res = await axios.patch(`${constants.API_URL}/posts/${data.postId}`, data, {
                 headers: {
                     'Authorization': "Bearer " + token
                 }
             }
         )
-        console.log(res)
         return res
     }
 )

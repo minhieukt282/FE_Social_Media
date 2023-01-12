@@ -2,6 +2,32 @@
   text-align: center;
 }
 
+#light {
+  background-color: white;
+}
+
+#dark {
+  background-color: #3d3a3a;
+  color: white;
+}
+
+.switch {
+  display: flex;
+  height: 100px;
+}
+
+.switch label {
+  margin-right: 10px;
+}
+
+#light .switch label {
+  color: black;
+}
+
+#dark .switch label {
+  color: white;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
