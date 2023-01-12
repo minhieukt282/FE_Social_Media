@@ -1,4 +1,4 @@
-import MultiActionAreaCard from "../../components/cardFriend/card";
+import MultiActionAreaCard from "../../components/cardFriend/MultiActionAreaCard";
 import React, {useEffect} from "react";
 
 export default function AddFriend({socket}) {

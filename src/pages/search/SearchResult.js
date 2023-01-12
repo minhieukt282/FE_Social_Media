@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
-import Chat from "../../components/cardMessage/chat";
+import SearchAccount from "../../components/searchAccount/SearchAccount";
+import SearchPost from "../../components/searchPost/SearchPost";
 
-export default function Message({socket}) {
+export default function SearchResult({socket}) {
     useEffect(() => {
         if (socket != null) {
             socket.emit("refresh", {
@@ -15,9 +16,12 @@ export default function Message({socket}) {
 
     return (
         <>
-            <h2 style={{paddingTop: 20, paddingLeft: 10}}>Message</h2>
+            <h2 style={{paddingTop: 20, paddingLeft: 10}}>Search result</h2>
             <hr/>
-            <Chat socket={socket}/>
+            <div className="row">
+                <SearchAccount socket={socket}/>
+                <SearchPost socket={socket}/>
+            </div>
         </>
     )
 }

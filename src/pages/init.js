@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/sidebar/Sidebar";
 import {Outlet, useNavigate} from "react-router-dom";
-import RightBar from "../components/rightBar/rightBar";
+import RightBar from "../components/rightBar/RightBar";
 import {useSelector} from "react-redux";
 import {constants} from "../constants";
 

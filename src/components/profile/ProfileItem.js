@@ -12,7 +12,7 @@ import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
-import EditProfile from "./editProfile";
+import EditProfile from "./EditProfile";
 
 const IS_FRIEND = 1
 const IS_ADD = 2

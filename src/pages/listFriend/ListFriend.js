@@ -1,8 +1,7 @@
 import React, {useEffect} from "react";
-import SearchAccount from "../../components/searchAccount/searchAccount";
-import SearchPost from "../../components/searchPost/searchPost";
+import ListFriendCard from "../../components/listFriend/ListFriendCard";
 
-export default function SearchResult({socket}) {
+export default function ListFriend({socket}) {
     useEffect(() => {
         if (socket != null) {
             socket.emit("refresh", {
@@ -16,11 +15,10 @@ export default function SearchResult({socket}) {
 
     return (
         <>
-            <h2 style={{paddingTop: 20, paddingLeft: 10}}>Search result</h2>
+            <h2 style={{paddingTop: 20, paddingLeft: 10}}>Friends list</h2>
             <hr/>
             <div className="row">
-                <SearchAccount socket={socket}/>
-                <SearchPost socket={socket}/>
+                <ListFriendCard socket={socket}/>
             </div>
         </>
     )
