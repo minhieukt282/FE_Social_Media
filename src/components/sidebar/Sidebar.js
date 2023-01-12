@@ -7,12 +7,13 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import EventIcon from '@mui/icons-material/Event';
 import StarIcon from '@mui/icons-material/Star';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import React, {useContext} from "react";
 import ReactSwitch from "react-switch";
 import {ThemeContext} from "../../App";
 
 export default function Sidebar() {
+    const location = useLocation()
     const {theme, setTheme} = useContext(ThemeContext);
     const accountId = JSON.parse(localStorage.getItem("accountId"))
     const imgAvt = JSON.parse(localStorage.getItem("imgAvt"))
@@ -32,7 +33,8 @@ export default function Sidebar() {
                         </li>
                     </Link>
 
-                    <Link style={{textDecoration: "none"}} to="/">
+                    <Link style={{textDecoration: "none"}} to={'/'} onClick={location.pathname !== '/' ? () => {
+                    } : () => window.location.reload(false)}>
                         <li className="mb-3">
                             <RssFeedIcon className="sidebarIcon"></RssFeedIcon>
                             <span className="sidebarListItemText">Feed</span>

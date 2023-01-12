@@ -1,13 +1,18 @@
 import {Field, Form, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import {addComments} from "../../services/commentService";
-import React from "react";
+import React, {useEffect} from "react";
 import {getPosts} from "../../services/postServices";
 import {createNotification} from "../../services/notificationService";
 
 const AddComment = ({item, img, socket}) => {
     const dispatch = useDispatch();
-//bug here
+    useEffect(() => {
+        socket?.on("getNotification", data => {
+            dispatch(getPosts())
+        })
+    },[socket])
+
     const handleAddComment = async (values) => {
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const accountId = JSON.parse(localStorage.getItem("accountId"))
@@ -32,6 +37,7 @@ const AddComment = ({item, img, socket}) => {
             await dispatch(getPosts())
         }
     }
+
     return (
         <div>
             <Formik
