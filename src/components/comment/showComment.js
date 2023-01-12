@@ -79,7 +79,7 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
                                                     handleDeleteComment()
                                                 }}
                                             >
-                                                Delete comment
+                                                Delete
                                             </button>
                                         </div>
                                     </div>
