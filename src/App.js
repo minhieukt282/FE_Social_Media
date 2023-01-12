@@ -13,6 +13,7 @@ import PageNotFound from "./pages/pageNotFound/PageNotFound";
 import Message from "./pages/message/Message";
 import Init from "./pages/init";
 import "./App.css"
+import {constants} from "./constants";
 import Post from "./components/post/Post";
 
 export const ThemeContext = createContext(null);
@@ -23,7 +24,7 @@ function App() {
     const [theme, setTheme] = useState("light");
 
     useEffect(() => {
-        const newSocket = io("http://localhost:5000");
+        const newSocket = io(constants.SOCKET_URL);
         setSocket(newSocket)
     }, [setSocket])
 
