@@ -11,8 +11,6 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {Field, Form, Formik} from "formik";
 import {getSearch} from "../../services/searchService";
 import {getRelationship} from "../../services/FriendServices";
-import {toast} from "react-toastify";
-import Toastify from "../toastify/toastity";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
@@ -72,7 +70,6 @@ const Navbar = ({socket}) => {
                     <Formik initialValues={{
                         searchKey: ''
                     }} onSubmit={values => {
-                        console.log(values)
                         handleSearch(values)
                     }}>
                         <Form>

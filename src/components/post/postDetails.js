@@ -18,13 +18,14 @@ import CommentDetails from "../comment/commentDetails";
 import {deleteComments} from "../../services/commentService";
 
 
-const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => {
+const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
-    const [showForm, setShowForm] = useState(false)
-    const [showForm1, setShowForm1] = useState(false)
+    const [showFormAddComment, setShowFormAddComment] = useState(false)
+    const [showFormListComment, setShowFormListComment] = useState(false)
     const [numberLikes, setNumberLikes] = useState(countLike)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
+    const imgAvt = JSON.parse(localStorage.getItem("imgAvt"))
 
     useEffect(() => {
         let isLike = true
@@ -171,7 +172,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                 </div>
                 <div>
                     <button className="button" onClick={() => {
-                        setShowForm1(!showForm1)
+                        setShowFormListComment(!showFormListComment)
                     }}>
                         {countComment} Comments
                     </button>
@@ -204,7 +205,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
 
                 <div className="postBottomFooterItem">
                     <button className="button" onClick={() => {
-                        setShowForm(!showForm)
+                        setShowFormAddComment(!showFormAddComment)
                     }}>
                         <TextsmsIcon/>
                         <span className="span">Comment</span>
@@ -218,16 +219,16 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                 </div>
             </div>
             {
-                showForm ? (
+                showFormAddComment ? (
                     <>
                         <hr/>
-                        <AddComment postPostId={item.postId} img={item.account.img} />
+                        <AddComment postPostId={item.postId} img={imgAvt}/>
                     </>
                 ) : (<></>)
             }
 
             {
-                showForm1 ? (
+                showFormListComment ? (
                     <>
                         <hr/>
                         <div className="postBottomFooter1">

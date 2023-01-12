@@ -176,7 +176,7 @@ export default function ProfileItem({socket}) {
                     <div className="profileRightTop">
                         <div className="profileCover">
                             <img className="profileCoverImg"
-                                 src='https://wallup.net/wp-content/uploads/2016/01/73809-nature-lake-reflection-mountain-trees-748x468.jpg'
+                                 src='https://firebasestorage.googleapis.com/v0/b/blog-17-21-20-12.appspot.com/o/images%2Fnew-year-background_24972-1409.webpc810c0c5-4e37-4162-a08a-1298edc41bb1?alt=media&token=eba5ebbb-2cf7-41c7-9c0f-dff0207f4214'
                                  alt="clear"/>
                             <img className="profileUserImg"
                                  src={accountInfo.img} alt="clear"/>
@@ -214,9 +214,11 @@ export default function ProfileItem({socket}) {
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
                                         {
-                                            isProfile ? (<div className={'text-center'}><button className="btn btn-secondary"><CreateIcon/>
-                                                <EditProfile accountInfo={accountInfo}/>
-                                            </button></div>) : (<></>)
+                                            isProfile ? (<div className={'text-center'}>
+                                                <button className="btn btn-secondary"><CreateIcon/>
+                                                    <EditProfile accountInfo={accountInfo}/>
+                                                </button>
+                                            </div>) : (<></>)
                                         }
                                     </div>
                                 </div>

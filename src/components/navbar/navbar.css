@@ -182,7 +182,7 @@
     color: #f1f1f1;
 }
 
-#dropdown-Notifications{
+#dropdown-Notifications {
     max-height: 60vh;
     width: 600%;
     border-radius: 10px;
@@ -200,7 +200,7 @@
     white-space: unset;
 }
 
-.notifications:hover{
+.notifications:hover {
     background-color: #d9d9d9;
     border: 1px solid;
     border-radius: 10px;

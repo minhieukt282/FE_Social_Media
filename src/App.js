@@ -1,5 +1,5 @@
 import {Route, Routes, useLocation} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import Login from "./pages/login/Login";
 import AddFriend from "./pages/AddFriends/AddFriend";
 import Profile from "./pages/profile/Profile";
@@ -12,10 +12,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import PageNotFound from "./pages/pageNotFound/pageNotFound";
 import Message from "./pages/message/message";
 import Init from "./pages/init";
+import "./App.css"
+
+export const ThemeContext = createContext(null);
 
 function App() {
     const [socket, setSocket] = useState(null)
     const {pathname} = useLocation();
+    const [theme, setTheme] = useState("light");
+
     useEffect(() => {
         const newSocket = io("http://localhost:5000");
         setSocket(newSocket)
@@ -27,21 +32,23 @@ function App() {
 
     return (
         <>
-            <div className="container">
-                <Routes>
-                    <Route path="/login" element={<Login socket={socket}/>}/>
-                    <Route path="/register" element={<Register/>}/>
-                    <Route path="/" element={<Init socket={socket}/>}>
-                        <Route path="/" element={<Home socket={socket}/>}/>
-                        <Route path="/friends" element={<AddFriend socket={socket}/>}/>
-                        <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
-                        <Route path="/search" element={<SearchResult socket={socket}/>}/>
-                        <Route path="/message/:relationshipId" element={<Message socket={socket}/>}/>
-                    </Route>
-                    <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
-                    <Route path="*" element={<PageNotFound/>}/>
-                </Routes>
-            </div>
+            <ThemeContext.Provider value={{theme, setTheme}}>
+                <div className="container" id={`${theme}`}>
+                    <Routes>
+                        <Route path="/login" element={<Login socket={socket}/>}/>
+                        <Route path="/register" element={<Register/>}/>
+                        <Route path="/" element={<Init socket={socket}/>}>
+                            <Route path="/" element={<Home socket={socket}/>}/>
+                            <Route path="/friends" element={<AddFriend socket={socket}/>}/>
+                            <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
+                            <Route path="/search" element={<SearchResult socket={socket}/>}/>
+                            <Route path="/message/:relationshipId" element={<Message socket={socket}/>}/>
+                        </Route>
+                        <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
+                        <Route path="*" element={<PageNotFound/>}/>
+                    </Routes>
+                </div>
+            </ThemeContext.Provider>
         </>
     )
 }
