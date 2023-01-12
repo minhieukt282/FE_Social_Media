@@ -96,23 +96,25 @@ const Navbar = ({socket}) => {
                             <div className="right_notification"><FiberManualRecordIcon style={{color: "red"}}/>
                             </div>) : (<></>)}
                     </Link>
-                    <div
+                    <div id="dropdown-Notifications"
                         className="dropdown-menu dropdown-menu-lg-right px-1">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
                                 if (item.type === "addFriends" || item.type === "friends") {
                                     return (
                                         <>
-                                            <div className="dropdown-item" key={index}>
-                                                <Link
-                                                    style={{color: "black", textDecoration: "none"}}
-                                                    to={`/profile/${item?.accountSent}`} onClick={() => {
-                                                    setIconNotice(false)
-                                                }}>{new Date(item?.time).toLocaleString("en-US",
-                                                    {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                                    <br/></Link>
+                                            <div >
+                                                <div className="dropdown-item" key={index}>
+                                                    <Link
+                                                        style={{color: "black", textDecoration: "none"}}
+                                                        to={`/profile/${item?.accountSent}`} onClick={() => {
+                                                        setIconNotice(false)
+                                                    }}>{new Date(item?.time).toLocaleString("en-US",
+                                                        {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                        <br/></Link>
+                                                </div>
+                                                <div className="dropdown-divider"/>
                                             </div>
-                                            <div className="dropdown-divider"/>
                                         </>
                                     )
                                 } else if (item.type === "liked" || item.type === "comment") {
