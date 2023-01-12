@@ -98,7 +98,6 @@ export default function ProfileItem({socket}) {
     }
 
     const handleAccept = async (relationshipId) => {
-        console.log(relationshipId)
         setIsFriend(IS_FRIEND)
         const dataNotice = {
             displayName: displayName,
