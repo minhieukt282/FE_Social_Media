@@ -91,64 +91,77 @@ const Navbar = ({socket}) => {
 
                 <div style={{paddingRight: 20}} className="dropdown">
                     <Link type="button" className="dropdown-toggle" data-toggle="dropdown"
-                          data-display="static" aria-expanded="false"><NotificationsActiveIcon onClick={() => {
-                        setNoticeCome(false)
-                    }}/>
+                          data-display="static" aria-expanded="false" data-offset="10,20"><NotificationsActiveIcon
+                        onClick={() => {
+                            setNoticeCome(false)
+                        }}/>
                         {iconNotice ? (
                             <div className="right_notification"><FiberManualRecordIcon style={{color: "red"}}/>
                             </div>) : (<></>)}
                     </Link>
-                    <div id="dropdown-Notifications"
-                         className="dropdown-menu dropdown-Notifications dropdown-menu-lg-right">
+                    <div
+                        className="dropdown-menu dropdown-menu-lg-right px-1">
                         {notifications?.map((item, index) => {
                             if (accountId === item.accountReceiver) {
                                 if (item.type === "addFriends" || item.type === "friends") {
                                     return (
-                                        <div className="notifications" key={index}>
-                                            <Link
-                                                style={{color: "black", textDecoration: "none"}}
-                                                to={`/profile/${item?.accountSent}`} onClick={() => {
-                                                setIconNotice(false)
-                                            }}>{new Date(item?.time).toLocaleString("en-US",
-                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                                <br/></Link>
-                                        </div>
+                                        <>
+                                            <div className="dropdown-item" key={index}>
+                                                <Link
+                                                    style={{color: "black", textDecoration: "none"}}
+                                                    to={`/profile/${item?.accountSent}`} onClick={() => {
+                                                    setIconNotice(false)
+                                                }}>{new Date(item?.time).toLocaleString("en-US",
+                                                    {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                    <br/></Link>
+                                            </div>
+                                            <div className="dropdown-divider"/>
+                                        </>
                                     )
                                 } else if (item.type === "liked" || item.type === "comment") {
                                     return (
-                                        <div className="notifications" key={index}>
-                                            <Link
-                                                  style={{color: "black", textDecoration: "none"}}
-                                                  to="/home" onClick={() => {
-                                                setIconNotice(false)
-                                            }}>{new Date(item?.time).toLocaleString("en-US",
-                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                                <br/></Link>
-                                        </div>
+                                        <>
+                                            <div className="dropdown-item" key={index}>
+                                                <Link
+                                                    style={{color: "black", textDecoration: "none"}}
+                                                    to="/home" onClick={() => {
+                                                    setIconNotice(false)
+                                                }}>{new Date(item?.time).toLocaleString("en-US",
+                                                    {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                    <br/></Link>
+                                            </div>
+                                            <div className="dropdown-divider"/>
+                                        </>
                                     )
                                 } else if (item.type === "message") {
                                     return (
-                                        <div className="notifications" key={index}>
-                                            <Link
-                                                  style={{color: "black", textDecoration: "none"}}
-                                                  to={`/message`} onClick={() => {
-                                                setIconNotice(false)
-                                            }}>{new Date(item?.time).toLocaleString("en-US",
-                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                                <br/></Link>
-                                        </div>
+                                        <>
+                                            <div className="dropdown-item" key={index}>
+                                                <Link
+                                                    style={{color: "black", textDecoration: "none"}}
+                                                    to={`/message`} onClick={() => {
+                                                    setIconNotice(false)
+                                                }}>{new Date(item?.time).toLocaleString("en-US",
+                                                    {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                    <br/></Link>
+                                            </div>
+                                            <div className="dropdown-divider"/>
+                                        </>
                                     )
                                 } else {
                                     return (
-                                        <div className="notifications" key={index}>
-                                            <Link
-                                                style={{color: "black", textDecoration: "none"}}
-                                                to="/home" onClick={() => {
-                                                setNoticeCome(false)
-                                            }}>{new Date(item?.time).toLocaleString("en-US",
-                                                {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                                <br/></Link>
-                                        </div>
+                                        <>
+                                            <div className="dropdown-item" key={index}>
+                                                <Link
+                                                    style={{color: "black", textDecoration: "none"}}
+                                                    to="/home" onClick={() => {
+                                                    setNoticeCome(false)
+                                                }}>{new Date(item?.time).toLocaleString("en-US",
+                                                    {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
+                                                    <br/></Link>
+                                            </div>
+                                            <div className="dropdown-divider"/>
+                                        </>
                                     )
                                 }
                             }

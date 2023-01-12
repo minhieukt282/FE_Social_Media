@@ -30,19 +30,18 @@ const AddComment = ({postPostId, img}) => {
                         resetForm()
                     })
                 }}>
-                <Form>
-                    <div className={"postBottomFooter"}>
-                        <div className="col-1">
+                <Form className={'form-inline'}>
+                        <div className="col-md-2 col-lg-1 p-0 text-right">
                             <img src={img} alt="my avatar"
                                  className="postProfileImg"/>
                         </div>
-                        <div className="col-8">
-                            <Field style={{width: '100%'}} name={'comment'} className='form-control comment'/>
+                        <div className="col-md-7 col-lg-9">
+                            <Field as={'textarea'} rows={1} style={{width: '100%'}} name={'comment'}
+                                   className={'form-control'}/>
                         </div>
-                        <div className="col-3">
-                            <button className="addComment" type="submit">Send</button>
+                        <div className="col-md-3 col-lg-2 p-0">
+                            <button className="btn btn-primary btn-block" type="submit">Send</button>
                         </div>
-                    </div>
                 </Form>
             </Formik>
         </div>

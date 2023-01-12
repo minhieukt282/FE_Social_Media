@@ -40,7 +40,7 @@ const Post = ({socket, url}) => {
     if (url !== null) {
         if (url === accountId) {
             return (
-                <div className="post">
+                <div className="mb-5">
                     {
                         posts.map((item, index) => {
                             if (item.account.accountId === url) {
@@ -55,7 +55,7 @@ const Post = ({socket, url}) => {
             );
         } else {
             return (
-                <div className="post">
+                <div className="mb-5">
                     {
                         posts.map((item, index) => {
                             const isFriend = isRelationship(item?.account.accountId)
@@ -72,7 +72,7 @@ const Post = ({socket, url}) => {
         }
     } else {
         return (
-            <div className="post">
+            <div className="mb-5">
                 {
                     posts.map((item, index) => {
                         const isFriend = isRelationship(item?.account.accountId)

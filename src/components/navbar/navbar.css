@@ -182,15 +182,6 @@
     color: #f1f1f1;
 }
 
-.dropdown-menu.dropdown-menu-lg-right.show {
-    display: block;
-    width: 200%;
-    border-radius: 10px;
-    border: 1px solid #e5e2e2;
-    text-align: left;
-    left: -170%;
-}
-
 #dropdown-Notifications{
     max-height: 60vh;
     width: 600%;
@@ -201,9 +192,14 @@
     overflow: scroll;
 }
 
-.notifications{
-    margin-top: 10px;
+.dropdown-menu.show {
+    width: 300px;
 }
+
+.dropdown-item {
+    white-space: unset;
+}
+
 .notifications:hover{
     background-color: #d9d9d9;
     border: 1px solid;
