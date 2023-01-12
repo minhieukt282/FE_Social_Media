@@ -1,18 +1,20 @@
 import ReactScrollToBottom from "react-scroll-to-bottom";
 import {Field, Form, Formik} from "formik";
 import React, {useEffect, useState} from "react";
-import {useLocation, useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNotification} from "../../services/notificationService";
 import {showMessage} from "../../services/messageService";
 import Message from "./Message";
+import CallIcon from '@mui/icons-material/Call';
+import DuoIcon from '@mui/icons-material/Duo';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import "./Chat.css"
 
 export default function Chat({socket}) {
     const dispatch = useDispatch()
-    const {relationshipId} = useParams()
     const accountId = JSON.parse(localStorage.getItem("accountId"))
-    const [room, setRoom] = useState(+relationshipId)
+    const {relationshipId} = useParams()
     const [isSent, setIsSent] = useState(false)
 
     useEffect(() => {
@@ -41,23 +43,28 @@ export default function Chat({socket}) {
         }
     }
     const handleSentMessage = async ({text}) => {
-        socket.emit("sentMessage", {roomId: room, accountId: accountId, message: text})
         const dataNotice = {
             displayName: JSON.parse(localStorage.getItem("displayName")),
             accountSent: accountId,
-            accountReceiver: userInfo.accountId,
+            accountReceiver: userInfo?.accountId,
             postPostId: 0,
             type: "message"
         }
         await dispatch(createNotification(dataNotice))
+        socket.emit("sentMessage", {roomId: +relationshipId, accountId: accountId, message: text})
         setIsSent(!isSent)
     }
 
     return (
         <div>
             <div className="imgChat">
-                <img style={{width: 50, height: 50}} src={userInfo.img} alt="" className="navbarImg"/>
-                <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo.displayName}</h4>
+                <Link to={`/profile/${userInfo?.accountId}`} style={{textDecoration: "none"}}>
+                    <img style={{width: 50, height: 50}} src={userInfo?.img} alt="" className="navbarImg"/>
+                    <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo?.displayName}</h4>
+                </Link>
+                <CallIcon style={{position: "absolute", marginLeft: 600, top: 110, color: "blue"}}/>
+                <DuoIcon style={{position: "absolute", marginLeft: 650, top: 110, color: "blue"}}/>
+                <GroupAddIcon style={{position: "absolute", marginLeft: 700, top: 110, color: "blue"}}/>
             </div>
 
             <div className="chatPage">
@@ -68,9 +75,9 @@ export default function Chat({socket}) {
                                 if (+item.roomId === +relationshipId) {
                                     return (
                                         <div key={index}>
-                                            <Message user={item.accountId === accountId ? '' : item.accountId}
+                                            <Message user={item?.accountId === accountId ? '' : item?.accountId}
                                                      item={item}
-                                                     classs={item.accountId === accountId ? 'right' : 'left'}/>
+                                                     classs={item?.accountId === accountId ? 'right' : 'left'}/>
                                         </div>
                                     )
                                 }

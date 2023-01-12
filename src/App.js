@@ -1,5 +1,5 @@
 import {Route, Routes, useLocation} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import Login from "./pages/login/Login";
 import AddFriend from "./pages/AddFriends/AddFriend";
 import Profile from "./pages/profile/Profile";
@@ -12,10 +12,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import PageNotFound from "./pages/pageNotFound/pageNotFound";
 import Message from "./pages/message/message";
 import Init from "./pages/init";
+import "./App.css"
+
+export const ThemeContext = createContext(null);
 
 function App() {
     const [socket, setSocket] = useState(null)
     const {pathname} = useLocation();
+    const [theme, setTheme] = useState("light");
+
     useEffect(() => {
         const newSocket = io("http://localhost:5000");
         setSocket(newSocket)
@@ -26,8 +31,9 @@ function App() {
     }, [pathname]);
 
     return (
-        <>
-            <div className="container">
+
+        <ThemeContext.Provider value={{theme, setTheme}}>
+            <div className="container" id={`${theme}`}>
                 <Routes>
                     <Route path="/login" element={<Login socket={socket}/>}/>
                     <Route path="/register" element={<Register/>}/>
@@ -42,7 +48,8 @@ function App() {
                     <Route path="*" element={<PageNotFound/>}/>
                 </Routes>
             </div>
-        </>
+        </ThemeContext.Provider>
+
     )
 }
 
