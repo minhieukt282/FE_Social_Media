@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getFriend} from "../../services/FriendServices";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import UserOnline from "./userOnline";
+import UserOnline from "./UserOnline";
 
 export default function RightBar({socket}) {
     const dispatch = useDispatch()

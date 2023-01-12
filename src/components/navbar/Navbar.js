@@ -120,7 +120,7 @@ const Navbar = ({socket}) => {
                                             <div className="dropdown-item">
                                                 <Link
                                                     style={{color: "black", textDecoration: "none"}}
-                                                    to="/home" onClick={() => {
+                                                    to={`/posts/${item.postPostId}`} onClick={() => {
                                                     setIconNotice(false)
                                                 }}>{new Date(item?.time).toLocaleString("en-US",
                                                     {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
@@ -135,7 +135,7 @@ const Navbar = ({socket}) => {
                                             <div className="dropdown-item">
                                                 <Link
                                                     style={{color: "black", textDecoration: "none"}}
-                                                    to={`/message`} onClick={() => {
+                                                    to={`/message/${item.postPostId}`} onClick={() => {
                                                     setIconNotice(false)
                                                 }}>{new Date(item?.time).toLocaleString("en-US",
                                                     {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}

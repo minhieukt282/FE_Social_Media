@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
-import ListFriendCard from "../../components/listFriend/listFriendCard";
+import Chat from "../../components/cardMessage/Chat";
 
-export default function ListFriend({socket}) {
+export default function Message({socket}) {
     useEffect(() => {
         if (socket != null) {
             socket.emit("refresh", {
@@ -15,11 +15,9 @@ export default function ListFriend({socket}) {
 
     return (
         <>
-            <h2 style={{paddingTop: 20, paddingLeft: 10}}>Friends list</h2>
+            <h2 style={{paddingTop: 20, paddingLeft: 10}}>Message</h2>
             <hr/>
-            <div className="row">
-                <ListFriendCard socket={socket}/>
-            </div>
+            <Chat socket={socket}/>
         </>
     )
 }

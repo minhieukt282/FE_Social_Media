@@ -12,7 +12,7 @@ import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
-import EditProfile from "./editProfile";
+import EditProfile from "./EditProfile";
 
 const IS_FRIEND = 1
 const IS_ADD = 2
@@ -98,7 +98,6 @@ export default function ProfileItem({socket}) {
     }
 
     const handleAccept = async (relationshipId) => {
-        console.log(relationshipId)
         setIsFriend(IS_FRIEND)
         const dataNotice = {
             displayName: displayName,
@@ -176,7 +175,7 @@ export default function ProfileItem({socket}) {
                     <div className="profileRightTop">
                         <div className="profileCover">
                             <img className="profileCoverImg"
-                                 src='https://firebasestorage.googleapis.com/v0/b/blog-17-21-20-12.appspot.com/o/images%2Fnew-year-background_24972-1409.webpc810c0c5-4e37-4162-a08a-1298edc41bb1?alt=media&token=eba5ebbb-2cf7-41c7-9c0f-dff0207f4214'
+                                 src='https://firebasestorage.googleapis.com/v0/b/image-c737d.appspot.com/o/images%2Fhappy-new-year-2023.jpg?alt=media&token=37cbd825-e491-49d2-8d47-728d63d57b3f'
                                  alt="clear"/>
                             <img className="profileUserImg"
                                  src={accountInfo.img} alt="clear"/>

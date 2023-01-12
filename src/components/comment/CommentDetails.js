@@ -1,4 +1,4 @@
-import ShowComment from "./showComment";
+import ShowComment from "./ShowComment";
 
 const CommentDetails = ({item, postPostId}) => {
     const accountId = JSON.parse(localStorage.getItem("accountId"))

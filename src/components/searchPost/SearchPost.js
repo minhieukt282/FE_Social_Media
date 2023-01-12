@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useSelector} from "react-redux";
-import PostDetails from "../post/postDetails";
+import PostDetails from "../post/PostDetails";
 
 export default function SearchPost({socket}) {
     const accountId = JSON.parse(localStorage.getItem("accountId"))

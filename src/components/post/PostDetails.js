@@ -13,8 +13,8 @@ import {useDispatch} from "react-redux";
 import {deletePosts} from "../../services/postServices";
 import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
-import AddComment from "../comment/addComment";
-import CommentDetails from "../comment/commentDetails";
+import AddComment from "../comment/AddComment";
+import CommentDetails from "../comment/CommentDetails";
 import {deleteComments} from "../../services/commentService";
 
 const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) => {

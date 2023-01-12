@@ -1,7 +1,7 @@
 import ReactScrollToBottom from "react-scroll-to-bottom";
 import {Field, Form, Formik} from "formik";
 import React, {useEffect, useState} from "react";
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNotification} from "../../services/notificationService";
 import {showMessage} from "../../services/messageService";
@@ -47,7 +47,7 @@ export default function Chat({socket}) {
             displayName: JSON.parse(localStorage.getItem("displayName")),
             accountSent: accountId,
             accountReceiver: userInfo?.accountId,
-            postPostId: 0,
+            postPostId: +relationshipId,
             type: "message"
         }
         await dispatch(createNotification(dataNotice))
@@ -62,8 +62,8 @@ export default function Chat({socket}) {
                     <img style={{width: 50, height: 50}} src={userInfo?.img} alt="" className="navbarImg"/>
                     <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo?.displayName}</h4>
                 </Link>
-                <CallIcon className="callIcon" />
-                <DuoIcon className="DuoIcon" />
+                <CallIcon className="callIcon"/>
+                <DuoIcon className="DuoIcon"/>
                 <GroupAddIcon className="GroupAddIcon"/>
             </div>
 
