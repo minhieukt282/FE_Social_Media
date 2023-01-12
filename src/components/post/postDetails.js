@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {IconButton} from "@mui/material";
 import {MoreVert} from "@mui/icons-material";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ShareIcon from '@mui/icons-material/Share';
 import TextsmsIcon from '@mui/icons-material/Textsms';
 import React, {useEffect, useState} from "react";
@@ -189,12 +189,12 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                             <span className="span"> Like</span>
                         </button>
                     ) : (
-                        <button style={{marginLeft: 20}}
+                        <button style={{marginLeft: 40}}
                                 className="button"
                                 onClick={() => {
                                     handleNotificationDisliked(item.account.accountId, item.postId)
                                 }}>
-                            <ThumbDownAltIcon/>
+                           <ThumbUpIcon/>
                             <span className="span"> Unlike</span>
                         </button>
                     )}
