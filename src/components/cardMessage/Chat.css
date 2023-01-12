@@ -116,6 +116,8 @@
 @media (max-width: 800px) {
     .chatInput {
         padding-right: 100px;
+        height: 40px;
+        font-size: 16px;
     }
 
     .callIcon{
