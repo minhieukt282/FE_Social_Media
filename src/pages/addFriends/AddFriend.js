@@ -1,4 +1,4 @@
-import MultiActionAreaCard from "../../components/cardFriend/card";
+import MultiActionAreaCard from "../../components/cardFriend/MultiActionAreaCard";
 import React, {useEffect} from "react";
 
 export default function AddFriend({socket}) {
@@ -20,6 +20,6 @@ export default function AddFriend({socket}) {
             <div className="row">
                 <MultiActionAreaCard socket={socket}></MultiActionAreaCard>
             </div>
-        </div>
+        </>
     )
 }

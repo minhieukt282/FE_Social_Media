@@ -1,11 +1,12 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import {constants} from "../constants";
 
 export const addFriend = createAsyncThunk(
     "friend/addFriend",
     async (data) => {
-        const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.post("http://localhost:3001/friends", data, {
+        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+        const res = await axios.post(constants.API_URL + "/friends", data, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -16,8 +17,8 @@ export const addFriend = createAsyncThunk(
 export const getFriend = createAsyncThunk(
     "friend/getFriend",
     async (accountId) => {
-        const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get(`http://localhost:3001/friends/lists/${accountId}`, {
+        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+        const res = await axios.get(`${constants.API_URL}/friends/lists/${accountId}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -29,8 +30,8 @@ export const getFriend = createAsyncThunk(
 export const waitingFriends = createAsyncThunk(
     "friend/waitingFriend",
     async (id) => {
-        const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get(`http://localhost:3001/friends/${id}`, {
+        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+        const res = await axios.get(`${constants.API_URL}/friends/${id}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -42,9 +43,9 @@ export const waitingFriends = createAsyncThunk(
 export const acceptFriends = createAsyncThunk(
     "friend/acceptFriends",
     async (id) => {
-        const token = JSON.parse(localStorage.getItem("token"))
+        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
         let data = ""
-        const res = await axios.patch(`http://localhost:3001/friends/${id}`, data, {
+        const res = await axios.patch(`${constants.API_URL}/friends/${id}`, data, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -56,8 +57,8 @@ export const acceptFriends = createAsyncThunk(
 export const rejectFriends = createAsyncThunk(
     "friend/rejectFriends",
     async (id) => {
-        const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.delete(`http://localhost:3001/friends/${id}`, {
+        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+        const res = await axios.delete(`${constants.API_URL}/friends/${id}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -69,8 +70,8 @@ export const rejectFriends = createAsyncThunk(
 export const unfriend = createAsyncThunk(
     "friend/unfriend",
     async (data) => {
-        const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.delete(`http://localhost:3001/friends/${data.accountReq}/${data.accountRes}`, {
+        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+        const res = await axios.delete(`${constants.API_URL}/friends/${data.accountReq}/${data.accountRes}`, {
             headers: {
                 'Authorization': "Bearer " + token
             }
@@ -82,8 +83,8 @@ export const unfriend = createAsyncThunk(
 export const getRelationship = createAsyncThunk(
     "friend/getRelationship",
     async () => {
-        const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.get('http://localhost:3001/relationships', {
+        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+        const res = await axios.get(`${constants.API_URL}/relationships`, {
             headers: {
                 'Authorization': "Bearer " + token
             }

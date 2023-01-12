@@ -1,0 +1,96 @@
+Index: src/components/profile/editProfile.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import * as React from 'react';\r\nimport {Link} from \"react-router-dom\";\r\nimport Modal from \"@mui/joy/Modal\";\r\nimport ModalDialog from \"@mui/joy/ModalDialog\";\r\nimport Typography from \"@mui/joy/Typography\";\r\nimport {Field, Form, Formik} from \"formik\";\r\nimport {useEffect, useState} from \"react\";\r\nimport {storage} from \"../../firebase\";\r\nimport {getDownloadURL, listAll, ref, uploadBytes} from \"firebase/storage\";\r\nimport {useDispatch, useSelector} from \"react-redux\";\r\nimport {v4} from \"uuid\";\r\nimport {editAccount, getAccount} from \"../../services/accountService\";\r\nimport \"./editProfile.css\"\r\n\r\nexport default function EditProfile({accountInfo}) {\r\n    const accountId = accountInfo.accountId\r\n    const [open, setOpen] = React.useState(false);\r\n    const [imageUrls, setImageUrls] = useState([]);\r\n    const [img, setImg] = useState(\"\");\r\n    const imagesListRef = ref(storage, \"images/\");\r\n    const [submitting, setSubmitting] = useState(false);\r\n    const dispatch = useDispatch();\r\n    const accounts = useSelector((state) => {\r\n        return state.accountInfo.accountInfo\r\n    })\r\n    let account = {}\r\n    if (accounts.accountId === accountId) {\r\n        account = accounts\r\n    }\r\n\r\n    const handleEdit = async (values) => {\r\n        let imgSent\r\n        if (img !== \"\") {\r\n            imgSent = img\r\n        } else imgSent = values.img\r\n        let data = {\r\n            ...values,\r\n            img: imgSent\r\n        }\r\n        await dispatch(editAccount(data));\r\n    }\r\n    const uploadFile = (imageUpload) => {\r\n        if (imageUpload == null) return;\r\n        const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);\r\n        uploadBytes(imageRef, imageUpload).then((snapshot) => {\r\n            getDownloadURL(snapshot.ref).then((img) => {\r\n                setImg(img)\r\n                setSubmitting(false)\r\n            });\r\n        })\r\n    };\r\n\r\n    useEffect(() => {\r\n        listAll(imagesListRef).then((response) => {\r\n            response.items.forEach((item) => {\r\n                getDownloadURL(item).then((img) => {\r\n                    setImageUrls((prev) => [...prev, img]);\r\n                });\r\n            })\r\n        })\r\n    }, []);\r\n\r\n    return (\r\n        <React.Fragment>\r\n            <span\r\n                onClick={() => setOpen(true)}\r\n            >\r\n                Edit Profile\r\n            </span>\r\n            <Modal open={open} onClose={() => setOpen(false)}>\r\n                <ModalDialog\r\n                    style={{color: \"black\", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}\r\n                    aria-labelledby=\"basic-modal-dialog-title\"\r\n                    aria-describedby=\"basic-modal-dialog-description\"\r\n                    sx={{\r\n                        borderRadius: 'md',\r\n                        p: 3\r\n                    }}\r\n                >\r\n                    <Typography\r\n                        id=\"basic-modal-dialog-title\"\r\n                        component=\"h2\"\r\n                        level=\"inherit\"\r\n                        fontSize=\"1.25em\"\r\n                        mb=\"0.25em\"\r\n                    >\r\n                        Edit\r\n                    </Typography>\r\n                    <Typography\r\n                        id=\"basic-modal-dialog-description\"\r\n                        mt={0.5}\r\n                        mb={2}\r\n                        textColor=\"black\"\r\n                        textAlign={\"center\"}\r\n                    >\r\n                    </Typography>\r\n                    <Formik\r\n                        initialValues={\r\n                            {\r\n                                displayName: account.displayName,\r\n                                img: account.img,\r\n                                birthday: account.birthday,\r\n                                location: account.location,\r\n                                accountId: account.accountId\r\n                            }\r\n                        }\r\n                        onSubmit={(values) => {\r\n                            handleEdit(values)\r\n                            setOpen(false)\r\n                        }}>\r\n                        <Form>\r\n                            <div className={\"post-group\"}>\r\n                                <div className=\"form-group\">\r\n                                    <label htmlFor=\"\"> DisplayName</label>\r\n                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'}\r\n                                           className={'form-control'}/>\r\n                                </div>\r\n                                <div className=\"form-group\">\r\n                                    <label htmlFor=\"\">Location</label>\r\n                                    <Field type={'text'} style={{width: '100%'}} name={'location'}\r\n                                           className={'form-control'}/>\r\n                                </div>\r\n                                <div className=\"form-group\">\r\n                                    <label htmlFor=\"\">Birthday</label>\r\n                                    <Field type={'date'} name={'birthday'} className={'form-control'}/>\r\n                                </div>\r\n                                <div className=\"d-flex justify-content-between\">\r\n                                    <label className=\"custom-file-upload mb-0\">\r\n                                        <i className=\"fas fa-camera\"></i> Photo\r\n                                        <input\r\n                                            id=\"file-upload\"\r\n                                            type=\"file\"\r\n                                            onChange={(event) => {\r\n                                                setSubmitting(true)\r\n                                                uploadFile(event.target.files[0])\r\n                                            }}/>\r\n                                    </label>\r\n                                    <button className=\"btn btn-primary\" type=\"submit\" disabled={submitting}>Edit</button>\r\n                                </div>\r\n                            </div>\r\n                        </Form>\r\n                    </Formik>\r\n                </ModalDialog>\r\n            </Modal>\r\n\r\n        </React.Fragment>\r\n    )\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/profile/editProfile.js b/src/components/profile/editProfile.js
+--- a/src/components/profile/editProfile.js	(revision b5f5c9906523a82c15cdd4330de1e1f7b1cb4ed0)
++++ b/src/components/profile/editProfile.js	(date 1673543631666)
+@@ -23,10 +23,10 @@
+     const accounts = useSelector((state) => {
+         return state.accountInfo.accountInfo
+     })
+-    let account = {}
+-    if (accounts.accountId === accountId) {
+-        account = accounts
+-    }
++    let account= {}
++        if (accounts.accountId === accountId){
++            account = accounts
++        }
+ 
+     const handleEdit = async (values) => {
+         let imgSent
+@@ -38,6 +38,7 @@
+             img: imgSent
+         }
+         await dispatch(editAccount(data));
++        // await dispatch(getAccount())
+     }
+     const uploadFile = (imageUpload) => {
+         if (imageUpload == null) return;
+@@ -62,11 +63,14 @@
+ 
+     return (
+         <React.Fragment>
+-            <span
++            <Link
++                color="neutral"
++                style={{color: "#007bff", backgroundColor: "white", textDecoration: "none"}}
++                className={'btn-primary'}
+                 onClick={() => setOpen(true)}
+             >
+                 Edit Profile
+-            </span>
++            </Link>
+             <Modal open={open} onClose={() => setOpen(false)}>
+                 <ModalDialog
+                     style={{color: "black", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
+@@ -112,21 +116,20 @@
+                             <div className={"post-group"}>
+                                 <div className="form-group">
+                                     <label htmlFor=""> DisplayName</label>
+-                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'}
+-                                           className={'form-control'}/>
++                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'} className={'form-control'}/>
+                                 </div>
+                                 <div className="form-group">
+                                     <label htmlFor="">Location</label>
+-                                    <Field type={'text'} style={{width: '100%'}} name={'location'}
+-                                           className={'form-control'}/>
++                                    <Field type={'text'} style={{width: '100%'}} name={'location'} className={'form-control'}/>
+                                 </div>
+                                 <div className="form-group">
+                                     <label htmlFor="">Birthday</label>
+-                                    <Field type={'date'} name={'birthday'} className={'form-control'}/>
++                                    <Field type={'date'} name={'birthday'}  className={'form-control'}/>
+                                 </div>
+-                                <div className="d-flex justify-content-between">
+-                                    <label className="custom-file-upload mb-0">
+-                                        <i className="fas fa-camera"></i> Photo
++                                <div className="form-group">
++                                    <label className="custom-file-upload">
++                                        <i className="fa fa-cloud-upload"></i>
++                                        Custom Upload
+                                         <input
+                                             id="file-upload"
+                                             type="file"
+@@ -135,7 +138,8 @@
+                                                 uploadFile(event.target.files[0])
+                                             }}/>
+                                     </label>
+-                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
++
++                                    <button className="editProfile" type="submit" disabled={submitting}>Edit</button>
+                                 </div>
+                             </div>
+                         </Form>
+@@ -145,4 +149,4 @@
+ 
+         </React.Fragment>
+     )
+-}
++}
+\ No newline at end of file

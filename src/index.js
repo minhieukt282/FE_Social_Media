@@ -22,7 +22,9 @@ root.render(
                 pauseOnHover
                 theme="light"
             />
+
             <App/>
+
         </BrowserRouter>
     </Provider>
 );

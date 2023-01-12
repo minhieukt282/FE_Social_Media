@@ -4,10 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../services/postServices";
 import PostDetails from "./PostDetails";
 import {getRelationship} from "../../services/FriendServices";
+import {useParams} from "react-router-dom";
 
-const Posts = ({socket, url}) => {
+const Post = ({socket, url}) => {
     const dispatch = useDispatch();
     const accountId = JSON.parse(localStorage.getItem("accountId"))
+    const {urlPostId} = useParams()
 
     useEffect(() => {
         dispatch(getPosts())
@@ -36,32 +38,72 @@ const Posts = ({socket, url}) => {
         }
         return flag
     }
-
-    if (url !== null) {
-        if (url === accountId) {
-            return (
-                <div className="post">
-                    {
-                        posts.map((item, index) => {
-                            if (item.account.accountId === url) {
+    if (urlPostId !== undefined) {
+        return (
+            <div className="mb-5">
+                {
+                    posts.map((item, index) => {
+                        const isFriend = isRelationship(item?.account.accountId)
+                        if (+urlPostId === + item?.postId){
+                            if ((item.account.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
+                                || (item.status === "onlyFriend" && isFriend === true)) {
                                 return (
-                                    <PostDetails key={index} socket={socket} item={item} url = {url} countComment={item.comments.length}
-                                                 countLike={item.likes.length} isSetting={true}/>
+                                    <PostDetails key={index} socket={socket} item={item} countComment={item.comments.length}
+                                                 countLike={item.likes.length} isSetting={false}/>
                                 )
                             }
-                        })
-                    }
-                </div>
-            );
+                        }
+                    })
+                }
+            </div>
+        );
+    } else {
+        if (url !== null) {
+            if (url === accountId) {
+                return (
+                    <div className="mb-5">
+                        {
+                            posts.map((item, index) => {
+                                if (item.account.accountId === url) {
+                                    return (
+                                        <PostDetails key={index} socket={socket} item={item} url={url}
+                                                     countComment={item.comments.length}
+                                                     countLike={item.likes.length} isSetting={true}/>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="mb-5">
+                        {
+                            posts.map((item, index) => {
+                                const isFriend = isRelationship(item?.account.accountId)
+                                if (item.account.accountId === url && (item.status === "public" || (item.status === "onlyFriend" && isFriend === true))) {
+                                    return (
+                                        <PostDetails key={index} socket={socket} item={item}
+                                                     countComment={item.comments.length}
+                                                     countLike={item.likes.length} isSetting={false}/>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                );
+            }
         } else {
             return (
-                <div className="post">
+                <div className="mb-5">
                     {
                         posts.map((item, index) => {
                             const isFriend = isRelationship(item?.account.accountId)
-                            if (item.account.accountId === url && (item.status === "public" || (item.status === "onlyFriend" && isFriend === true))) {
+                            if ((item.account.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
+                                || (item.status === "onlyFriend" && isFriend === true)) {
                                 return (
-                                    <PostDetails key={index} socket={socket} item={item} countComment={item.comments.length}
+                                    <PostDetails key={index} socket={socket} item={item}
+                                                 countComment={item.comments.length}
                                                  countLike={item.likes.length} isSetting={false}/>
                                 )
                             }
@@ -70,26 +112,10 @@ const Posts = ({socket, url}) => {
                 </div>
             );
         }
-    } else {
-        return (
-            <div className="post">
-                {
-                    posts.map((item, index) => {
-                        const isFriend = isRelationship(item?.account.accountId)
-                        if ((item.account.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
-                            || (item.status === "onlyFriend" && isFriend === true)) {
-                            return (
-                                <PostDetails key={index} socket={socket} item={item}   countComment={item.comments.length}
-                                             countLike={item.likes.length} isSetting={false}/>
-                            )
-                        }
-                    })
-                }
-            </div>
-        );
     }
+
 
 };
 
 
-export default Posts;
+export default Post;

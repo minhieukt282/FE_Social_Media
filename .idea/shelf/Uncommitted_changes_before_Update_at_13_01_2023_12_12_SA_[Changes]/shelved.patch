@@ -1,0 +1,623 @@
+Index: src/components/profile/editProfile.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import * as React from 'react';\r\nimport {Link} from \"react-router-dom\";\r\nimport Modal from \"@mui/joy/Modal\";\r\nimport ModalDialog from \"@mui/joy/ModalDialog\";\r\nimport Typography from \"@mui/joy/Typography\";\r\nimport {Field, Form, Formik} from \"formik\";\r\nimport {useEffect, useState} from \"react\";\r\nimport {storage} from \"../../firebase\";\r\nimport {getDownloadURL, listAll, ref, uploadBytes} from \"firebase/storage\";\r\nimport {useDispatch, useSelector} from \"react-redux\";\r\nimport {v4} from \"uuid\";\r\nimport {editAccount, getAccount} from \"../../services/accountService\";\r\nimport \"./editProfile.css\"\r\n\r\nexport default function EditProfile({accountInfo}) {\r\n    const accountId = accountInfo.accountId\r\n    const [open, setOpen] = React.useState(false);\r\n    const [imageUrls, setImageUrls] = useState([]);\r\n    const [img, setImg] = useState(\"\");\r\n    const imagesListRef = ref(storage, \"images/\");\r\n    const [submitting, setSubmitting] = useState(false);\r\n    const dispatch = useDispatch();\r\n    const accounts = useSelector((state) => {\r\n        return state.accountInfo.accountInfo\r\n    })\r\n    let account = {}\r\n    if (accounts.accountId === accountId) {\r\n        account = accounts\r\n    }\r\n\r\n    const handleEdit = async (values) => {\r\n        let imgSent\r\n        if (img !== \"\") {\r\n            imgSent = img\r\n        } else imgSent = values.img\r\n        let data = {\r\n            ...values,\r\n            img: imgSent\r\n        }\r\n        await dispatch(editAccount(data));\r\n    }\r\n    const uploadFile = (imageUpload) => {\r\n        if (imageUpload == null) return;\r\n        const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);\r\n        uploadBytes(imageRef, imageUpload).then((snapshot) => {\r\n            getDownloadURL(snapshot.ref).then((img) => {\r\n                setImg(img)\r\n                setSubmitting(false)\r\n            });\r\n        })\r\n    };\r\n\r\n    useEffect(() => {\r\n        listAll(imagesListRef).then((response) => {\r\n            response.items.forEach((item) => {\r\n                getDownloadURL(item).then((img) => {\r\n                    setImageUrls((prev) => [...prev, img]);\r\n                });\r\n            })\r\n        })\r\n    }, []);\r\n\r\n    return (\r\n        <React.Fragment>\r\n            <span\r\n                onClick={() => setOpen(true)}\r\n            >\r\n                Edit Profile\r\n            </span>\r\n            <Modal open={open} onClose={() => setOpen(false)}>\r\n                <ModalDialog\r\n                    style={{color: \"black\", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}\r\n                    aria-labelledby=\"basic-modal-dialog-title\"\r\n                    aria-describedby=\"basic-modal-dialog-description\"\r\n                    sx={{\r\n                        borderRadius: 'md',\r\n                        p: 3\r\n                    }}\r\n                >\r\n                    <Typography\r\n                        id=\"basic-modal-dialog-title\"\r\n                        component=\"h2\"\r\n                        level=\"inherit\"\r\n                        fontSize=\"1.25em\"\r\n                        mb=\"0.25em\"\r\n                    >\r\n                        Edit\r\n                    </Typography>\r\n                    <Typography\r\n                        id=\"basic-modal-dialog-description\"\r\n                        mt={0.5}\r\n                        mb={2}\r\n                        textColor=\"black\"\r\n                        textAlign={\"center\"}\r\n                    >\r\n                    </Typography>\r\n                    <Formik\r\n                        initialValues={\r\n                            {\r\n                                displayName: account.displayName,\r\n                                img: account.img,\r\n                                birthday: account.birthday,\r\n                                location: account.location,\r\n                                accountId: account.accountId\r\n                            }\r\n                        }\r\n                        onSubmit={(values) => {\r\n                            handleEdit(values)\r\n                            setOpen(false)\r\n                        }}>\r\n                        <Form>\r\n                            <div className={\"post-group\"}>\r\n                                <div className=\"form-group\">\r\n                                    <label htmlFor=\"\"> DisplayName</label>\r\n                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'}\r\n                                           className={'form-control'}/>\r\n                                </div>\r\n                                <div className=\"form-group\">\r\n                                    <label htmlFor=\"\">Location</label>\r\n                                    <Field type={'text'} style={{width: '100%'}} name={'location'}\r\n                                           className={'form-control'}/>\r\n                                </div>\r\n                                <div className=\"form-group\">\r\n                                    <label htmlFor=\"\">Birthday</label>\r\n                                    <Field type={'date'} name={'birthday'} className={'form-control'}/>\r\n                                </div>\r\n                                <div className=\"d-flex justify-content-between\">\r\n                                    <label className=\"custom-file-upload mb-0\">\r\n                                        <i className=\"fas fa-camera\"></i> Photo\r\n                                        <input\r\n                                            id=\"file-upload\"\r\n                                            type=\"file\"\r\n                                            onChange={(event) => {\r\n                                                setSubmitting(true)\r\n                                                uploadFile(event.target.files[0])\r\n                                            }}/>\r\n                                    </label>\r\n                                    <button className=\"btn btn-primary\" type=\"submit\" disabled={submitting}>Edit</button>\r\n                                </div>\r\n                            </div>\r\n                        </Form>\r\n                    </Formik>\r\n                </ModalDialog>\r\n            </Modal>\r\n\r\n        </React.Fragment>\r\n    )\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/profile/editProfile.js b/src/components/profile/editProfile.js
+--- a/src/components/profile/editProfile.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/components/profile/editProfile.js	(date 1673539898816)
+@@ -23,10 +23,10 @@
+     const accounts = useSelector((state) => {
+         return state.accountInfo.accountInfo
+     })
+-    let account = {}
+-    if (accounts.accountId === accountId) {
+-        account = accounts
+-    }
++    let account= {}
++        if (accounts.accountId === accountId){
++            account = accounts
++        }
+ 
+     const handleEdit = async (values) => {
+         let imgSent
+@@ -38,6 +38,7 @@
+             img: imgSent
+         }
+         await dispatch(editAccount(data));
++        // await dispatch(getAccount())
+     }
+     const uploadFile = (imageUpload) => {
+         if (imageUpload == null) return;
+@@ -62,11 +63,14 @@
+ 
+     return (
+         <React.Fragment>
+-            <span
++            <Link
++                color="neutral"
++                style={{color: "#007bff", backgroundColor: "white", textDecoration: "none"}}
++                className={'btn-primary'}
+                 onClick={() => setOpen(true)}
+             >
+                 Edit Profile
+-            </span>
++            </Link>
+             <Modal open={open} onClose={() => setOpen(false)}>
+                 <ModalDialog
+                     style={{color: "black", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
+@@ -112,21 +116,20 @@
+                             <div className={"post-group"}>
+                                 <div className="form-group">
+                                     <label htmlFor=""> DisplayName</label>
+-                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'}
+-                                           className={'form-control'}/>
++                                    <Field type={'text'} style={{width: '100%'}} name={'displayName'} className={'form-control'}/>
+                                 </div>
+                                 <div className="form-group">
+                                     <label htmlFor="">Location</label>
+-                                    <Field type={'text'} style={{width: '100%'}} name={'location'}
+-                                           className={'form-control'}/>
++                                    <Field type={'text'} style={{width: '100%'}} name={'location'} className={'form-control'}/>
+                                 </div>
+                                 <div className="form-group">
+                                     <label htmlFor="">Birthday</label>
+-                                    <Field type={'date'} name={'birthday'} className={'form-control'}/>
++                                    <Field type={'date'} name={'birthday'}  className={'form-control'}/>
+                                 </div>
+-                                <div className="d-flex justify-content-between">
+-                                    <label className="custom-file-upload mb-0">
+-                                        <i className="fas fa-camera"></i> Photo
++                                <div className="form-group">
++                                    <label className="custom-file-upload">
++                                        <i className="fa fa-cloud-upload"></i>
++                                        Custom Upload
+                                         <input
+                                             id="file-upload"
+                                             type="file"
+@@ -135,7 +138,8 @@
+                                                 uploadFile(event.target.files[0])
+                                             }}/>
+                                     </label>
+-                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
++
++                                    <button className="editProfile" type="submit" disabled={submitting}>Edit</button>
+                                 </div>
+                             </div>
+                         </Form>
+@@ -145,4 +149,4 @@
+ 
+         </React.Fragment>
+     )
+-}
++}
+\ No newline at end of file
+Index: src/components/profile/ProfileItem.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import CreateIcon from \"@mui/icons-material/Create\";\r\nimport PortraitIcon from \"@mui/icons-material/Portrait\";\r\nimport LocationCityIcon from \"@mui/icons-material/LocationCity\";\r\nimport CakeIcon from '@mui/icons-material/Cake';\r\nimport Card from '@mui/material/Card';\r\nimport CardMedia from '@mui/material/CardMedia';\r\nimport Post from \"../post/Post\";\r\nimport {Link, useParams} from \"react-router-dom\";\r\nimport {useDispatch, useSelector} from \"react-redux\";\r\nimport {useEffect, useState} from \"react\";\r\nimport {getAccount} from \"../../services/accountService\";\r\nimport AddPost from \"../post/AddPost\";\r\nimport {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from \"../../services/FriendServices\";\r\nimport {createNotification, deleteNotification} from \"../../services/notificationService\";\r\nimport EditProfile from \"./editProfile\";\r\n\r\nconst IS_FRIEND = 1\r\nconst IS_ADD = 2\r\nconst IS_WAIT = 3;\r\nconst IS_ACCEPT = 4;\r\nexport default function ProfileItem({socket}) {\r\n    const {accountId} = useParams()\r\n    const dispatch = useDispatch();\r\n    const [isFriend, setIsFriend] = useState(null)\r\n    const [relationshipId, setRelationshipId] = useState(null)\r\n    const [isReload, setIsReLoad] = useState(false)\r\n    const userId = JSON.parse(localStorage.getItem(\"accountId\"))\r\n    const displayName = JSON.parse(localStorage.getItem(\"displayName\"))\r\n\r\n    useEffect(() => {\r\n        dispatch(getAccount(accountId))\r\n    }, [accountId, dispatch])\r\n\r\n    useEffect(() => {\r\n        dispatch(getFriend(accountId))\r\n    }, [accountId, isReload, dispatch])\r\n\r\n    useEffect(() => {\r\n        dispatch(getRelationship())\r\n    }, [accountId, isReload, dispatch])\r\n\r\n    const listFriends = useSelector(state => {\r\n        return state.listFriend.listFriend\r\n    })\r\n\r\n    const accountInfo = useSelector(state => {\r\n        return state.accountInfo.accountInfo\r\n    })\r\n\r\n    const relationship = useSelector(state => {\r\n        return state.relationship.relationship\r\n    })\r\n\r\n    useEffect(() => {\r\n        let checkFriend = IS_ADD\r\n        for (let i = 0; i < relationship.length; i++) {\r\n            if ((relationship[i].accountReq === userId && relationship[i].accountRes === accountId) ||\r\n                (relationship[i].accountReq === accountId && relationship[i].accountRes === userId)) {\r\n                if (relationship[i].isFriend) {\r\n                    checkFriend = IS_FRIEND\r\n                    setIsReLoad(true)\r\n                    break\r\n                } else {\r\n                    checkFriend = IS_WAIT\r\n                    if (relationship[i].accountRes === userId) {\r\n                        checkFriend = IS_ACCEPT\r\n                        setRelationshipId(relationship[i].relationshipId)\r\n                    }\r\n                    setIsReLoad(true)\r\n                    break\r\n                }\r\n            }\r\n        }\r\n        setIsFriend(checkFriend)\r\n    }, [accountId, isReload, relationship])\r\n\r\n    let isProfile = false\r\n    if (userId === accountId) {\r\n        isProfile = true\r\n    }\r\n\r\n    const handleUnfriend = async () => {\r\n        setIsFriend(IS_ADD)\r\n        const data = {\r\n            accountReq: userId,\r\n            accountRes: accountId\r\n        }\r\n        const dataNotice = {\r\n            displayName: displayName,\r\n            accountSent: userId,\r\n            accountReceiver: accountId,\r\n            postPostId: 0,\r\n            type: \"addFriends\"\r\n        }\r\n        await dispatch(unfriend(data))\r\n        await dispatch(deleteNotification(dataNotice))\r\n        await setIsReLoad(!isReload)\r\n    }\r\n\r\n    const handleAccept = async (relationshipId) => {\r\n        console.log(relationshipId)\r\n        setIsFriend(IS_FRIEND)\r\n        const dataNotice = {\r\n            displayName: displayName,\r\n            accountSent: userId,\r\n            accountReceiver: accountId,\r\n            postPostId: 0,\r\n            type: \"friends\"\r\n        }\r\n        await dispatch(acceptFriends(relationshipId))\r\n        await dispatch(createNotification(dataNotice))\r\n        socket.emit(\"acceptFriend\", dataNotice)\r\n        await setIsReLoad(!isReload)\r\n\r\n    }\r\n\r\n    const handleAddFriend = async () => {\r\n        setIsFriend(IS_WAIT)\r\n        const data = {\r\n            accountReq: userId,\r\n            accountRes: accountId\r\n        }\r\n        const dataNotice = {\r\n            displayName: displayName,\r\n            accountSent: userId,\r\n            accountReceiver: accountId,\r\n            postPostId: 0,\r\n            type: \"addFriends\"\r\n        }\r\n        await dispatch(addFriend(data))\r\n        await dispatch(createNotification(dataNotice))\r\n        socket.emit(\"addFriends\", dataNotice)\r\n    }\r\n\r\n    const buttonRender = () => {\r\n        if (isFriend === IS_FRIEND) {\r\n            return (\r\n                <button style={{width: \"15%\"}} className=\"btn-req\" onClick={() => {\r\n                    handleUnfriend()\r\n                }}>Unfriend</button>\r\n            )\r\n        } else if (isFriend === IS_ADD) {\r\n            return (\r\n                <button style={{width: \"15%\"}} className=\"btn-req\" onClick={() => {\r\n                    handleAddFriend()\r\n                }}>Add friend</button>\r\n            )\r\n        } else if (isFriend === IS_WAIT) {\r\n            return (\r\n                <button style={{width: \"15%\"}} className=\"btn-req\" onClick={() => {\r\n                    handleUnfriend()\r\n                }}>Wait | Cancel</button>\r\n            )\r\n        } else if (isFriend === IS_ACCEPT) {\r\n            return (\r\n                <span style={{width: \"15%\"}}>\r\n                    <button style={{width: \"50%\"}} className=\"btn-req\"\r\n                            onClick={() => {\r\n                                handleAccept(relationshipId)\r\n                            }}>Accept\r\n                    </button>\r\n                    <button style={{width: \"50%\"}} className=\"btn-req\"\r\n                            onClick={() => {\r\n                                handleUnfriend()\r\n                            }}>Reject\r\n                    </button>\r\n                </span>\r\n            )\r\n        }\r\n    }\r\n\r\n    return (\r\n        <>\r\n            <div className=\"profile\">\r\n                <div className=\"profileRight\">\r\n                    <div className=\"profileRightTop\">\r\n                        <div className=\"profileCover\">\r\n                            <img className=\"profileCoverImg\"\r\n                                 src='https://wallup.net/wp-content/uploads/2016/01/73809-nature-lake-reflection-mountain-trees-748x468.jpg'\r\n                                 alt=\"clear\"/>\r\n                            <img className=\"profileUserImg\"\r\n                                 src={accountInfo.img} alt=\"clear\"/>\r\n                        </div>\r\n                        <div className=\"profileInfo\">\r\n                            <h4 className=\"profileInfoName\">{accountInfo.displayName}</h4>\r\n                            {\r\n                                isProfile ? (<></>) : (<>{buttonRender()}</>)\r\n                            }\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <br/>\r\n            </div>\r\n            <div className=\"col-12\">\r\n                <div className=\"row\">\r\n                    <div className=\"col-1\"></div>\r\n                    <div className=\"col-10\">\r\n                        <div className=\"row\">\r\n                            <div className=\"col-4\">\r\n                                <div className=\"infoTable\">\r\n                                    <h3>Information</h3>\r\n                                    <div className=\"detailInfo\">\r\n                                        <div className=\"detailInfoItem\">\r\n                                            <PortraitIcon/>\r\n                                            <span className=\"detailInfoKey\">Real name: {accountInfo.displayName}</span>\r\n                                        </div>\r\n                                        <div className=\"detailInfoItem\">\r\n                                            <CakeIcon/>\r\n                                            <span\r\n                                                className=\"detailInfoKey\">Birthday: {new Date(accountInfo.birthday).toLocaleString(\"en-US\", {timeZone: \"Asia/Jakarta\"})}</span>\r\n                                        </div>\r\n                                        <div className=\"detailInfoItem\">\r\n                                            <LocationCityIcon/>\r\n                                            <span className=\"detailInfoKey\">City: {accountInfo.location}</span>\r\n                                        </div>\r\n                                        {\r\n                                            isProfile ? (<div className={'text-center'}><button className=\"btn btn-secondary\"><CreateIcon/>\r\n                                                <EditProfile accountInfo={accountInfo}/>\r\n                                            </button></div>) : (<></>)\r\n                                        }\r\n                                    </div>\r\n                                </div>\r\n                                <br/>\r\n                                <Link to={`/friends/${accountId}`}><h2>Friends list</h2></Link>\r\n                                <div className=\"infoTableFriend\">\r\n                                    <div className=\"row\">\r\n                                        {\r\n                                            listFriends?.map((item, index) => {\r\n                                                if (item.accountId !== accountId) {\r\n                                                    return (\r\n                                                        <div className=\"col-4\" key={index}>\r\n                                                            <Link to={`/profile/${item.accountId}`}>\r\n                                                                <Card sx={{maxWidth: 120}}>\r\n                                                                    <CardMedia\r\n                                                                        sx={{height: 120}}\r\n                                                                        image={`${item.img}`}\r\n                                                                        title={`${item.displayName}`}\r\n                                                                    />\r\n                                                                </Card>\r\n                                                            </Link>\r\n                                                        </div>\r\n                                                    )\r\n                                                }\r\n                                            })\r\n                                        }\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <div className=\"col-8\">\r\n                                {isProfile ? (<AddPost/>) : (<></>)}\r\n                                <Post socket={socket} url={accountId}/>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div className=\"col-1\"></div>\r\n                </div>\r\n            </div>\r\n        </>\r\n    )\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/profile/ProfileItem.js b/src/components/profile/ProfileItem.js
+--- a/src/components/profile/ProfileItem.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/components/profile/ProfileItem.js	(date 1673541750732)
+@@ -12,7 +12,7 @@
+ import AddPost from "../post/AddPost";
+ import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
+ import {createNotification, deleteNotification} from "../../services/notificationService";
+-import EditProfile from "./editProfile";
++import EditProfile from "./EditProfile";
+ 
+ const IS_FRIEND = 1
+ const IS_ADD = 2
+Index: src/constants.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/constants.js b/src/constants.js
+new file mode 100644
+--- /dev/null	(date 1673540126397)
++++ b/src/constants.js	(date 1673540126397)
+@@ -0,0 +1,6 @@
++export const constants = {
++    API_URL: 'http://localhost:3001',
++    SOCKET_URL: 'http://localhost:5000',
++    TOKEN_KEY: 'token',
++    ACCOUNT_ID: 'accountId',
++};
+\ No newline at end of file
+Index: public/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"utf-8\"/>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\r\n    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"apple-touch-icon.png\">\r\n    <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"favicon-32x32.png\">\r\n    <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"favicon-16x16.png\">\r\n    <title>Facebook</title>\r\n    <meta name=\"description\" content=\"Web site created using create-react-app\" />\r\n    <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\"\r\n          integrity=\"sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N\" crossorigin=\"anonymous\">\r\n    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css\" integrity=\"sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />\r\n</head>\r\n<body>\r\n<noscript>You need to enable JavaScript to run this app.</noscript>\r\n<div id=\"root\"></div>\r\n<script src=\"https://code.jquery.com/jquery-3.6.3.min.js\" integrity=\"sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=\" crossorigin=\"anonymous\"></script>\r\n<script src=\"js/bootstrap.bundle.min.js\"\r\n        integrity=\"sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct\"\r\n        crossorigin=\"anonymous\"></script>\r\n<script src=\"https://cdn.jsdelivr.net/npm/sweetalert2@11\"></script>\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/public/index.html b/public/index.html
+--- a/public/index.html	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/public/index.html	(date 1673542071873)
+@@ -8,17 +8,14 @@
+     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+     <title>Facebook</title>
+     <meta name="description" content="Web site created using create-react-app" />
+-    <link rel="stylesheet" href="css/bootstrap.min.css"
+-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
++    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ </head>
+ <body>
+ <noscript>You need to enable JavaScript to run this app.</noscript>
+ <div id="root"></div>
+-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+-<script src="js/bootstrap.bundle.min.js"
+-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+-        crossorigin="anonymous"></script>
++<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
++<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ </body>
+-</html>
++</html>
+\ No newline at end of file
+Index: src/services/commentService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\n\r\nexport const addComments = createAsyncThunk(\r\n    \"comment/add\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.post('http://localhost:3001/comments', data, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return data\r\n    }\r\n)\r\n\r\nexport const deleteComments = createAsyncThunk(\r\n    \"comment/delete\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.delete(`http://localhost:3001/comments/${data.accountId}/${data.postPostId}/${data.commentId}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n\r\n    }\r\n)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/commentService.js b/src/services/commentService.js
+--- a/src/services/commentService.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/commentService.js	(date 1673541061675)
+@@ -5,7 +5,7 @@
+ export const addComments = createAsyncThunk(
+     "comment/add",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+         const res = await axios.post('http://localhost:3001/comments', data, {
+             headers: {
+                 'Authorization': "Bearer " + token
+@@ -18,7 +18,7 @@
+ export const deleteComments = createAsyncThunk(
+     "comment/delete",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+         const res = await axios.delete(`http://localhost:3001/comments/${data.accountId}/${data.postPostId}/${data.commentId}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+Index: src/services/messageService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const showMessage = createAsyncThunk(\r\n    \"message/getMessage\",\r\n    async () => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get(`http://localhost:3001/messages`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res.data\r\n    }\r\n)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/messageService.js b/src/services/messageService.js
+--- a/src/services/messageService.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/messageService.js	(date 1673541330567)
+@@ -1,11 +1,12 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const showMessage = createAsyncThunk(
+     "message/getMessage",
+     async () => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get(`http://localhost:3001/messages`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/messages`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+Index: src/services/searchService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const getSearch = createAsyncThunk(\r\n    \"search/getSearch\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get(`http://localhost:3001/search/${data}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res.data\r\n    }\r\n\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/searchService.js b/src/services/searchService.js
+--- a/src/services/searchService.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/searchService.js	(date 1673541439082)
+@@ -1,11 +1,12 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const getSearch = createAsyncThunk(
+     "search/getSearch",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get(`http://localhost:3001/search/${data}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/search/${data}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+Index: src/services/registerServices.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const registerWed = createAsyncThunk(\r\n    \"register/getRegister\",\r\n    async (data) => {\r\n        return await axios.post(\"http://localhost:3001/register\", data)\r\n    }\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/registerServices.js b/src/services/registerServices.js
+--- a/src/services/registerServices.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/registerServices.js	(date 1673541439024)
+@@ -1,9 +1,10 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const registerWed = createAsyncThunk(
+     "register/getRegister",
+     async (data) => {
+-        return await axios.post("http://localhost:3001/register", data)
++        return await axios.post(`${constants.API_URL}/register`, data)
+     }
+ )
+Index: src/services/loginServices.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const loginWed = createAsyncThunk(\r\n    \"login/getLogin\",\r\n    async (data) => {\r\n        const res = await axios.post(\"http://localhost:3001/login\", data);\r\n        return res.data\r\n    }\r\n)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/loginServices.js b/src/services/loginServices.js
+--- a/src/services/loginServices.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/loginServices.js	(date 1673541330593)
+@@ -1,10 +1,11 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const loginWed = createAsyncThunk(
+     "login/getLogin",
+     async (data) => {
+-        const res = await axios.post("http://localhost:3001/login", data);
++            const res = await axios.post(`${constants.API_URL}/login`, data);
+         return res.data
+     }
+ )
+\ No newline at end of file
+Index: src/services/postServices.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const getPosts = createAsyncThunk(\r\n    \"posts/get\",\r\n    async () => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get('http://localhost:3001/posts', {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res;\r\n    }\r\n)\r\n\r\nexport const addPosts = createAsyncThunk(\r\n    \"posts/add\",\r\n    async (data) => {\r\n    const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.post('http://localhost:3001/posts', data, {\r\n                headers: {\r\n                    'Authorization': \"Bearer \" + token\r\n                }\r\n            }\r\n        )\r\n        return res.data.data;\r\n    }\r\n)\r\n\r\nexport const deletePosts = createAsyncThunk(\r\n    \"posts/delete\",\r\n    async (postId) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"));\r\n        const res = await axios.delete(`http://localhost:3001/posts/${postId}`, {\r\n                headers: {\r\n                    'Authorization': \"Bearer \" + token\r\n                }\r\n            }\r\n        )\r\n        return postId\r\n    }\r\n)\r\n\r\nexport const editPosts = createAsyncThunk(\r\n    \"posts/edit\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"));\r\n        const res = await axios.patch(`http://localhost:3001/posts/${data.postId}`, data, {\r\n                headers: {\r\n                    'Authorization': \"Bearer \" + token\r\n                }\r\n            }\r\n        )\r\n        console.log(res)\r\n        return res\r\n    }\r\n)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/postServices.js b/src/services/postServices.js
+--- a/src/services/postServices.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/postServices.js	(date 1673541439212)
+@@ -1,11 +1,12 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const getPosts = createAsyncThunk(
+     "posts/get",
+     async () => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get('http://localhost:3001/posts', {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/posts`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -17,8 +18,8 @@
+ export const addPosts = createAsyncThunk(
+     "posts/add",
+     async (data) => {
+-    const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.post('http://localhost:3001/posts', data, {
++    const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.post(`${constants.API_URL}/posts`, data, {
+                 headers: {
+                     'Authorization': "Bearer " + token
+                 }
+@@ -31,8 +32,8 @@
+ export const deletePosts = createAsyncThunk(
+     "posts/delete",
+     async (postId) => {
+-        const token = JSON.parse(localStorage.getItem("token"));
+-        const res = await axios.delete(`http://localhost:3001/posts/${postId}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY));
++        const res = await axios.delete(`${constants.API_URL}/posts/${postId}`, {
+                 headers: {
+                     'Authorization': "Bearer " + token
+                 }
+@@ -45,8 +46,8 @@
+ export const editPosts = createAsyncThunk(
+     "posts/edit",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"));
+-        const res = await axios.patch(`http://localhost:3001/posts/${data.postId}`, data, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY));
++        const res = await axios.patch(`${constants.API_URL}/posts/${data.postId}`, data, {
+                 headers: {
+                     'Authorization': "Bearer " + token
+                 }
+Index: src/services/notificationService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const createNotification = createAsyncThunk(\r\n    \"create/notification\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.post('http://localhost:3001/notification', data, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\n\r\nexport const deleteNotification = createAsyncThunk(\r\n    \"delete/notification\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.delete(`http://localhost:3001/notification/${data.accountSent}/${data.postId}/${data.type}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\n\r\nexport const showNotification = createAsyncThunk(\r\n    \"get/notification\",\r\n    async () => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get('http://localhost:3001/notification', {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res.data\r\n    }\r\n)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/notificationService.js b/src/services/notificationService.js
+--- a/src/services/notificationService.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/notificationService.js	(date 1673541439183)
+@@ -1,11 +1,12 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const createNotification = createAsyncThunk(
+     "create/notification",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.post('http://localhost:3001/notification', data, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.post(`${constants.API_URL}/notification`, data, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -17,8 +18,8 @@
+ export const deleteNotification = createAsyncThunk(
+     "delete/notification",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.delete(`http://localhost:3001/notification/${data.accountSent}/${data.postId}/${data.type}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.delete(`${constants.API_URL}/notification/${data.accountSent}/${data.postId}/${data.type}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -30,8 +31,8 @@
+ export const showNotification = createAsyncThunk(
+     "get/notification",
+     async () => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get('http://localhost:3001/notification', {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/notification`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+Index: src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {Route, Routes, useLocation} from \"react-router-dom\";\r\nimport React, {useEffect, useState} from \"react\";\r\nimport Login from \"./pages/login/Login\";\r\nimport AddFriend from \"./pages/AddFriends/AddFriend\";\r\nimport Profile from \"./pages/profile/Profile\";\r\nimport Register from \"./pages/register/Register\";\r\nimport {io} from \"socket.io-client\";\r\nimport SearchResult from \"./pages/search/searchResult\";\r\nimport ListFriend from \"./pages/listFriend/listFriend\";\r\nimport Home from \"./pages/home/Home\";\r\nimport 'react-toastify/dist/ReactToastify.css';\r\nimport PageNotFound from \"./pages/pageNotFound/pageNotFound\";\r\nimport Message from \"./pages/message/message\";\r\nimport Init from \"./pages/init\";\r\n\r\nfunction App() {\r\n    const [socket, setSocket] = useState(null)\r\n    const {pathname} = useLocation();\r\n    useEffect(() => {\r\n        const newSocket = io(\"http://localhost:5000\");\r\n        setSocket(newSocket)\r\n    }, [setSocket])\r\n\r\n    useEffect(() => {\r\n        window.scrollTo(0, 0)\r\n    }, [pathname]);\r\n\r\n    return (\r\n        <>\r\n            <div className=\"container\">\r\n                <Routes>\r\n                    <Route path=\"/login\" element={<Login socket={socket}/>}/>\r\n                    <Route path=\"/register\" element={<Register/>}/>\r\n                    <Route path=\"/\" element={<Init socket={socket}/>}>\r\n                        <Route path=\"/\" element={<Home socket={socket}/>}/>\r\n                        <Route path=\"/friends\" element={<AddFriend socket={socket}/>}/>\r\n                        <Route path=\"/friends/:accountId\" element={<ListFriend socket={socket}/>}/>\r\n                        <Route path=\"/search\" element={<SearchResult socket={socket}/>}/>\r\n                        <Route path=\"/message/:relationshipId\" element={<Message socket={socket}/>}/>\r\n                    </Route>\r\n                    <Route path=\"/profile/:accountId\" element={<Profile socket={socket}/>}/>\r\n                    <Route path=\"*\" element={<PageNotFound/>}/>\r\n                </Routes>\r\n            </div>\r\n        </>\r\n    )\r\n}\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/App.js b/src/App.js
+--- a/src/App.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/App.js	(date 1673540298629)
+@@ -12,12 +12,13 @@
+ import PageNotFound from "./pages/pageNotFound/pageNotFound";
+ import Message from "./pages/message/message";
+ import Init from "./pages/init";
++import {constants} from "./constants";
+ 
+ function App() {
+     const [socket, setSocket] = useState(null)
+     const {pathname} = useLocation();
+     useEffect(() => {
+-        const newSocket = io("http://localhost:5000");
++        const newSocket = io(constants.SOCKET_URL);
+         setSocket(newSocket)
+     }, [setSocket])
+ 
+Index: src/services/FriendServices.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const addFriend = createAsyncThunk(\r\n    \"friend/addFriend\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.post(\"http://localhost:3001/friends\", data, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\nexport const getFriend = createAsyncThunk(\r\n    \"friend/getFriend\",\r\n    async (accountId) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get(`http://localhost:3001/friends/lists/${accountId}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res.data\r\n    }\r\n)\r\n\r\nexport const waitingFriends = createAsyncThunk(\r\n    \"friend/waitingFriend\",\r\n    async (id) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get(`http://localhost:3001/friends/${id}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\n\r\nexport const acceptFriends = createAsyncThunk(\r\n    \"friend/acceptFriends\",\r\n    async (id) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        let data = \"\"\r\n        const res = await axios.patch(`http://localhost:3001/friends/${id}`, data, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\n\r\nexport const rejectFriends = createAsyncThunk(\r\n    \"friend/rejectFriends\",\r\n    async (id) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.delete(`http://localhost:3001/friends/${id}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\n\r\nexport const unfriend = createAsyncThunk(\r\n    \"friend/unfriend\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.delete(`http://localhost:3001/friends/${data.accountReq}/${data.accountRes}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\n\r\nexport const getRelationship = createAsyncThunk(\r\n    \"friend/getRelationship\",\r\n    async () => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get('http://localhost:3001/relationships', {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res.data\r\n    }\r\n)\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/FriendServices.js b/src/services/FriendServices.js
+--- a/src/services/FriendServices.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/FriendServices.js	(date 1673541061866)
+@@ -1,11 +1,12 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const addFriend = createAsyncThunk(
+     "friend/addFriend",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.post("http://localhost:3001/friends", data, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.post(`${constants.API_URL}/friends`, data, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -16,8 +17,8 @@
+ export const getFriend = createAsyncThunk(
+     "friend/getFriend",
+     async (accountId) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get(`http://localhost:3001/friends/lists/${accountId}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/friends/lists/${accountId}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -29,8 +30,8 @@
+ export const waitingFriends = createAsyncThunk(
+     "friend/waitingFriend",
+     async (id) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get(`http://localhost:3001/friends/${id}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/friends/${id}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -42,9 +43,9 @@
+ export const acceptFriends = createAsyncThunk(
+     "friend/acceptFriends",
+     async (id) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
+         let data = ""
+-        const res = await axios.patch(`http://localhost:3001/friends/${id}`, data, {
++        const res = await axios.patch(`${constants.API_URL}/friends/${id}`, data, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -56,8 +57,8 @@
+ export const rejectFriends = createAsyncThunk(
+     "friend/rejectFriends",
+     async (id) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.delete(`http://localhost:3001/friends/${id}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.delete(`${constants.API_URL}/friends/${id}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -69,8 +70,8 @@
+ export const unfriend = createAsyncThunk(
+     "friend/unfriend",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.delete(`http://localhost:3001/friends/${data.accountReq}/${data.accountRes}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.delete(`${constants.API_URL}/friends/${data.accountReq}/${data.accountRes}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -82,8 +83,8 @@
+ export const getRelationship = createAsyncThunk(
+     "friend/getRelationship",
+     async () => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get('http://localhost:3001/relationships', {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/relationships`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+Index: src/services/accountService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const getAccount = createAsyncThunk(\r\n    \"account/getAccount\",\r\n    async (accountId) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get(`http://localhost:3001/accounts/${accountId}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res.data\r\n    }\r\n\r\n)\r\nexport const editAccount = createAsyncThunk(\r\n    \"account/editAccount\",\r\n    async (data)=>{\r\n        const token = JSON.parse(localStorage.getItem(\"token\"));\r\n        const res = await axios.patch(`http://localhost:3001/accounts`,data,{\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        console.log(res.data.data)\r\n        return res.data.data\r\n    }\r\n)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/accountService.js b/src/services/accountService.js
+--- a/src/services/accountService.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/accountService.js	(date 1673541061823)
+@@ -1,29 +1,28 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const getAccount = createAsyncThunk(
+     "account/getAccount",
+     async (accountId) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get(`http://localhost:3001/accounts/${accountId}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/accounts/${accountId}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+         })
+         return res.data
+     }
+-
+ )
+ export const editAccount = createAsyncThunk(
+     "account/editAccount",
+-    async (data)=>{
+-        const token = JSON.parse(localStorage.getItem("token"));
+-        const res = await axios.patch(`http://localhost:3001/accounts`,data,{
++    async (data) => {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY));
++        const res = await axios.patch(`${constants.API_URL}/accounts`, data, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+         })
+-        console.log(res.data.data)
+         return res.data.data
+     }
+ )
+\ No newline at end of file
+Index: src/services/likeService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {createAsyncThunk} from \"@reduxjs/toolkit\";\r\nimport axios from \"axios\";\r\n\r\nexport const createLikes = createAsyncThunk(\r\n    \"create/likes\",\r\n    async (data) => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.post('http://localhost:3001/likes', data, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\n\r\nexport const deleteLikes = createAsyncThunk(\r\n    \"delete/likes\",\r\n    async (data) => {\r\n        console.log(data)\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.delete(`http://localhost:3001/likes/${data.accountId}/${data.postPostId}`, {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res\r\n    }\r\n)\r\n\r\nexport const getLike = createAsyncThunk(\r\n    \"get/likes\",\r\n    async () => {\r\n        const token = JSON.parse(localStorage.getItem(\"token\"))\r\n        const res = await axios.get('http://localhost:3001/likes', {\r\n            headers: {\r\n                'Authorization': \"Bearer \" + token\r\n            }\r\n        })\r\n        return res.data\r\n    }\r\n)\r\n\r\n// export const getCountLikes = createAsyncThunk(\r\n//     \"get/countLikes\",\r\n//     async () => {\r\n//         const token = JSON.parse(localStorage.getItem(\"token\"))\r\n//         const res = await axios.get('http://localhost:3001/likes/numbers', {\r\n//             headers: {\r\n//                 'Authorization': \"Bearer \" + token\r\n//             }\r\n//         })\r\n//         return res.data\r\n//     }\r\n// )
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/services/likeService.js b/src/services/likeService.js
+--- a/src/services/likeService.js	(revision bdc41b4084e479ea6f9b421034d00de96a51f1dc)
++++ b/src/services/likeService.js	(date 1673541330664)
+@@ -1,11 +1,12 @@
+ import {createAsyncThunk} from "@reduxjs/toolkit";
+ import axios from "axios";
++import {constants} from "../constants";
+ 
+ export const createLikes = createAsyncThunk(
+     "create/likes",
+     async (data) => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.post('http://localhost:3001/likes', data, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.post(`${constants.API_URL}/likes`, data, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -18,8 +19,8 @@
+     "delete/likes",
+     async (data) => {
+         console.log(data)
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.delete(`http://localhost:3001/likes/${data.accountId}/${data.postPostId}`, {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.delete(`${constants.API_URL}/likes/${data.accountId}/${data.postPostId}`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -31,8 +32,8 @@
+ export const getLike = createAsyncThunk(
+     "get/likes",
+     async () => {
+-        const token = JSON.parse(localStorage.getItem("token"))
+-        const res = await axios.get('http://localhost:3001/likes', {
++        const token = JSON.parse(localStorage.getItem(constants.TOKEN_KEY))
++        const res = await axios.get(`${constants.API_URL}/likes`, {
+             headers: {
+                 'Authorization': "Bearer " + token
+             }
+@@ -40,16 +41,3 @@
+         return res.data
+     }
+ )
+-
+-// export const getCountLikes = createAsyncThunk(
+-//     "get/countLikes",
+-//     async () => {
+-//         const token = JSON.parse(localStorage.getItem("token"))
+-//         const res = await axios.get('http://localhost:3001/likes/numbers', {
+-//             headers: {
+-//                 'Authorization': "Bearer " + token
+-//             }
+-//         })
+-//         return res.data
+-//     }
+-// )
+\ No newline at end of file

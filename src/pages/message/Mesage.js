@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import Chat from "../../components/cardMessage/chat";
+import Chat from "../../components/cardMessage/Chat";
 
 export default function Message({socket}) {
     useEffect(() => {

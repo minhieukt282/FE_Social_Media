@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import ListFriendCard from "../../components/listFriend/listFriendCard";
+import ListFriendCard from "../../components/listFriend/ListFriendCard";
 
 export default function ListFriend({socket}) {
     useEffect(() => {

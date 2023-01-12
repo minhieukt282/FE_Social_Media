@@ -66,15 +66,12 @@ export default function AddPost() {
                     <Form>
                         <div className={"post-group"}>
                             <div className="form-group">
-                                <label style={{fontWeight: 400}} htmlFor="exampleInputPassword1">What are you
-                                    thinking?</label>
-                                <Field as={'textarea'} style={{width: '100%'}} name={'content'}
-                                       className={'form-control1'}/>
+                                <Field as={'textarea'} style={{width: '100%',maxHeight:"20vh"}} name={'content'}
+                                       className={'form-control'} placeholder={'What are you thinking?'} />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="file-upload" className="custom-file-upload">
-                                    <i className="fa fa-cloud-upload"></i>
-                                    Custom Upload
+                            <div className="d-flex justify-content-between">
+                                <label htmlFor="file-upload" className="custom-file-upload mb-0">
+                                    <i className="fas fa-camera"></i> Photo
                                     <input
                                         id="file-upload"
                                         type="file"
@@ -83,12 +80,14 @@ export default function AddPost() {
                                             uploadFile(event.target.files[0])
                                         }}/>
                                 </label>
-                                <Field className="select" as="select" name="status">
-                                    <option value='public'>Public</option>
-                                    <option value='private'>Private</option>
-                                    <option value='onlyFriend'>Only friend</option>
-                                </Field>
-                                <button className="addPost" type="submit" disabled={submitting}>Share</button>
+                                <div className={'d-flex justify-content-end'}>
+                                    <Field className="form-control mr-2" as="select" name="status">
+                                        <option value='public'>Public</option>
+                                        <option value='private'>Private</option>
+                                        <option value='onlyFriend'>Only friend</option>
+                                    </Field>
+                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Share</button>
+                                </div>
                             </div>
                         </div>
                     </Form>

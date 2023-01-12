@@ -1,24 +1,29 @@
 import ShowComment from "./ShowComment";
 
-const CommentDetails = ({item,postPostId}) => {
+const CommentDetails = ({item, postPostId}) => {
     const accountId = JSON.parse(localStorage.getItem("accountId"))
     return (
-       <div className="comments">
-           {
-               item.map((comment)=>{
-                   if (comment.accountId !== accountId){
-                       return(
-                           <ShowComment comment={comment} postPostId={postPostId} isDelete={false}/>
-                       )
-                   } else {
-                       return(
-                           <ShowComment comment={comment} postPostId={postPostId} isDelete={true}/>
-                       )
-                   }
-               })
-           }
+        <div className="comments">
+            {
+                item.map((comment, index) => {
+                    if (comment.accountId !== accountId) {
+                        return (
+                            <div key={index}>
+                                <ShowComment comment={comment} postPostId={postPostId} isDelete={false}/>
+                            </div>
 
-       </div>
+                        )
+                    } else {
+                        return (
+                            <div key={index}>
+                                <ShowComment comment={comment} postPostId={postPostId} isDelete={true}/>
+                            </div>
+                        )
+                    }
+                })
+            }
+
+        </div>
     )
 }
 export default CommentDetails

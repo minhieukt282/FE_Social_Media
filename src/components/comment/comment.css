@@ -1,9 +1,9 @@
-.form-control {
-    margin-left: 5px;
-    margin-right: 400px;
-    background-color: #d5e5fd;
-    border-radius: 10px;
-}
+/*.form-control {*/
+/*    margin-left: 5px;*/
+/*    margin-right: 400px;*/
+/*    background-color: #d5e5fd;*/
+/*    border-radius: 10px;*/
+/*}*/
 
 .addComment {
     background: #007bff;
@@ -61,4 +61,15 @@
 
 .commentWrapper-right{
     margin-left: 25px !important;
+}
+
+
+@media (max-width: 800px) {
+    .body-user-comment-body{
+        width: 120%;
+    }
+    #addCommentAvt{
+        margin-bottom: 5px;
+        margin-right: 150px;
+    }
 }

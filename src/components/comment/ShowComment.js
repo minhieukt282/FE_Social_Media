@@ -63,28 +63,28 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
                         </div>
                         <div className={"col-1 comment"}>
                             <div className="commentWrapper-right">
-                            {
-                                isDelete ? (<div className="commentTopRight">
-                                    <div style={{paddingRight: 20}} className="dropdown">
-                                        <div type="button" data-toggle="dropdown"
-                                             data-display="static" aria-expanded="false">
-                                            <IconButton>
-                                                <MoreVert className="postVertButton"/>
-                                            </IconButton>
+                                {
+                                    isDelete ? (<div className="commentTopRight">
+                                        <div style={{paddingRight: 20}} className="dropdown">
+                                            <div type="button" data-toggle="dropdown"
+                                                 data-display="static" aria-expanded="false">
+                                                <IconButton>
+                                                    <MoreVert className="postVertButton"/>
+                                                </IconButton>
+                                            </div>
+                                            <div className="dropdown-menu dropdown-menu-lg-right">
+                                                <button
+                                                    className="dropdown-item"
+                                                    onClick={() => {
+                                                        handleDeleteComment()
+                                                    }}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="dropdown-menu dropdown-menu-lg-right">
-                                            <button
-                                                className="dropdown-item"
-                                                onClick={() => {
-                                                    handleDeleteComment()
-                                                }}
-                                            >
-                                                Delete comment
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>) : (<></>)
-                            }
+                                    </div>) : (<></>)
+                                }
                             </div>
                         </div>
                     </div>

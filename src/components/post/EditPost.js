@@ -114,10 +114,9 @@ export default function EditPost({item, url}) {
                                            className={'form-control'}/>
                                 </div>
 
-                                <div className="form-group">
-                                    <label className="custom-file-upload">
-                                        <i className="fa fa-cloud-upload"></i>
-                                        Custom Upload
+                                <div className="d-flex justify-content-between">
+                                    <label className="custom-file-upload mb-0">
+                                        <i className="fas fa-camera"></i> Photo
                                         <input
                                             id="file-upload"
                                             type="file"
@@ -127,12 +126,14 @@ export default function EditPost({item, url}) {
                                             }}/>
                                     </label>
 
-                                    <Field className="select" as="select" name="status">
-                                        <option value='public'>Public</option>
-                                        <option value='private'>Private</option>
-                                        <option value='onlyFriend'>Only friend</option>
-                                    </Field>
-                                    <button className="addPost" type="submit" disabled={submitting}>Edit</button>
+                                    <div className={'d-flex justify-content-end'}>
+                                        <Field className="form-control mr-2" as="select" name="status">
+                                            <option value='public'>Public</option>
+                                            <option value='private'>Private</option>
+                                            <option value='onlyFriend'>Only friend</option>
+                                        </Field>
+                                        <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
+                                    </div>
                                 </div>
                             </div>
                         </Form>

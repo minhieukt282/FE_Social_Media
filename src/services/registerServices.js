@@ -1,10 +1,10 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import {constants} from "../constants";
 
 export const registerWed = createAsyncThunk(
     "register/getRegister",
     async (data) => {
-        const res = await axios.post("http://localhost:3001/register", data);
-        return res
+        return await axios.post(`${constants.API_URL}/register`, data)
     }
 )

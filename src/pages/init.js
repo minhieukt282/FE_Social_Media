@@ -2,15 +2,16 @@ import React, {useEffect} from "react";
 import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/sidebar/Sidebar";
 import {Outlet, useNavigate} from "react-router-dom";
-import RightBar from "../components/rightBar/rightBar";
+import RightBar from "../components/rightBar/RightBar";
 import {useSelector} from "react-redux";
+import {constants} from "../constants";
 
 export default function Init({socket}) {
     const navigate = useNavigate()
     useEffect(() => {
         if (socket != null) {
             socket.emit("refresh", {
-                accountId: JSON.parse(localStorage.getItem("accountId"))
+                accountId: JSON.parse(localStorage.getItem(constants.ACCOUNT_ID))
             })
 
         }

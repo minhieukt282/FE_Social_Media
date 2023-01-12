@@ -1,7 +1,7 @@
 import {Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import './style.css';
-import LoginInput from "../../components/input/loginInput";
+import LoginInput from "../../components/input/LoginInput";
 import {useState} from "react";
 import * as Yup from "yup"
 import {useDispatch} from "react-redux";

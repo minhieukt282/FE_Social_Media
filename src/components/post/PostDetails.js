@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {IconButton} from "@mui/material";
 import {MoreVert} from "@mui/icons-material";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ShareIcon from '@mui/icons-material/Share';
 import TextsmsIcon from '@mui/icons-material/Textsms';
 import React, {useEffect, useState} from "react";
@@ -15,15 +15,16 @@ import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
 import AddComment from "../comment/AddComment";
 import CommentDetails from "../comment/CommentDetails";
+import {deleteComments} from "../../services/commentService";
 
-
-const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => {
+const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
-    const [showForm, setShowForm] = useState(false)
-    const [showForm1, setShowForm1] = useState(false)
+    const [showFormAddComment, setShowFormAddComment] = useState(false)
+    const [showFormListComment, setShowFormListComment] = useState(false)
     const [numberLikes, setNumberLikes] = useState(countLike)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
+    const imgAvt = JSON.parse(localStorage.getItem("imgAvt"))
 
     useEffect(() => {
         let isLike = true
@@ -48,7 +49,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
             postPostId: postId,
             type: "liked"
         }
-
         const dataLike = {
             accountId: accountId,
             postPostId: postId,
@@ -85,8 +85,8 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
 
     const handleDeletePost = () => {
         Swal.fire({
-            title: 'Are you sure delete this comment?',
-            text: "if you delete the comment you will not be able to restore it",
+            title: 'Are you sure delete this status?',
+            text: "if you delete the status you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#007bff',
@@ -98,11 +98,11 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                     postPostId: item.postId
                 }
                 await dispatch(deleteLikes(dataDelete))
+                await dispatch(deleteComments(dataDelete))
                 await dispatch(deletePosts(item.postId));
             }
         })
     }
-
 
     let icon = ''
     if (item.status === 'public') {
@@ -169,7 +169,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                 </div>
                 <div>
                     <button className="button" onClick={() => {
-                        setShowForm1(!showForm1)
+                        setShowFormListComment(!showFormListComment)
                     }}>
                         {countComment} Comments
                     </button>
@@ -189,12 +189,12 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                             <span className="span"> Like</span>
                         </button>
                     ) : (
-                        <button style={{marginLeft: 20}}
+                        <button style={{marginLeft: 40}}
                                 className="button"
                                 onClick={() => {
                                     handleNotificationDisliked(item.account.accountId, item.postId)
                                 }}>
-                            <ThumbDownAltIcon/>
+                            <ThumbUpIcon/>
                             <span className="span"> Unlike</span>
                         </button>
                     )}
@@ -202,7 +202,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
 
                 <div className="postBottomFooterItem">
                     <button className="button" onClick={() => {
-                        setShowForm(!showForm)
+                        setShowFormAddComment(!showFormAddComment)
                     }}>
                         <TextsmsIcon/>
                         <span className="span">Comment</span>
@@ -216,18 +216,16 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                 </div>
             </div>
             {
-                showForm ? (
+                showFormAddComment ? (
                     <>
                         <hr/>
-                        <div className="postBottomFooter">
-                            <AddComment postPostId={item.postId} img={item.account.img} />
-                        </div>
+                        <AddComment item={item} img={imgAvt} socket={socket}/>
                     </>
                 ) : (<></>)
             }
 
             {
-                showForm1 ? (
+                showFormListComment ? (
                     <>
                         <hr/>
                         <div className="postBottomFooter1">

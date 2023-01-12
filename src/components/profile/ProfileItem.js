@@ -4,7 +4,7 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CakeIcon from '@mui/icons-material/Cake';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import Posts from "../post/Posts";
+import Post from "../post/Posts";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
@@ -98,7 +98,6 @@ export default function ProfileItem({socket}) {
     }
 
     const handleAccept = async (relationshipId) => {
-        console.log(relationshipId)
         setIsFriend(IS_FRIEND)
         const dataNotice = {
             displayName: displayName,
@@ -176,7 +175,7 @@ export default function ProfileItem({socket}) {
                     <div className="profileRightTop">
                         <div className="profileCover">
                             <img className="profileCoverImg"
-                                 src='https://wallup.net/wp-content/uploads/2016/01/73809-nature-lake-reflection-mountain-trees-748x468.jpg'
+                                 src='https://firebasestorage.googleapis.com/v0/b/image-c737d.appspot.com/o/images%2Fhappy-new-year-2023.jpg?alt=media&token=37cbd825-e491-49d2-8d47-728d63d57b3f'
                                  alt="clear"/>
                             <img className="profileUserImg"
                                  src={accountInfo.img} alt="clear"/>
@@ -214,9 +213,11 @@ export default function ProfileItem({socket}) {
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
                                         {
-                                            isProfile ? (<button className="editButton"><CreateIcon/>
-                                                <EditProfile accountInfo={accountInfo}/>
-                                            </button>) : (<></>)
+                                            isProfile ? (<div className={'text-center'}>
+                                                <button className="btn btn-secondary"><CreateIcon/>
+                                                    <EditProfile accountInfo={accountInfo}/>
+                                                </button>
+                                            </div>) : (<></>)
                                         }
                                     </div>
                                 </div>
@@ -248,7 +249,7 @@ export default function ProfileItem({socket}) {
                             </div>
                             <div className="col-8">
                                 {isProfile ? (<AddPost/>) : (<></>)}
-                                <Posts socket={socket} url={accountId}/>
+                                <Post socket={socket} url={accountId}/>
                             </div>
                         </div>
                     </div>
