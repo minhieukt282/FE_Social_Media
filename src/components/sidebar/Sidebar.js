@@ -90,6 +90,7 @@ export default function Sidebar() {
                     <hr/>
 
                     <div className="switch">
+                        {/*<div style={{margin: 5}}> {theme === "light" ? "Light Mode" : "Dark Mode"}</div>*/}
                         <label> {theme === "light" ? "Light Mode" : "Dark Mode"}</label>
                         <ReactSwitch onChange={toggleTheme} checked={theme === "dark"}/>
                     </div>

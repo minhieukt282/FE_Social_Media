@@ -31,25 +31,25 @@ function App() {
     }, [pathname]);
 
     return (
-        <>
-            <ThemeContext.Provider value={{theme, setTheme}}>
-                <div className="container" id={`${theme}`}>
-                    <Routes>
-                        <Route path="/login" element={<Login socket={socket}/>}/>
-                        <Route path="/register" element={<Register/>}/>
-                        <Route path="/" element={<Init socket={socket}/>}>
-                            <Route path="/" element={<Home socket={socket}/>}/>
-                            <Route path="/friends" element={<AddFriend socket={socket}/>}/>
-                            <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
-                            <Route path="/search" element={<SearchResult socket={socket}/>}/>
-                            <Route path="/message/:relationshipId" element={<Message socket={socket}/>}/>
-                        </Route>
-                        <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
-                        <Route path="*" element={<PageNotFound/>}/>
-                    </Routes>
-                </div>
-            </ThemeContext.Provider>
-        </>
+
+        <ThemeContext.Provider value={{theme, setTheme}}>
+            <div className="container" id={`${theme}`}>
+                <Routes>
+                    <Route path="/login" element={<Login socket={socket}/>}/>
+                    <Route path="/register" element={<Register/>}/>
+                    <Route path="/" element={<Init socket={socket}/>}>
+                        <Route path="/" element={<Home socket={socket}/>}/>
+                        <Route path="/friends" element={<AddFriend socket={socket}/>}/>
+                        <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
+                        <Route path="/search" element={<SearchResult socket={socket}/>}/>
+                        <Route path="/message/:relationshipId" element={<Message socket={socket}/>}/>
+                    </Route>
+                    <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
+                    <Route path="*" element={<PageNotFound/>}/>
+                </Routes>
+            </div>
+        </ThemeContext.Provider>
+
     )
 }
 

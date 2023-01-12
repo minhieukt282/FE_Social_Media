@@ -11,6 +11,23 @@
   color: white;
 }
 
+.switch {
+  display: flex;
+  height: 100px;
+}
+
+.switch label {
+  margin-right: 10px;
+}
+
+#light .switch label {
+  color: black;
+}
+
+#dark .switch label {
+  color: white;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

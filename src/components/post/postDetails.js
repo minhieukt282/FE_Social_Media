@@ -17,7 +17,6 @@ import AddComment from "../comment/addComment";
 import CommentDetails from "../comment/commentDetails";
 import {deleteComments} from "../../services/commentService";
 
-
 const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) => {
     const dispatch = useDispatch();
     const [like, setLike] = useState(true)
@@ -222,7 +221,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                 showFormAddComment ? (
                     <>
                         <hr/>
-                        <AddComment postPostId={item.postId} img={imgAvt}/>
+                        <AddComment item={item} img={imgAvt} socket={socket}/>
                     </>
                 ) : (<></>)
             }

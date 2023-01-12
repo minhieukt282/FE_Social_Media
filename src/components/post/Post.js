@@ -8,7 +8,7 @@ import {getRelationship} from "../../services/FriendServices";
 const Post = ({socket, url}) => {
     const dispatch = useDispatch();
     const accountId = JSON.parse(localStorage.getItem("accountId"))
-
+//bug here
     useEffect(() => {
         dispatch(getPosts())
     }, [])
