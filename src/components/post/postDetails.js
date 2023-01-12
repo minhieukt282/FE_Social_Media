@@ -49,7 +49,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
             postPostId: postId,
             type: "liked"
         }
-
         const dataLike = {
             accountId: accountId,
             postPostId: postId,
@@ -104,7 +103,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
             }
         })
     }
-
 
     let icon = ''
     if (item.status === 'public') {

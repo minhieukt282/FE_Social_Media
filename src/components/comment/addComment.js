@@ -11,6 +11,9 @@ const AddComment = ({item, img, socket}) => {
         socket?.on("getNotification", data => {
             dispatch(getPosts())
         })
+        socket?.on("allComment", data => {
+            dispatch(getPosts())
+        })
     },[socket])
 
     const handleAddComment = async (values) => {
