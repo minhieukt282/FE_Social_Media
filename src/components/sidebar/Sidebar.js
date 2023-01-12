@@ -22,20 +22,20 @@ export default function Sidebar() {
                             <span className="sidebarDisplayName">{accountInfo.displayName}</span>
                         </li>
                     </Link>
-                    <Link style={{textDecoration: "none"}} to="/home">
-                        <li className="sidebarListItem">
+                    <Link style={{textDecoration: "none"}} to="/">
+                        <li className="mb-3">
                             <HomeIcon className="sidebarIcon"></HomeIcon>
                             <span className="sidebarListItemText">Home</span>
                         </li>
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/friends">
-                        <li className="sidebarListItem">
+                        <li className="mb-3">
                             <GroupIcon className="sidebarIcon"></GroupIcon>
                             <span className="sidebarListItemText">Friends</span>
                         </li>
                     </Link>
                     <Link style={{textDecoration: "none"}} to="/friends">
-                        <li className="sidebarListItem">
+                        <li className="mb-3">
                             <ChatIcon className="sidebarIcon"></ChatIcon>
                             <span className="sidebarListItemText">Chat</span>
                         </li>

@@ -11,11 +11,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {v4} from "uuid";
 import {editAccount, getAccount} from "../../services/accountService";
 import "./editProfile.css"
-import * as Yup from "yup";
-import CreateIcon from "@mui/icons-material/Create";
 
-export default function EditProfile({accountInfo, open, handleClose, ...props}) {
+export default function EditProfile({accountInfo}) {
     const accountId = accountInfo.accountId
+    const [open, setOpen] = React.useState(false);
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
     const imagesListRef = ref(storage, "images/");
@@ -25,10 +24,6 @@ export default function EditProfile({accountInfo, open, handleClose, ...props}) 
         return state.accountInfo.accountInfo
     })
     let account = {}
-    const [open2, setOpen2] = useState(false)
-    const handleClose2 = () => {
-        setOpen2(false)
-    }
     if (accounts.accountId === accountId) {
         account = accounts
     }
@@ -43,7 +38,6 @@ export default function EditProfile({accountInfo, open, handleClose, ...props}) 
             img: imgSent
         }
         await dispatch(editAccount(data));
-        // await dispatch(getAccount())
     }
     const uploadFile = (imageUpload) => {
         if (imageUpload == null) return;
@@ -65,25 +59,15 @@ export default function EditProfile({accountInfo, open, handleClose, ...props}) 
             })
         })
     }, []);
-    const profileValidation = Yup.object({
-        displayName: Yup.string()
-            .required("Username is required.")
-            .min(3)
-            .max(15)
-    })
 
     return (
         <React.Fragment>
-            <button className="editButton" onClick={() => setOpen2(true)}><CreateIcon/>
-            <Link
-                color="neutral"
-                style={{color: "#007bff", backgroundColor: "white", textDecoration: "none"}}
-                className={'btn-primary'}
+            <span
+                onClick={() => setOpen(true)}
             >
                 Edit Profile
-            </Link>
-            </button>
-            <Modal open={open2} onClose={handleClose2}>
+            </span>
+            <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog
                     style={{color: "black", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
                     aria-labelledby="basic-modal-dialog-title"
@@ -120,10 +104,9 @@ export default function EditProfile({accountInfo, open, handleClose, ...props}) 
                                 accountId: account.accountId
                             }
                         }
-                        validationSchema={profileValidation}
                         onSubmit={(values) => {
                             handleEdit(values)
-                            //setOpen(false)
+                            setOpen(false)
                         }}>
                         <Form>
                             <div className={"post-group"}>
@@ -141,10 +124,9 @@ export default function EditProfile({accountInfo, open, handleClose, ...props}) 
                                     <label htmlFor="">Birthday</label>
                                     <Field type={'date'} name={'birthday'} className={'form-control'}/>
                                 </div>
-                                <div className="form-group">
-                                    <label className="custom-file-upload">
-                                        <i className="fa fa-cloud-upload"></i>
-                                        Custom Upload
+                                <div className="d-flex justify-content-between">
+                                    <label className="custom-file-upload mb-0">
+                                        <i className="fas fa-camera"></i> Photo
                                         <input
                                             id="file-upload"
                                             type="file"
@@ -153,8 +135,7 @@ export default function EditProfile({accountInfo, open, handleClose, ...props}) 
                                                 uploadFile(event.target.files[0])
                                             }}/>
                                     </label>
-
-                                    <button className="editProfile" type="submit" disabled={submitting}>Edit</button>
+                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
                                 </div>
                             </div>
                         </Form>

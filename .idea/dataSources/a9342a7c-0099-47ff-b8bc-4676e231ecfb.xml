@@ -1073,6 +1073,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Host>localhost</Host>
     </user>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/DaoAnh
     <table id="312" parent="302" name="account">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
@@ -1411,7 +1415,11 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
+<<<<<<< HEAD
+>>>>>>> origin/ha2
+=======
 =======
 >>>>>>> origin/minhieukt
+>>>>>>> origin/DaoAnh
   </database-model>
 </dataSource>

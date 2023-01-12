@@ -42,7 +42,7 @@ export default function Login({socket}) {
             socket.emit("online", {
                 accountId: data.data.accountId
             })
-            navigate("/home")
+            navigate("/")
         } else {
             setMessage(data.message)
         }

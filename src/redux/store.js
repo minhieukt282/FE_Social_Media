@@ -24,9 +24,10 @@ export const store = configureStore({
         search: searchReducer,
         relationship: relationshipReducer,
         listFriend: listFriendReducer,
-        comments: commentReducer,
-        message: messageReducer
+        message: messageReducer,
+        comments: commentReducer
     }, middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: false,
     }),
+
 })

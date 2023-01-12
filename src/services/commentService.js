@@ -11,7 +11,7 @@ export const addComments = createAsyncThunk(
                 'Authorization': "Bearer " + token
             }
         })
-        return res.data.data
+        return data
     }
 )
 

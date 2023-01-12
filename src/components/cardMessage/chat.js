@@ -25,12 +25,6 @@ export default function Chat({socket}) {
         })
     }, [socket])
 
-    const {pathname} = useLocation();
-
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [pathname]);
-
     const messages = useSelector(state => {
         return state.message.message
     })
@@ -63,7 +57,7 @@ export default function Chat({socket}) {
         <div>
             <div className="imgChat">
                 <img style={{width: 50, height: 50}} src={userInfo.img} alt="" className="navbarImg"/>
-                <h4 style={{marginLeft: 50, marginTop: -40}}>{userInfo.displayName}</h4>
+                <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo.displayName}</h4>
             </div>
 
             <div className="chatPage">
@@ -102,8 +96,6 @@ export default function Chat({socket}) {
                                 </div>
                             </Form>
                         </Formik>
-                        {/*<input onKeyPress={(event) => event.key === 'Enter' ? send() : null} type="text" id="chatInput"/>*/}
-                        {/*<button type="submit" className="sendBtn">Sent</button>*/}
                     </div>
                 </div>
             </div>

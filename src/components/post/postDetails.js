@@ -15,11 +15,6 @@ import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
 import AddComment from "../comment/addComment";
 import CommentDetails from "../comment/commentDetails";
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
-
-TimeAgo.addDefaultLocale(en)
-const timeAgo = new TimeAgo('en-US')
 
 
 const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => {
@@ -90,8 +85,8 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
 
     const handleDeletePost = () => {
         Swal.fire({
-            title: 'Are you sure delete this status?',
-            text: "if you delete the status you will not be able to restore it",
+            title: 'Are you sure delete this comment?',
+            text: "if you delete the comment you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#007bff',
@@ -151,7 +146,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                                     </button>
                                     <button
                                         className="dropdown-item"
-                                        to="/"
                                         onClick={() => {
                                             handleDeletePost()
                                         }}>Delete status
@@ -211,7 +205,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                         setShowForm(!showForm)
                     }}>
                         <TextsmsIcon/>
-                        <span className="span"> Comment</span>
+                        <span className="span">Comment</span>
                     </button>
                 </div>
                 <div className="postBottomFooterItem">
@@ -225,9 +219,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                 showForm ? (
                     <>
                         <hr/>
-                        <div className="postBottomFooter">
-                            <AddComment postPostId={item.postId}/>
-                        </div>
+                        <AddComment postPostId={item.postId} img={item.account.img} />
                     </>
                 ) : (<></>)
             }
