@@ -84,7 +84,7 @@
     transform: translateX(10px);
 }
 
-.chatGroup{
+.chatGroup {
     width: 100%;
     border: 1px solid #bebebe;
     padding: 30px;
@@ -92,5 +92,41 @@
     margin-top: 10px;
 }
 
+.callIcon {
+    position: absolute;
+    margin-left: 600px;
+    top: 110px;
+    color: blue;
+}
+
+.DuoIcon {
+    position: absolute;
+    margin-left: 650px;
+    top: 110px;
+    color: blue;
+}
+
+.GroupAddIcon {
+    position: absolute;
+    margin-left: 700px;
+    top: 110px;
+    color: blue;
+}
+
+@media (max-width: 800px) {
+    .chatInput {
+        padding-right: 100px;
+    }
+
+    .callIcon{
+        margin-left: 260px;
+    }
+    .DuoIcon{
+        margin-left: 300px;
+    }
+    .GroupAddIcon{
+        margin-left: 340px;
+    }
+}
 
 

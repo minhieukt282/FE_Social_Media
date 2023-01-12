@@ -61,9 +61,9 @@ export default function Chat({socket}) {
             <div className="imgChat">
                 <img style={{width: 50, height: 50}} src={userInfo.img} alt="" className="navbarImg"/>
                 <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo.displayName}</h4>
-                <CallIcon style={{position:"absolute",marginLeft:600,top:110,color:"blue"}}/>
-                <DuoIcon style={{position:"absolute",marginLeft:650,top:110,color:"blue"}}/>
-                <GroupAddIcon style={{position:"absolute",marginLeft:700,top:110,color:"blue"}}/>
+                <CallIcon className="callIcon" />
+                <DuoIcon className="DuoIcon" />
+                <GroupAddIcon className="GroupAddIcon"/>
             </div>
 
             <div className="chatPage">

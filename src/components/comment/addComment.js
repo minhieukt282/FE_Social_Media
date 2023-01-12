@@ -32,7 +32,7 @@ const AddComment = ({postPostId, img}) => {
                 }}>
                 <Form className={'form-inline'}>
                         <div className="col-md-2 col-lg-1 p-0 text-right">
-                            <img src={img} alt="my avatar"
+                            <img src={img} id="addCommentAvt" alt="my avatar"
                                  className="postProfileImg"/>
                         </div>
                         <div className="col-md-7 col-lg-9">
