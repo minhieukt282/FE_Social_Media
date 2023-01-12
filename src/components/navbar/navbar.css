@@ -191,10 +191,15 @@
     text-align: left;
     left: -450%;
     overflow: scroll;
+    scroll-behavior: smooth;
 }
 
 .dropdown-menu.show {
     width: 300px;
+}
+
+.dropdown-menu.dropdown-menu-lg-right{
+    width: 100px;
 }
 
 .dropdown-item {

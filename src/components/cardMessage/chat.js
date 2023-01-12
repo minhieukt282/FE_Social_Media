@@ -6,6 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {createNotification} from "../../services/notificationService";
 import {showMessage} from "../../services/messageService";
 import Message from "./Message";
+import CallIcon from '@mui/icons-material/Call';
+import DuoIcon from '@mui/icons-material/Duo';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import "./Chat.css"
 
 export default function Chat({socket}) {
@@ -58,6 +61,9 @@ export default function Chat({socket}) {
             <div className="imgChat">
                 <img style={{width: 50, height: 50}} src={userInfo.img} alt="" className="navbarImg"/>
                 <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo.displayName}</h4>
+                <CallIcon style={{position:"absolute",marginLeft:600,top:110,color:"blue"}}/>
+                <DuoIcon style={{position:"absolute",marginLeft:650,top:110,color:"blue"}}/>
+                <GroupAddIcon style={{position:"absolute",marginLeft:700,top:110,color:"blue"}}/>
             </div>
 
             <div className="chatPage">
@@ -92,7 +98,7 @@ export default function Chat({socket}) {
                                 <div className='row' style={{paddingLeft: 15, paddingTop: 10}}>
                                     <Field as={'input'} style={{width: '100%'}} name={'text'}
                                            className='chatInput col-10'/>
-                                    <button type="submit" className="sendBtn col-2">Sent</button>
+                                    <button type="submit" className="sendBtn col-2">Sent </button>
                                 </div>
                             </Form>
                         </Formik>

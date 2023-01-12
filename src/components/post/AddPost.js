@@ -66,7 +66,7 @@ export default function AddPost() {
                     <Form>
                         <div className={"post-group"}>
                             <div className="form-group">
-                                <Field as={'textarea'} style={{width: '100%'}} name={'content'}
+                                <Field as={'textarea'} style={{width: '100%',maxHeight:"20vh"}} name={'content'}
                                        className={'form-control'} placeholder={'What are you thinking?'} />
                             </div>
                             <div className="d-flex justify-content-between">

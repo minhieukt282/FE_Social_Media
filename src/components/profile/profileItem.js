@@ -176,7 +176,7 @@ export default function ProfileItem({socket}) {
                     <div className="profileRightTop">
                         <div className="profileCover">
                             <img className="profileCoverImg"
-                                 src='https://wallup.net/wp-content/uploads/2016/01/73809-nature-lake-reflection-mountain-trees-748x468.jpg'
+                                 src='https://quotessquare.com/events/wp-content/uploads/2021/12/happy-new-year-2023-desktop-wallpaper.jpg'
                                  alt="clear"/>
                             <img className="profileUserImg"
                                  src={accountInfo.img} alt="clear"/>
