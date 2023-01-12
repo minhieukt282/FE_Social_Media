@@ -1,7 +1,7 @@
 import ReactScrollToBottom from "react-scroll-to-bottom";
 import {Field, Form, Formik} from "formik";
 import React, {useEffect, useState} from "react";
-import {useLocation, useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNotification} from "../../services/notificationService";
 import {showMessage} from "../../services/messageService";
@@ -56,8 +56,10 @@ export default function Chat({socket}) {
     return (
         <div>
             <div className="imgChat">
-                <img style={{width: 50, height: 50}} src={userInfo.img} alt="" className="navbarImg"/>
-                <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo.displayName}</h4>
+                <Link to={`/profile/${userInfo.accountId}`} style={{textDecoration: "none"}}>
+                    <img style={{width: 50, height: 50}} src={userInfo.img} alt="" className="navbarImg"/>
+                    <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo.displayName}</h4>
+                </Link>
             </div>
 
             <div className="chatPage">

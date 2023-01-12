@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
 import AddComment from "../comment/addComment";
 import CommentDetails from "../comment/commentDetails";
+import {deleteComments} from "../../services/commentService";
 
 
 const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => {
@@ -85,8 +86,8 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
 
     const handleDeletePost = () => {
         Swal.fire({
-            title: 'Are you sure delete this comment?',
-            text: "if you delete the comment you will not be able to restore it",
+            title: 'Are you sure delete this status?',
+            text: "if you delete the status you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#007bff',
@@ -98,6 +99,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => 
                     postPostId: item.postId
                 }
                 await dispatch(deleteLikes(dataDelete))
+                await dispatch(deleteComments(dataDelete))
                 await dispatch(deletePosts(item.postId));
             }
         })
