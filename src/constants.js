@@ -1,3 +1,4 @@
 export const constants = {
-    apiUrl: 'http://localhost:3001',
+    API_URL: 'http://localhost:3001',
+    TOKEN_KEY: 'token',
 };
