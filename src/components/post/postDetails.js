@@ -9,38 +9,49 @@ import React, {useEffect, useState} from "react";
 import "./post.css";
 import {createLikes, deleteLikes, getLike} from "../../services/likeService";
 import {createNotification, deleteNotification} from "../../services/notificationService";
-import {useDispatch, useSelector} from "react-redux";
-import {deletePosts, getPosts} from "../../services/postServices";
+import {useDispatch} from "react-redux";
+import {deletePosts} from "../../services/postServices";
 import Swal from 'sweetalert2';
 import EditPost from "./EditPost";
+import AddComment from "../comment/addComment";
+import CommentDetails from "../comment/commentDetails";
 
 
-const PostDetails = ({socket, item, countLike, isSetting, url, date}) => {
+const PostDetails = ({socket, item, countLike, isSetting, url,countComment}) => {
     const dispatch = useDispatch();
-    const [like, setLike] = useState(true);
+    const [like, setLike] = useState(true)
+    const [showForm, setShowForm] = useState(false)
+    const [showForm1, setShowForm1] = useState(false)
+    const [numberLikes, setNumberLikes] = useState(countLike)
     const accountId = JSON.parse(localStorage.getItem("accountId"))
-    useEffect(() => {
-        dispatch(getLike());
-    }, [like])
 
-    const likes = useSelector(state => {
-        return state.likes.likes;
-    })
+    useEffect(() => {
+        let isLike = true
+        for (let i = 0; i < item.likes.length; i++) {
+            if (accountId === item.likes[i].accountId) {
+                isLike = false
+                break
+            }
+        }
+        setLike(isLike)
+    }, [])
 
     const handleNotificationLiked = async (accountReceiver, postId) => {
         setLike(!like)
-        const accountSent = accountId;
+        setNumberLikes(numberLikes + 1)
+        const accountSent = accountId
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const dataNotice = {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            postId: postId,
+            postPostId: postId,
             type: "liked"
         }
+
         const dataLike = {
             accountId: accountId,
-            postId: postId,
+            postPostId: postId,
             displayName: displayName
         }
         await dispatch(createLikes(dataLike))
@@ -52,18 +63,19 @@ const PostDetails = ({socket, item, countLike, isSetting, url, date}) => {
 
     const handleNotificationDisliked = async (accountReceiver, postId) => {
         setLike(!like)
+        setNumberLikes(numberLikes - 1)
         const accountSent = accountId
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const dataNotice = {
             displayName: displayName,
             accountSent: accountSent,
             accountReceiver: accountReceiver,
-            postId: postId,
+            postPostId: postId,
             type: "liked"
         }
         const dataLike = {
             accountId: accountId,
-            postId: postId
+            postPostId: postId
         }
         dispatch(deleteLikes(dataLike))
         if (accountSent !== accountReceiver) {
@@ -71,31 +83,26 @@ const PostDetails = ({socket, item, countLike, isSetting, url, date}) => {
         }
     }
 
-
     const handleDeletePost = () => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Are you sure delete this comment?',
+            text: "if you delete the comment you will not be able to restore it",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#007bff',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes'
         }).then(async (result) => {
             if (result.isConfirmed) {
+                const dataDelete = {
+                    postPostId: item.postId
+                }
+                await dispatch(deleteLikes(dataDelete))
                 await dispatch(deletePosts(item.postId));
             }
         })
     }
-    let isLike = true
-    if (likes !== undefined) {
-        for (let i = 0; i < likes.length; i++) {
-            if (likes[i].postId === item?.postId && likes[i].accountId === accountId) {
-                isLike = false
-                break
-            }
-        }
-    }
+
 
     let icon = ''
     if (item.status === 'public') {
@@ -112,13 +119,14 @@ const PostDetails = ({socket, item, countLike, isSetting, url, date}) => {
                 <div className="postTopLeft">
                     <Link>
                         <img
-                            src={item?.imgAvt}
+                            src={item.account.img}
                             alt="my avatar"
                             className="postProfileImg"/>
                     </Link>
-                    <Link to={`/profile/${item?.accountId}`} className="postUsername">{item?.displayName}</Link>
-                    <span className="postDate">
-                        {new Date(item?.timePost).toLocaleString("en-GB", {timeZone: "Asia/Jakarta"})}
+                    <Link to={`/profile/${item.account.accountId}`}
+                          className="postUsername">{item.account.displayName}</Link>
+                    <span
+                        className="postDate">{new Date(item.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
                     </span>
                     <i className={`fa-solid ${icon}`}></i>
                 </div>
@@ -138,7 +146,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url, date}) => {
                                     </button>
                                     <button
                                         className="dropdown-item"
-                                        to="/"
                                         onClick={() => {
                                             handleDeletePost()
                                         }}>Delete status
@@ -146,50 +153,59 @@ const PostDetails = ({socket, item, countLike, isSetting, url, date}) => {
                                 </div>
                             </div>) : (<></>)
                     }
-
                 </div>
             </div>
-
             <div className="postCenter">
-                <span>{item?.contentPost}</span>
+                <span>{item.content}</span>
                 <img
-                    src={item?.imgPost}
+                    src={item.img}
                     alt=""
                     className="postImg"/>
             </div>
+
             <div className="postBottomFooter">
                 <div>
-                    <i className="fa-regular fa-thumbs-up"> {countLike}</i>
+                    <i className="fa-regular fa-thumbs-up"> {numberLikes}</i>
+                </div>
+                <div>
+                    <button className="button" onClick={() => {
+                        setShowForm1(!showForm1)
+                    }}>
+                        {countComment} Comments
+                    </button>
                 </div>
             </div>
 
             <hr/>
             <div className="postBottomFooter">
                 <div className="postBottomFooterItem">
-                    {isLike ? (
+                    {like ? (
                         <button style={{marginLeft: 40}}
                                 className="button"
                                 onClick={() => {
-                                    handleNotificationLiked(item?.accountId, item?.postId)
-                                }}><ThumbUpOffAltIcon/>
+                                    handleNotificationLiked(item.account.accountId, item.postId)
+                                }}>
+                            <ThumbUpOffAltIcon/>
                             <span className="span"> Like</span>
                         </button>
                     ) : (
                         <button style={{marginLeft: 20}}
                                 className="button"
                                 onClick={() => {
-                                    handleNotificationDisliked(item?.accountId, item?.postId)
+                                    handleNotificationDisliked(item.account.accountId, item.postId)
                                 }}>
                             <ThumbDownAltIcon/>
-                            <span className="span"> UnLike</span>
+                            <span className="span"> Unlike</span>
                         </button>
                     )}
                 </div>
 
                 <div className="postBottomFooterItem">
-                    <button className="button">
+                    <button className="button" onClick={() => {
+                        setShowForm(!showForm)
+                    }}>
                         <TextsmsIcon/>
-                        <span className="span"> Comment</span>
+                        <span className="span">Comment</span>
                     </button>
                 </div>
                 <div className="postBottomFooterItem">
@@ -199,6 +215,25 @@ const PostDetails = ({socket, item, countLike, isSetting, url, date}) => {
                     </button>
                 </div>
             </div>
+            {
+                showForm ? (
+                    <>
+                        <hr/>
+                        <AddComment postPostId={item.postId} img={item.account.img} />
+                    </>
+                ) : (<></>)
+            }
+
+            {
+                showForm1 ? (
+                    <>
+                        <hr/>
+                        <div className="postBottomFooter1">
+                            <CommentDetails item={item.comments} postPostId={item.postId}/>
+                        </div>
+                    </>
+                ) : (<></>)
+            }
         </div>
     )
 

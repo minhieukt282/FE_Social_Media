@@ -1,0 +1,12 @@
+@media (max-width: 1000px) {
+    .row {
+        width: 110%;
+    }
+}
+
+
+@media (max-width: 585px) {
+    .cardFriend{
+        height: 200px;
+    }
+}

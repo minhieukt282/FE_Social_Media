@@ -12,7 +12,7 @@ import {getAccount} from "../../services/accountService";
 import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
-import EditProfile from "./EditProfile";
+import EditProfile from "./editProfile";
 
 const IS_FRIEND = 1
 const IS_ADD = 2
@@ -89,7 +89,7 @@ export default function ProfileItem({socket}) {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "addFriends"
         }
         await dispatch(unfriend(data))
@@ -98,15 +98,15 @@ export default function ProfileItem({socket}) {
     }
 
     const handleAccept = async (relationshipId) => {
+        console.log(relationshipId)
         setIsFriend(IS_FRIEND)
         const dataNotice = {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "friends"
         }
-
         await dispatch(acceptFriends(relationshipId))
         await dispatch(createNotification(dataNotice))
         socket.emit("acceptFriend", dataNotice)
@@ -124,7 +124,7 @@ export default function ProfileItem({socket}) {
             displayName: displayName,
             accountSent: userId,
             accountReceiver: accountId,
-            postId: 0,
+            postPostId: 0,
             type: "addFriends"
         }
         await dispatch(addFriend(data))
@@ -206,17 +206,17 @@ export default function ProfileItem({socket}) {
                                         </div>
                                         <div className="detailInfoItem">
                                             <CakeIcon/>
-                                            <span className="detailInfoKey">Birthday: {accountInfo.birthday}</span>
+                                            <span
+                                                className="detailInfoKey">Birthday: {new Date(accountInfo.birthday).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
                                         </div>
                                         <div className="detailInfoItem">
                                             <LocationCityIcon/>
                                             <span className="detailInfoKey">City: {accountInfo.location}</span>
                                         </div>
                                         {
-                                            isProfile ? (
-                                                <button className="editButton"><CreateIcon/>
-                                                    <EditProfile accountInfo={accountInfo}/>
-                                                </button>) : (<></>)
+                                            isProfile ? (<div className={'text-center'}><button className="btn btn-secondary"><CreateIcon/>
+                                                <EditProfile accountInfo={accountInfo}/>
+                                            </button></div>) : (<></>)
                                         }
                                     </div>
                                 </div>
@@ -258,7 +258,3 @@ export default function ProfileItem({socket}) {
         </>
     )
 }
-
-
-
-

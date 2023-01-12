@@ -27,7 +27,7 @@ export default function AccountResult({item, initIsFriend, initIsWaitRes, socket
             displayName: displayName,
             accountSent: accountId,
             accountReceiver: item.accountId,
-            postId: 0,
+            postPostId: 0,
             type: "addFriends"
         }
         await dispatch(addFriend(data))
@@ -46,7 +46,7 @@ export default function AccountResult({item, initIsFriend, initIsWaitRes, socket
             displayName: displayName,
             accountSent: accountId,
             accountReceiver: item.accountId,
-            postId: 0,
+            postPostId: 0,
             type: "addFriends"
         }
         await dispatch(unfriend(data))

@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Login from "./pages/login/Login";
 import AddFriend from "./pages/AddFriends/AddFriend";
@@ -9,19 +9,21 @@ import SearchResult from "./pages/search/searchResult";
 import ListFriend from "./pages/listFriend/listFriend";
 import Home from "./pages/home/Home";
 import 'react-toastify/dist/ReactToastify.css';
-import {useSelector} from "react-redux";
 import PageNotFound from "./pages/pageNotFound/pageNotFound";
+import Message from "./pages/message/message";
+import Init from "./pages/init";
 
 function App() {
     const [socket, setSocket] = useState(null)
+    const {pathname} = useLocation();
     useEffect(() => {
         const newSocket = io("http://localhost:5000");
         setSocket(newSocket)
     }, [setSocket])
 
-    const user = useSelector(state => {
-        return state.loginWed.token
-    })
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname]);
 
     return (
         <>
@@ -29,22 +31,19 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login socket={socket}/>}/>
                     <Route path="/register" element={<Register/>}/>
-                    {
-                        user != null ?
-                            <Route path="/">
-                                <Route path="/home" element={<Home socket={socket}/>}/>
-                                <Route path="/friends" element={<AddFriend socket={socket}/>}/>
-                                <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
-                                <Route path="/search" element={<SearchResult socket={socket}/>}/>
-                                <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
-                                <Route path="*" element={<PageNotFound/>}/>
-                            </Route>
-                            :
-                            <Route path="*" element={<PageNotFound/>}/>
-                    }
+                    <Route path="/" element={<Init socket={socket}/>}>
+                        <Route path="/" element={<Home socket={socket}/>}/>
+                        <Route path="/friends" element={<AddFriend socket={socket}/>}/>
+                        <Route path="/friends/:accountId" element={<ListFriend socket={socket}/>}/>
+                        <Route path="/search" element={<SearchResult socket={socket}/>}/>
+                        <Route path="/message/:relationshipId" element={<Message socket={socket}/>}/>
+                    </Route>
+                    <Route path="/profile/:accountId" element={<Profile socket={socket}/>}/>
+                    <Route path="*" element={<PageNotFound/>}/>
                 </Routes>
             </div>
         </>
     )
 }
+
 export default App;

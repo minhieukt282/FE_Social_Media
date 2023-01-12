@@ -12,8 +12,8 @@ export const getAccount = createAsyncThunk(
         })
         return res.data
     }
-)
 
+)
 export const editAccount = createAsyncThunk(
     "account/editAccount",
     async (data)=>{

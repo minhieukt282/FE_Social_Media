@@ -12,8 +12,8 @@ import {storage} from "../../firebase";
 import {deletePosts, editPosts, getPosts} from "../../services/postServices";
 import "./editPost.css"
 
-export default function EditPost({item}) {
-    const postId = item.postId
+
+export default function EditPost({item, url}) {
     const [open, setOpen] = React.useState(false);
     const [imageUrls, setImageUrls] = useState([]);
     const [img, setImg] = useState("");
@@ -24,13 +24,6 @@ export default function EditPost({item}) {
     const posts = useSelector((state) => {
         return state.posts.posts
     })
-    let post = {}
-    posts.map(item => {
-        if (item.postId === postId) {
-            post = item
-        }
-    })
-
     const handleEdit = async (values) => {
         let imgSent
         if (img !== "") {
@@ -65,18 +58,19 @@ export default function EditPost({item}) {
             })
         })
     }, []);
+
     return (
         <React.Fragment>
             <Link
                 color="neutral"
-                style={{color: "#1976d2",textDecoration:"none"}}
+                style={{color: "black", textDecoration: "none"}}
                 onClick={() => setOpen(true)}
             >
                 Edit Post
             </Link>
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog
-                    style={{color: "black", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
+                    style={{color: "black", width: 800, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
                     aria-labelledby="basic-modal-dialog-title"
                     aria-describedby="basic-modal-dialog-description"
                     sx={{
@@ -91,7 +85,7 @@ export default function EditPost({item}) {
                         fontSize="1.25em"
                         mb="0.25em"
                     >
-                        Edit
+                        Edit Post
                     </Typography>
                     <Typography
                         id="basic-modal-dialog-description"
@@ -104,10 +98,10 @@ export default function EditPost({item}) {
                     <Formik
                         initialValues={
                             {
-                                content: post.contentPost,
-                                img: post.imgPost,
-                                postId: post.postId,
-                                status: post.status
+                                content: item.content,
+                                img: item.img,
+                                postId: item.postId,
+                                status: item.status
                             }
                         }
                         onSubmit={(values) => {
@@ -120,10 +114,9 @@ export default function EditPost({item}) {
                                            className={'form-control'}/>
                                 </div>
 
-                                <div className="form-group">
-                                    <label className="custom-file-upload">
-                                        <i className="fa fa-cloud-upload"></i>
-                                        Custom Upload
+                                <div className="d-flex justify-content-between">
+                                    <label className="custom-file-upload mb-0">
+                                        <i className="fas fa-camera"></i> Photo
                                         <input
                                             id="file-upload"
                                             type="file"
@@ -133,12 +126,14 @@ export default function EditPost({item}) {
                                             }}/>
                                     </label>
 
-                                    <Field className="select" as="select" name="status">
+                                    <div className={'d-flex justify-content-end'}>
+                                    <Field className="form-control mr-2" as="select" name="status">
                                         <option value='public'>Public</option>
                                         <option value='private'>Private</option>
                                         <option value='onlyFriend'>Only friend</option>
                                     </Field>
-                                    <button className="editPost" type="submit" disabled={submitting}>Edit</button>
+                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
+                                    </div>
                                 </div>
                             </div>
                         </Form>

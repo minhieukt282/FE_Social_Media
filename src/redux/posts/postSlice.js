@@ -25,6 +25,7 @@ const postSlice = createSlice({
 
         builder.addCase(editPosts.fulfilled, (state, action) => {
             let newArr = [...state.posts];
+            console.log(newArr)
             let index = newArr.findIndex((item) => item.postId === action.payload.data.postId)
             newArr.splice(index, 1, action.payload.data.data)
             state.posts = newArr

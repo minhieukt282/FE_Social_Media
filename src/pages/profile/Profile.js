@@ -5,10 +5,14 @@ import {useEffect} from "react";
 
 export default function Profile({socket}) {
     useEffect(() => {
-        if (socket != null)
+        if (socket != null) {
             socket.emit("refresh", {
                 accountId: JSON.parse(localStorage.getItem("accountId"))
             })
+            socket.emit("findUser", {
+                accountId: JSON.parse(localStorage.getItem("accountId"))
+            })
+        }
     }, [socket])
     return (
         <>
