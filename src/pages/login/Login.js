@@ -53,7 +53,7 @@ export default function Login({socket}) {
             <div className={"login_wrapper"}>
                 <div className="login_wrap">
                     <div className="login_1">
-                        <img style={{width: 325, height: 160}} src="Image/Facebook-Logo-650x366.png" alt="clear"/>
+                        <img style={{width: 325, height: 160}} src="image/Facebook-Logo-650x366.png" alt="clear"/>
                         <span>A Social Page To Make Friendship</span>
                     </div>
                     <div className="login_2">
