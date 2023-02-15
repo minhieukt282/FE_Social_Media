@@ -165,7 +165,8 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
 
             <div className="postBottomFooter">
                 <div>
-                    <i className="fa-regular fa-thumbs-up"> {numberLikes}</i>
+                    <ThumbUpOffAltIcon style={{marginLeft:50}}/>
+                    <i> {numberLikes}</i>
                 </div>
                 <div>
                     <button className="button" onClick={() => {

@@ -60,13 +60,19 @@ export default function Chat({socket}) {
     return (
         <div>
             <div className="imgChat">
-                <Link to={`/profile/${userInfo?.accountId}`} style={{textDecoration: "none"}}>
-                    <img style={{width: 50, height: 50}} src={userInfo?.img} alt="" className="navbarImg"/>
-                    <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo?.displayName}</h4>
-                </Link>
-                <CallIcon className="callIcon"/>
-                <DuoIcon className="DuoIcon"/>
-                <GroupAddIcon className="GroupAddIcon"/>
+                <div className="row">
+                    <div className="col-5">
+                        <Link to={`/profile/${userInfo?.accountId}`} style={{textDecoration: "none"}}>
+                            <img style={{width: 50, height: 50}} src={userInfo?.img} alt="" className="navbarImg"/>
+                            <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo?.displayName}</h4>
+                        </Link>
+                    </div>
+                    <div className="col-5">
+                        <CallIcon className="callIcon"/>
+                        <DuoIcon className="DuoIcon"/>
+                        <GroupAddIcon className="GroupAddIcon"/>
+                    </div>
+                </div>
             </div>
 
             <div className="chatPage">
@@ -99,7 +105,7 @@ export default function Chat({socket}) {
                         }>
                             <Form>
                                 <div className='row' style={{paddingLeft: 15, paddingTop: 10}}>
-                                    <Field as={'input'} style={{width: '100%'}} name={'text'}
+                                    <Field as={'input'} name={'text'}
                                            className='chatInput col-10'/>
                                     <button type="submit" className="sendBtn col-2">Sent</button>
                                 </div>
