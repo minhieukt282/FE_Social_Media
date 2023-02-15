@@ -20,7 +20,7 @@ const AddComment = ({item, img, socket}) => {
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const accountId = JSON.parse(localStorage.getItem("accountId"))
         const data = {
-            ...values,
+            comment: values.comment.trim(),
             accountId: accountId,
             img: JSON.parse(localStorage.getItem("imgAvt")),
             displayName: displayName,

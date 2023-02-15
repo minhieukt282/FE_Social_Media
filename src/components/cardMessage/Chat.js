@@ -50,9 +50,11 @@ export default function Chat({socket}) {
             postPostId: +relationshipId,
             type: "message"
         }
-        await dispatch(createNotification(dataNotice))
-        socket.emit("sentMessage", {roomId: +relationshipId, accountId: accountId, message: text})
-        setIsSent(!isSent)
+        if (text.trim() !== '') {
+            await dispatch(createNotification(dataNotice))
+            socket.emit("sentMessage", {roomId: +relationshipId, accountId: accountId, message: text.trim()})
+            setIsSent(!isSent)
+        }
     }
 
     return (
