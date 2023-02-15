@@ -30,10 +30,12 @@ const Post = ({socket, url}) => {
     const isRelationship = (accountRes) => {
         let flag = false
         for (let i = 0; i < relationship.length; i++) {
-            if ((relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes && relationship[i].isFriend === true) ||
-                (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId && relationship[i].isFriend === true)) {
-                flag = true
-                break
+            if (relationship[i].isFriend === true) {
+                if ((relationship[i].accountReq === accountId && relationship[i].accountRes === accountRes) ||
+                    (relationship[i].accountReq === accountRes && relationship[i].accountRes === accountId)) {
+                    flag = true
+                    break
+                }
             }
         }
         return flag
@@ -44,11 +46,12 @@ const Post = ({socket, url}) => {
                 {
                     posts.map((item, index) => {
                         const isFriend = isRelationship(item?.account.accountId)
-                        if (+urlPostId === + item?.postId){
+                        if (+urlPostId === +item?.postId) {
                             if ((item.account.accountId === accountId && (item.status === "private" || item.status === "onlyFriend")) || item.status === "public"
                                 || (item.status === "onlyFriend" && isFriend === true)) {
                                 return (
-                                    <PostDetails key={index} socket={socket} item={item} countComment={item.comments.length}
+                                    <PostDetails key={index} socket={socket} item={item}
+                                                 countComment={item.comments.length}
                                                  countLike={item.likes.length} isSetting={false}/>
                                 )
                             }
@@ -113,8 +116,6 @@ const Post = ({socket, url}) => {
             );
         }
     }
-
-
 };
 
 

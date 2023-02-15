@@ -16,6 +16,7 @@ const postSlice = createSlice({
         });
 
         builder.addCase(addPosts.fulfilled, (state, action) => {
+            console.log(action.payload, "asdasdadasdadasdsa")
             state.posts = [action.payload, ...state.posts];
         });
 

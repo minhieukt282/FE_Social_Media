@@ -29,7 +29,6 @@ export default function RightBar({socket}) {
     const listFriends = useSelector(state => {
         return state.listFriend.listFriend
     })
-    console.log(listUser)
 
     return (
         <div style={{top: 80}} className="rightBar">
