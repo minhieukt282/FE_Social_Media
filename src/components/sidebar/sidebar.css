@@ -1,21 +1,21 @@
 .sidebar {
     height: calc(100vh - 50px);
-    overflow-y:scroll;
+    /*overflow-y:scroll;*/
     position: fixed;
     width: 300px;
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-}
+/*::-webkit-scrollbar {*/
+/*    width: 5px;*/
+/*}*/
 
-::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-}
+/*::-webkit-scrollbar-track {*/
+/*    background-color: #f1f1f1;*/
+/*}*/
 
-::-webkit-scrollbar-thumb {
-    background-color: #a2a1a1;
-}
+/*::-webkit-scrollbar-thumb {*/
+/*    background-color: #a2a1a1;*/
+/*}*/
 
 .sidebarWrapper {
     padding: 20px;

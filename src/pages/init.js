@@ -13,7 +13,6 @@ export default function Init({socket}) {
             socket.emit("refresh", {
                 accountId: JSON.parse(localStorage.getItem(constants.ACCOUNT_ID))
             })
-
         }
     }, [socket])
 

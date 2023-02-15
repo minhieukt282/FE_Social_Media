@@ -10,14 +10,16 @@ export default function RightBar({socket}) {
     const dispatch = useDispatch()
     const accountId = JSON.parse(localStorage.getItem("accountId"))
     const [listUser, setListUser] = useState([])
-    let isOnline = false
 
     useEffect(() => {
         dispatch(getFriend(accountId))
+    }, [])
+
+    useEffect(() => {
         socket?.on("userOnline", data => {
             setListUser(data.listUser)
         })
-        if (socket != null){
+        if (socket != null) {
             socket.emit("findUser", {
                 accountId: JSON.parse(localStorage.getItem("accountId"))
             })
@@ -27,6 +29,7 @@ export default function RightBar({socket}) {
     const listFriends = useSelector(state => {
         return state.listFriend.listFriend
     })
+    console.log(listUser)
 
     return (
         <div style={{top: 80}} className="rightBar">
@@ -36,6 +39,7 @@ export default function RightBar({socket}) {
                 <ul className="rightBarList">
                     {
                         listFriends.map((item, index) => {
+                            let isOnline = false
                             if (item.accountId !== accountId) {
                                 for (let i = 0; i < listUser.length; i++) {
                                     if (listUser[i].accountId === item.accountId) {

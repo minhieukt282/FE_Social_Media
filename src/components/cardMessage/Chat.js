@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNotification} from "../../services/notificationService";
-import {showMessage} from "../../services/messageService";
+import {createMessage, showMessage} from "../../services/messageService";
 import Message from "./Message";
 import CallIcon from '@mui/icons-material/Call';
 import DuoIcon from '@mui/icons-material/Duo';
@@ -50,8 +50,14 @@ export default function Chat({socket}) {
             postPostId: +relationshipId,
             type: "message"
         }
+        const dataMessage = {
+            roomId: +relationshipId,
+            accountId: accountId,
+            message: text
+        }
+        await dispatch(createMessage(dataMessage))
         await dispatch(createNotification(dataNotice))
-        socket.emit("sentMessage", {roomId: +relationshipId, accountId: accountId, message: text})
+        socket.emit("sentMessage", dataMessage)
         setIsSent(!isSent)
     }
 
@@ -88,11 +94,12 @@ export default function Chat({socket}) {
                         <Formik initialValues={
                             {text: ''}
                         } onSubmit={(values, {resetForm}) => {
-                            if (values.text !== '') {
+                            let content = values.text.replace(/^\s+|\s+$/gm, '')
+                            if (content !== '') {
                                 handleSentMessage(values).then(() => {
                                     resetForm()
                                 });
-                            }
+                            } else resetForm()
                         }
                         }>
                             <Form>
