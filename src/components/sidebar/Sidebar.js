@@ -20,7 +20,13 @@ export default function Sidebar() {
     const displayName = JSON.parse(localStorage.getItem("displayName"))
     const toggleTheme = () => {
         setTheme((curr) => (curr === "light" ? "dark" : "light"));
+        if (theme === 'light'){
+            localStorage.setItem('darkMode', "dark")
+        } else {
+            localStorage.setItem('darkMode', 'light')
+        }
     };
+
     return (
         <div style={{top: 60}} className="sidebar col-3">
             <div className="sidebarWrapper">

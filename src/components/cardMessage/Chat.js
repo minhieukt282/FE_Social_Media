@@ -1,7 +1,7 @@
 import ReactScrollToBottom from "react-scroll-to-bottom";
 import {Field, Form, Formik} from "formik";
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNotification} from "../../services/notificationService";
 import {createMessage, showMessage} from "../../services/messageService";
@@ -10,9 +10,11 @@ import CallIcon from '@mui/icons-material/Call';
 import DuoIcon from '@mui/icons-material/Duo';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import "./Chat.css"
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 export default function Chat({socket}) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const accountId = JSON.parse(localStorage.getItem("accountId"))
     const {relationshipId} = useParams()
     const [isSent, setIsSent] = useState(false)
@@ -35,12 +37,15 @@ export default function Chat({socket}) {
         return state.listFriend.listFriend
     })
 
-    let userInfo
+    let userInfo = null
     for (let i = 0; i < listFriends.length; i++) {
         if (relationshipId === listFriends[i].relationshipId && accountId !== listFriends[i].accountId) {
             userInfo = listFriends[i]
             break
         }
+    }
+    if (userInfo === null) {
+        navigate('/404')
     }
     const handleSentMessage = async ({text}) => {
         const dataNotice = {
@@ -65,7 +70,8 @@ export default function Chat({socket}) {
         <div>
             <div className="imgChat">
                 <Link to={`/profile/${userInfo?.accountId}`} style={{textDecoration: "none"}}>
-                    <img style={{width: 50, height: 50}} src={userInfo?.img} alt="" className="navbarImg"/>
+                    <img style={{width: 50, height: 50, border: "2px solid #05c605"}} src={userInfo?.img}
+                         className="navbarImg"/>
                     <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo?.displayName}</h4>
                 </Link>
                 <CallIcon className="callIcon"/>
@@ -76,6 +82,11 @@ export default function Chat({socket}) {
             <div className="chatPage">
                 <div className="chatGroup">
                     <ReactScrollToBottom className="chatBox">
+                        <div style={{textAlign: "center"}}>
+                            <img style={{width: 100, height: 100, borderRadius: 50}} src={userInfo?.img}/>
+                            <h4>{userInfo?.displayName}</h4>
+                            <h6>Type hello to start chatting</h6>
+                        </div>
                         {
                             messages.map((item, index) => {
                                 if (+item.roomId === +relationshipId) {

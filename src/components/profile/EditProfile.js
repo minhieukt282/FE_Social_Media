@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Link} from "react-router-dom";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import Typography from "@mui/joy/Typography";
@@ -9,7 +8,7 @@ import {storage} from "../../firebase";
 import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {useDispatch, useSelector} from "react-redux";
 import {v4} from "uuid";
-import {editAccount, getAccount} from "../../services/accountService";
+import {editAccount} from "../../services/accountService";
 import "./editProfile.css"
 
 export default function EditProfile({accountInfo}) {
@@ -105,8 +104,14 @@ export default function EditProfile({accountInfo}) {
                             }
                         }
                         onSubmit={(values) => {
-                            handleEdit(values)
-                            setOpen(false)
+                            let name = values.displayName.replace(/^\s+|\s+$/gm, '')
+                            let location = values.location.replace(/^\s+|\s+$/gm, '')
+                            if (name !== '' && location !== '') {
+                                handleEdit(values)
+                                setOpen(false)
+                            } else {
+                                setOpen(false)
+                            }
                         }}>
                         <Form>
                             <div className={"post-group"}>
@@ -135,7 +140,8 @@ export default function EditProfile({accountInfo}) {
                                                 uploadFile(event.target.files[0])
                                             }}/>
                                     </label>
-                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
+                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit
+                                    </button>
                                 </div>
                             </div>
                         </Form>

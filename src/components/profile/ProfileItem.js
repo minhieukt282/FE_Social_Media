@@ -13,6 +13,7 @@ import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
 import EditProfile from "./EditProfile";
+import moment from 'moment'
 
 const IS_FRIEND = 1
 const IS_ADD = 2
@@ -206,7 +207,9 @@ export default function ProfileItem({socket}) {
                                         <div className="detailInfoItem">
                                             <CakeIcon/>
                                             <span
-                                                className="detailInfoKey">Birthday: {new Date(accountInfo.birthday).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
+                                                className="detailInfoKey">
+                                                Birthday: {moment(accountInfo.birthday).format("MMM Do YYYY")}
+                                            </span>
                                         </div>
                                         <div className="detailInfoItem">
                                             <LocationCityIcon/>
