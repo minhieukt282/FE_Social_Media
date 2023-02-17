@@ -34,7 +34,7 @@ export default function Sidebar() {
                     <Link style={{textDecoration: "none"}} to={`/profile/${accountId}`}
                           className="profile_link">
                         <li className="sidebarListItem">
-                            <img src={imgAvt} alt="" className="navbarImg"/>
+                            <img  src={imgAvt} alt="" className="navbarImg"/>
                             <span className="sidebarDisplayName">{displayName}</span>
                         </li>
                     </Link>

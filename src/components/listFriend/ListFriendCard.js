@@ -79,7 +79,6 @@ export default function ListFriendCard({socket}) {
                                             </CardContent>
                                         </CardActionArea>
                                         <CardActions>
-
                                         </CardActions>
                                     </Card>
                                 </div>

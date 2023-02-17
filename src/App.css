@@ -1,64 +1,154 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 #light {
-  background-color: white;
+    background-color: white;
+}
+
+.main {
+    min-height: 100vh;
 }
 
 #dark {
-  background-color: #3d3a3a;
-  color: white;
+    background-color: #191C21;
+    color: white;
 }
 
 .switch {
-  display: flex;
-  height: 100px;
+    display: flex;
+    height: 100px;
+}
+
+#dark .profileInfoName {
+    color: black;
+}
+
+#dark .infoTable {
+    box-shadow: none;
+    border-color: #892968;
+}
+
+#dark .infoTableFriend {
+    box-shadow: none;
+    border-color: #892968;
 }
 
 .switch label {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 #light .switch label {
-  color: black;
+    color: #3f3e3e;
 }
 
 #dark .switch label {
-  color: white;
+    color: white;
+}
+
+#dark .navbarContainer {
+    background-color: #191C21;
+    box-shadow: none;
+}
+
+#dark .rightBarListItemText {
+    color: white;
+}
+
+#dark .body-user-comment-body{
+    background-color: #212833;
+    color: white;
+}
+
+#dark .rightBarListItem {
+    background-color: #191C21;
+}
+
+#dark .button {
+    background-color: #191C21;
+    color: white;
+}
+
+#dark .span {
+    color: white;
+}
+
+#dark .sidebarListItemText {
+    color: white;
+}
+
+#dark .col-6 {
+    background-color: #212833;
+    border-radius: 16px;
+}
+
+
+#dark .postWrapper {
+    background-color: #191C21;
+    border-color: #892968;
+    box-shadow: none;
+}
+
+#dark .post-group {
+    background-color: #191C21;
+    border-color: #892968;
+    box-shadow: none;
+}
+
+#dark .postProfileImg{
+    border-color: #892968;
+}
+
+#dark .postUsername {
+    color: white;
+}
+
+#dark .commentWrapper{
+    box-shadow: none;
+}
+
+#dark .sidebarDisplayName {
+    color: white;
+}
+#dark .commentProfileImg{
+    border-color: #892968;
+}
+
+#dark .navbarImg{
+   border-color: #892968;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

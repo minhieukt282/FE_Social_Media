@@ -22,10 +22,13 @@ export default function AddPost() {
     const handleAddPost = async (values) => {
         const data = {
             ...values,
+            content: values.content.trim(),
             accountId: users.loginWed.accountId,
             img: img
         }
-        await dispatch(addPosts(data))
+        if (values.content.trim() !== '') {
+            await dispatch(addPosts(data))
+        }
     }
 
     const uploadFile = (imageUpload) => {
