@@ -20,7 +20,13 @@ export default function Sidebar() {
     const displayName = JSON.parse(localStorage.getItem("displayName"))
     const toggleTheme = () => {
         setTheme((curr) => (curr === "light" ? "dark" : "light"));
+        if (theme === 'light'){
+            localStorage.setItem('darkMode', "dark")
+        } else {
+            localStorage.setItem('darkMode', 'light')
+        }
     };
+
     return (
         <div style={{top: 60}} className="sidebar col-3">
             <div className="sidebarWrapper">
@@ -28,13 +34,16 @@ export default function Sidebar() {
                     <Link style={{textDecoration: "none"}} to={`/profile/${accountId}`}
                           className="profile_link">
                         <li className="sidebarListItem">
-                            <img src={imgAvt} alt="" className="navbarImg"/>
-                            <span className="sidebarDisplayName">{displayName}</span>
+                            <img  src={imgAvt} alt="" className="navbarImg" style={{border: "3px solid #05c605"}}/>
+                            <span className="displayName">{displayName}</span>
                         </li>
                     </Link>
 
                     <Link style={{textDecoration: "none"}} to={'/'} onClick={location.pathname !== '/' ? () => {
-                    } : () => window.location.reload(false)}>
+                    } : () => {
+                        window.location.reload(false)
+                        window.scrollTo(0, 0)
+                    }}>
                         <li className="mb-3">
                             <RssFeedIcon className="sidebarIcon"></RssFeedIcon>
                             <span className="sidebarListItemText">Feed</span>
@@ -89,8 +98,7 @@ export default function Sidebar() {
                             <span className="sidebarListItemText">Favorite</span>
                         </li>
                     </Link>
-                    <hr/>
-
+                    <hr style={{backgroundColor: '#FFFAFA'}}/>
                     <div className="switch">
                         {/*<div style={{margin: 5}}> {theme === "light" ? "Light Mode" : "Dark Mode"}</div>*/}
                         <label> {theme === "light" ? "Light Mode" : "Dark Mode"}</label>

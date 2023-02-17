@@ -19,13 +19,14 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    border: 1px solid black;
     object-fit: cover;
     cursor: pointer;
 }
 
 .commentWrapper {
     margin-top: 5px;
-    border: 1px solid #e5e2e2;
+    /*border: 1px solid #e5e2e2;*/
     border-radius: 10px;
     padding: 10px;
     box-shadow: 1px 1px 1px 1px #e3e3e3;

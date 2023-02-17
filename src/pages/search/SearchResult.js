@@ -17,7 +17,7 @@ export default function SearchResult({socket}) {
     return (
         <>
             <h2 style={{paddingTop: 20, paddingLeft: 10}}>Search result</h2>
-            <hr/>
+            <hr style={{backgroundColor: '#FFFAFA'}}/>
             <div className="row">
                 <SearchAccount socket={socket}/>
                 <SearchPost socket={socket}/>

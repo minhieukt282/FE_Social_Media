@@ -10,3 +10,8 @@
         height: 200px;
     }
 }
+
+.col-4{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}

@@ -39,6 +39,7 @@ export default function Login({socket}) {
         let result = await dispatch(loginWed(values))
         let data = result.payload
         if (data.message === "success") {
+            localStorage.setItem('darkMode', 'light')
             socket.emit("online", {
                 accountId: data.data.accountId
             })
