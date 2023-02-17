@@ -34,7 +34,7 @@ export default function RightBar({socket}) {
         <div style={{top: 80}} className="rightBar">
             <div className="rightBarWrapper">
                 <h2>Online</h2>
-                <hr/>
+                <hr style={{backgroundColor: '#FFFAFA'}}/>
                 <ul className="rightBarList">
                     {
                         listFriends.map((item, index) => {

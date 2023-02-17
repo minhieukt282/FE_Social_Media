@@ -34,13 +34,16 @@ export default function Sidebar() {
                     <Link style={{textDecoration: "none"}} to={`/profile/${accountId}`}
                           className="profile_link">
                         <li className="sidebarListItem">
-                            <img  src={imgAvt} alt="" className="navbarImg"/>
-                            <span className="sidebarDisplayName">{displayName}</span>
+                            <img  src={imgAvt} alt="" className="navbarImg" style={{border: "3px solid #05c605"}}/>
+                            <span className="displayName">{displayName}</span>
                         </li>
                     </Link>
 
                     <Link style={{textDecoration: "none"}} to={'/'} onClick={location.pathname !== '/' ? () => {
-                    } : () => window.location.reload(false)}>
+                    } : () => {
+                        window.location.reload(false)
+                        window.scrollTo(0, 0)
+                    }}>
                         <li className="mb-3">
                             <RssFeedIcon className="sidebarIcon"></RssFeedIcon>
                             <span className="sidebarListItemText">Feed</span>
@@ -95,8 +98,7 @@ export default function Sidebar() {
                             <span className="sidebarListItemText">Favorite</span>
                         </li>
                     </Link>
-                    <hr/>
-
+                    <hr style={{backgroundColor: '#FFFAFA'}}/>
                     <div className="switch">
                         {/*<div style={{margin: 5}}> {theme === "light" ? "Light Mode" : "Dark Mode"}</div>*/}
                         <label> {theme === "light" ? "Light Mode" : "Dark Mode"}</label>

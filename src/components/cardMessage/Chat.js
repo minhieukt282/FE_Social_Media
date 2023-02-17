@@ -67,20 +67,19 @@ export default function Chat({socket}) {
     }
 
     return (
-        <div>
-            <div className="imgChat">
-                <div className="row">
-                    <div className="col-5">
-                        <Link to={`/profile/${userInfo?.accountId}`} style={{textDecoration: "none"}}>
-                            <img style={{width: 50, height: 50}} src={userInfo?.img} alt="" className="navbarImg"/>
-                            <h4 style={{marginLeft: 60, marginTop: -40}}>{userInfo?.displayName}</h4>
-                        </Link>
-                    </div>
-                    <div className="col-5">
-                        <CallIcon className="callIcon"/>
-                        <DuoIcon className="DuoIcon"/>
-                        <GroupAddIcon className="GroupAddIcon"/>
-                    </div>
+        <>
+            <div className="row">
+                <div className="col-5">
+                    <Link to={`/profile/${userInfo?.accountId}`} style={{textDecoration: "none"}}>
+                        <img style={{width: 50, height: 50}} src={userInfo?.img} alt="" className="navbarImg"/>
+                        <h4 style={{marginLeft: 60, marginTop: -40}}
+                            className="displayName">{userInfo?.displayName}</h4>
+                    </Link>
+                </div>
+                <div className="col-7">
+                    {/*<CallIcon className="callIcon"/>*/}
+                    {/*<DuoIcon className="DuoIcon"/>*/}
+                    {/*<GroupAddIcon className="GroupAddIcon"/>*/}
                 </div>
             </div>
 
@@ -121,14 +120,14 @@ export default function Chat({socket}) {
                             <Form>
                                 <div className='row' style={{paddingLeft: 15, paddingTop: 10}}>
                                     <Field as={'input'} name={'text'}
-                                           className='chatInput col-10'/>
-                                    <button type="submit" className="sendBtn col-2">Sent</button>
+                                           className='chatInput col-9'/>
+                                    <button type="submit" className="sendBtn col-3">Send</button>
                                 </div>
                             </Form>
                         </Formik>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }

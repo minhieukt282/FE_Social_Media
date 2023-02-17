@@ -16,7 +16,7 @@ export default function Message({socket}) {
     return (
         <>
             <h2 style={{paddingTop: 20, paddingLeft: 10}}>Message</h2>
-            <hr/>
+            <hr style={{backgroundColor: '#FFFAFA'}}/>
             <Chat socket={socket}/>
         </>
     )

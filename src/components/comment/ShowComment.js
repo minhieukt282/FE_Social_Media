@@ -51,8 +51,10 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
                     <div className={"commentCenter row"}>
                         <div className="col-10 comment">
                             <div className={"body-user-comment-body"}>
-                                <Link to={`/profile/${comment.accountId}`}
-                                      className="commentUsername">{`${comment.displayName} `}
+                                <Link to={`/profile/${comment.accountId}`}>
+                                    <b  className="displayNameComment" style={{paddingRight: '10px'}}>
+                                        {`${comment.displayName} `}
+                                    </b>
                                 </Link>
                                 <span className="commentDate">
                                     {moment(comment.timeUpdate).fromNow()}

@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {v4} from "uuid";
 import {editAccount} from "../../services/accountService";
 import "./editProfile.css"
+import {toast} from "react-toastify";
 
 export default function EditProfile({accountInfo}) {
     const accountId = accountInfo.accountId
@@ -36,7 +37,17 @@ export default function EditProfile({accountInfo}) {
             ...values,
             img: imgSent
         }
-        await dispatch(editAccount(data));
+        if (data.displayName.length <= 15) {
+            await dispatch(editAccount(data));
+            toast.success('Successful change!', {
+                position: toast.POSITION.BOTTOM_LEFT
+            });
+        } else {
+            toast.warn('The name is too long!', {
+                position: toast.POSITION.BOTTOM_LEFT
+            });
+        }
+
     }
     const uploadFile = (imageUpload) => {
         if (imageUpload == null) return;

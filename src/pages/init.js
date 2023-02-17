@@ -29,7 +29,10 @@ export default function Init({socket}) {
             <div className={'home'}>
                 <Navbar socket={socket}/>
             </div>
-            <Outlet/>
+            <div className= "main" style={{marginTop:60}}>
+                <Outlet/>
+            </div>
+
         </div>
     )
 }

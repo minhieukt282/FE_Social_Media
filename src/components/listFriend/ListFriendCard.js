@@ -34,7 +34,7 @@ export default function ListFriendCard({socket}) {
             isWaitRes: false,
         }
         for (let i = 0; i < relationship.length; i++) {
-            if ((relationship[i].accountReq === accountRes && relationship[i].accountRes === userId)||
+            if ((relationship[i].accountReq === accountRes && relationship[i].accountRes === userId) ||
                 (relationship[i].accountReq === userId && relationship[i].accountRes === accountRes)) {
                 data.isFriend = relationship[i].isFriend
                 data.isWaitRes = true
@@ -61,7 +61,7 @@ export default function ListFriendCard({socket}) {
                         } else {
                             return (
                                 <div className="col-4 cardFriend" key={index}>
-                                    <Card sx={{maxWidth: 300}}>
+                                    <Card sx={{maxWidth: 300, minHeight: 295}}>
                                         <CardActionArea>
                                             <CardMedia
                                                 component="img"
@@ -78,8 +78,6 @@ export default function ListFriendCard({socket}) {
                                                 </Typography>
                                             </CardContent>
                                         </CardActionArea>
-                                        <CardActions>
-                                        </CardActions>
                                     </Card>
                                 </div>
                             )

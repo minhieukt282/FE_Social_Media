@@ -166,12 +166,13 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                     className="postImg"/>
             </div>
 
-            <div className="postBottomFooter">
-                <div>
-                    <ThumbUpOffAltIcon style={{marginLeft:50}}/>
-                    <i> {numberLikes}</i>
+            <div className="postBottomFooter row">
+                <div className='col-md-2' style={{textAlign: 'right'}}>
+                    <ThumbUpOffAltIcon />
+                    {numberLikes}
                 </div>
-                <div>
+                <div className='col-md-7'></div>
+                <div className='col-md-3'>
                     <button className="button" onClick={() => {
                         setShowFormListComment(!showFormListComment)
                     }}>
@@ -180,7 +181,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                 </div>
             </div>
 
-            <hr/>
+            <hr style={{backgroundColor: '#FFFAFA'}}/>
             <div className="postBottomFooter">
                 <div className="postBottomFooterItem">
                     {like ? (
