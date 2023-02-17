@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Link} from "react-router-dom";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import Typography from "@mui/joy/Typography";
@@ -9,8 +8,9 @@ import {storage} from "../../firebase";
 import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {useDispatch, useSelector} from "react-redux";
 import {v4} from "uuid";
-import {editAccount, getAccount} from "../../services/accountService";
+import {editAccount} from "../../services/accountService";
 import "./editProfile.css"
+import {toast} from "react-toastify";
 
 export default function EditProfile({accountInfo}) {
     const accountId = accountInfo.accountId
@@ -37,7 +37,17 @@ export default function EditProfile({accountInfo}) {
             ...values,
             img: imgSent
         }
-        await dispatch(editAccount(data));
+        if (data.displayName.length <= 15) {
+            await dispatch(editAccount(data));
+            toast.success('Successful change!', {
+                position: toast.POSITION.BOTTOM_LEFT
+            });
+        } else {
+            toast.warn('The name is too long!', {
+                position: toast.POSITION.BOTTOM_LEFT
+            });
+        }
+
     }
     const uploadFile = (imageUpload) => {
         if (imageUpload == null) return;
@@ -105,8 +115,14 @@ export default function EditProfile({accountInfo}) {
                             }
                         }
                         onSubmit={(values) => {
-                            handleEdit(values)
-                            setOpen(false)
+                            let name = values.displayName.replace(/^\s+|\s+$/gm, '')
+                            let location = values.location.replace(/^\s+|\s+$/gm, '')
+                            if (name !== '' && location !== '') {
+                                handleEdit(values)
+                                setOpen(false)
+                            } else {
+                                setOpen(false)
+                            }
                         }}>
                         <Form>
                             <div className={"post-group"}>
@@ -135,7 +151,8 @@ export default function EditProfile({accountInfo}) {
                                                 uploadFile(event.target.files[0])
                                             }}/>
                                     </label>
-                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
+                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit
+                                    </button>
                                 </div>
                             </div>
                         </Form>

@@ -60,10 +60,13 @@ export default function AddPost() {
                     img: imageUrls,
                     status: 'public'
                 }} onSubmit={(values, {resetForm}) => {
-                    if (img !== '' || values.content !== '') {
+                    let content = values.content.replace(/^\s+|\s+$/gm, '')
+                    if ((img !== '' || values.content !== '') && content !== '') {
                         handleAddPost(values).then(() => {
                             resetForm()
                         });
+                    } else {
+                        resetForm()
                     }
                 }}>
                     <Form>

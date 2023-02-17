@@ -21,7 +21,20 @@
 }
 
 #dark .profileInfoName {
-    color: black;
+    color: white;
+    background-color: #191C21;
+}
+
+#dark .profileInfo {
+    background-color: #191C21;
+}
+
+#dark .profileCover {
+    background-color: #191C21;
+}
+
+#dark .postVertButton {
+    color: white;
 }
 
 #dark .infoTable {
@@ -55,7 +68,7 @@
     color: white;
 }
 
-#dark .body-user-comment-body{
+#dark .body-user-comment-body {
     background-color: #212833;
     color: white;
 }
@@ -95,7 +108,7 @@
     box-shadow: none;
 }
 
-#dark .postProfileImg{
+#dark .postProfileImg {
     border-color: #892968;
 }
 
@@ -103,19 +116,20 @@
     color: white;
 }
 
-#dark .commentWrapper{
+#dark .commentWrapper {
     box-shadow: none;
 }
 
-#dark .sidebarDisplayName {
+#dark .displayName, #dark .displayNameComment {
     color: white;
 }
-#dark .commentProfileImg{
+
+#dark .commentProfileImg, #dark .navbarImg {
     border-color: #892968;
 }
 
-#dark .navbarImg{
-   border-color: #892968;
+#dark .callIcon, #dark .DuoIcon, #dark .GroupAddIcon {
+    color: white;
 }
 
 .App-logo {

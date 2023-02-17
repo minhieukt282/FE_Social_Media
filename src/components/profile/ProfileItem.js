@@ -13,6 +13,7 @@ import AddPost from "../post/AddPost";
 import {acceptFriends, addFriend, getFriend, getRelationship, unfriend} from "../../services/FriendServices";
 import {createNotification, deleteNotification} from "../../services/notificationService";
 import EditProfile from "./EditProfile";
+import moment from 'moment'
 
 const IS_FRIEND = 1
 const IS_ADD = 2
@@ -175,16 +176,14 @@ export default function ProfileItem({socket}) {
                     <div className="profileRightTop">
                         <div className="profileCover">
                             <img className="profileCoverImg"
-                                 src='https://firebasestorage.googleapis.com/v0/b/image-c737d.appspot.com/o/images%2Fhappy-new-year-2023.jpg?alt=media&token=37cbd825-e491-49d2-8d47-728d63d57b3f'
+                                 src='https://firebasestorage.googleapis.com/v0/b/image-c737d.appspot.com/o/images%2FFacebook-2019.jpg?alt=media&token=f494fa7e-a769-4902-a02c-282f112058ed'
                                  alt="clear"/>
                             <img className="profileUserImg"
                                  src={accountInfo.img} alt="clear"/>
                         </div>
                         <div className="profileInfo">
-                            <h4 className="profileInfoName">{accountInfo.displayName}</h4>
-                            {
-                                isProfile ? (<></>) : (<>{buttonRender()}</>)
-                            }
+                            <h4 className="profileInfoName col-12">{accountInfo.displayName}</h4>
+                            {isProfile ? (<></>) : (<>{buttonRender()}</>)}
                         </div>
                     </div>
                 </div>
@@ -206,7 +205,9 @@ export default function ProfileItem({socket}) {
                                         <div className="detailInfoItem">
                                             <CakeIcon/>
                                             <span
-                                                className="detailInfoKey">Birthday: {new Date(accountInfo.birthday).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}</span>
+                                                className="detailInfoKey">
+                                                Birthday: {moment(accountInfo.birthday).format("MMM Do YYYY")}
+                                            </span>
                                         </div>
                                         <div className="detailInfoItem">
                                             <LocationCityIcon/>
@@ -214,7 +215,9 @@ export default function ProfileItem({socket}) {
                                         </div>
                                         {
                                             isProfile ? (<div className={'text-center'}>
-                                                <button className="btn btn-secondary"><CreateIcon/>
+                                                <button className="btn"
+                                                        style={{backgroundColor: '#007bff', color: 'white'}}>
+                                                    <CreateIcon/>
                                                     <EditProfile accountInfo={accountInfo}/>
                                                 </button>
                                             </div>) : (<></>)
@@ -222,7 +225,7 @@ export default function ProfileItem({socket}) {
                                     </div>
                                 </div>
                                 <br/>
-                                <Link to={`/friends/${accountId}`}><h2>Friends list</h2></Link>
+                                <Link to={`/friends/${accountId}`}><h2 className="displayName">Friends list</h2></Link>
                                 <div className="infoTableFriend">
                                     <div className="row">
                                         {
