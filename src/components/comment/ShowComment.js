@@ -7,6 +7,7 @@ import "./comment.css"
 import {IconButton} from "@mui/material";
 import {MoreVert} from "@mui/icons-material";
 import {getPosts} from "../../services/postServices";
+import moment from "moment";
 
 const ShowComment = ({comment, postPostId, isDelete}) => {
     const dispatch = useDispatch();
@@ -50,11 +51,13 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
                     <div className={"commentCenter row"}>
                         <div className="col-10 comment">
                             <div className={"body-user-comment-body"}>
-                                <Link to={`/profile/${comment.accountId}`}
-                                      className="commentUsername">{`${comment.displayName} `}
+                                <Link to={`/profile/${comment.accountId}`}>
+                                    <b  className="displayNameComment" style={{paddingRight: '10px'}}>
+                                        {`${comment.displayName} `}
+                                    </b>
                                 </Link>
                                 <span className="commentDate">
-                                    {new Date(comment.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
+                                    {moment(comment.timeUpdate).fromNow()}
                                 </span>
                                 <div className="commentCenter">
                                     <span>{comment.comment}</span>
@@ -63,28 +66,28 @@ const ShowComment = ({comment, postPostId, isDelete}) => {
                         </div>
                         <div className={"col-1 comment"}>
                             <div className="commentWrapper-right">
-                            {
-                                isDelete ? (<div className="commentTopRight">
-                                    <div style={{paddingRight: 20}} className="dropdown">
-                                        <div type="button" data-toggle="dropdown"
-                                             data-display="static" aria-expanded="false">
-                                            <IconButton>
-                                                <MoreVert className="postVertButton"/>
-                                            </IconButton>
+                                {
+                                    isDelete ? (<div className="commentTopRight">
+                                        <div style={{paddingRight: 20}} className="dropdown">
+                                            <div type="button" data-toggle="dropdown"
+                                                 data-display="static" aria-expanded="false">
+                                                <IconButton>
+                                                    <MoreVert className="postVertButton"/>
+                                                </IconButton>
+                                            </div>
+                                            <div className="dropdown-menu dropdown-menu-lg-right">
+                                                <button
+                                                    className="dropdown-item"
+                                                    onClick={() => {
+                                                        handleDeleteComment()
+                                                    }}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="dropdown-menu dropdown-menu-lg-right">
-                                            <button
-                                                className="dropdown-item"
-                                                onClick={() => {
-                                                    handleDeleteComment()
-                                                }}
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>) : (<></>)
-                            }
+                                    </div>) : (<></>)
+                                }
                             </div>
                         </div>
                     </div>

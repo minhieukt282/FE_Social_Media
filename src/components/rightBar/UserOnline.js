@@ -7,11 +7,11 @@ export default function UserOnline({item, isOnline}) {
         <Link style={{textDecoration: "none"}} to={`/message/${item.relationshipId}`} className="profile_link">
             {
                 isOnline ? (<>
-                        <img src={item.img} alt="" className="navbarImg" style={{border: "2px solid #05c605"}}/>
+                        <img src={item.img} alt="" className="navbarImg" style={{border: "3px solid #05c605"}}/>
                         <FiberManualRecordIcon className="rightBarOnline" style={{color: "05c605"}}/>
                     </>) :
                     (<>
-                        <img src={item.img} alt="" className="navbarImg" style={{border: "2px solid #ab9d9d"}}/>
+                        <img src={item.img} alt="" className="navbarImg" style={{border: "3px solid #ab9d9d"}}/>
                         <FiberManualRecordIcon className="rightBarOnline" style={{color: "ab9d9d"}}/>
                     </>)
             }

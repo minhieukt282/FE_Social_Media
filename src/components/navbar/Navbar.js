@@ -11,6 +11,9 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {Field, Form, Formik} from "formik";
 import {getSearch} from "../../services/searchService";
 import {getRelationship} from "../../services/FriendServices";
+import moment from "moment/moment";
+import {getMessage} from "@testing-library/jest-dom/dist/utils";
+import {showMessage} from "../../services/messageService";
 
 const Navbar = ({socket}) => {
     const dispatch = useDispatch()
@@ -107,9 +110,11 @@ const Navbar = ({socket}) => {
                                                     style={{color: "black", textDecoration: "none"}}
                                                     to={`/profile/${item?.accountSent}`} onClick={() => {
                                                     setIconNotice(false)
-                                                }}>{new Date(item?.time).toLocaleString("en-US",
-                                                    {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                                    <br/></Link>
+                                                }}><b>{item.displayName}</b>{item.content}
+                                                    <br/>
+                                                    {moment(item?.time).fromNow()}
+                                                    <br/>
+                                                </Link>
                                             </div>
                                             <div className="dropdown-divider"/>
                                         </div>
@@ -122,9 +127,11 @@ const Navbar = ({socket}) => {
                                                     style={{color: "black", textDecoration: "none"}}
                                                     to={`/posts/${item.postPostId}`} onClick={() => {
                                                     setIconNotice(false)
-                                                }}>{new Date(item?.time).toLocaleString("en-US",
-                                                    {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                                    <br/></Link>
+                                                }}><b>{item.displayName}</b>{item.content}
+                                                    <br/>
+                                                    {moment(item?.time).fromNow()}
+                                                    <br/>
+                                                </Link>
                                             </div>
                                             <div className="dropdown-divider"/>
                                         </div>
@@ -137,9 +144,11 @@ const Navbar = ({socket}) => {
                                                     style={{color: "black", textDecoration: "none"}}
                                                     to={`/message/${item.postPostId}`} onClick={() => {
                                                     setIconNotice(false)
-                                                }}>{new Date(item?.time).toLocaleString("en-US",
-                                                    {timeZone: "Asia/Jakarta"})} | <b>{item.displayName} </b>{item.content}
-                                                    <br/></Link>
+                                                }}> <b>{item.displayName}</b>{item.content}
+                                                    <br/>
+                                                    {moment(item?.time).fromNow()}
+                                                    <br/>
+                                                </Link>
                                             </div>
                                             <div className="dropdown-divider"/>
                                         </div>

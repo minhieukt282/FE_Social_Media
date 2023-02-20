@@ -14,13 +14,13 @@ const AddComment = ({item, img, socket}) => {
         socket?.on("allComment", data => {
             dispatch(getPosts())
         })
-    },[socket])
+    }, [socket])
 
     const handleAddComment = async (values) => {
         const displayName = JSON.parse(localStorage.getItem("displayName"))
         const accountId = JSON.parse(localStorage.getItem("accountId"))
         const data = {
-            ...values,
+            comment: values.comment.trim(),
             accountId: accountId,
             img: JSON.parse(localStorage.getItem("imgAvt")),
             displayName: displayName,
@@ -33,12 +33,10 @@ const AddComment = ({item, img, socket}) => {
             postPostId: item.postId,
             type: "commented"
         }
+        await dispatch(addComments(data))
+        await dispatch(createNotification(dataNotice))
+        await dispatch(getPosts())
         socket.emit("commented", dataNotice)
-        if (data.comment !== '') {
-            await dispatch(addComments(data))
-            await dispatch(createNotification(dataNotice))
-            await dispatch(getPosts())
-        }
     }
 
     return (
@@ -48,22 +46,25 @@ const AddComment = ({item, img, socket}) => {
                     comment: '',
                 }}
                 onSubmit={(values, {resetForm}) => {
-                    handleAddComment(values).then(() => {
-                        resetForm()
-                    })
+                    let content = values.comment.replace(/^\s+|\s+$/gm, '')
+                    if (content !== '') {
+                        handleAddComment(values).then(() => {
+                            resetForm()
+                        });
+                    } else resetForm()
                 }}>
                 <Form className={'form-inline'}>
-                        <div className="col-md-2 col-lg-1 p-0 text-right">
-                            <img src={img} id="addCommentAvt" alt="my avatar"
-                                 className="postProfileImg"/>
-                        </div>
-                        <div className="col-md-7 col-lg-9">
-                            <Field as={'textarea'} rows={1} style={{width: '100%'}} name={'comment'}
-                                   className={'form-control'}/>
-                        </div>
-                        <div className="col-md-3 col-lg-2 p-0">
-                            <button className="btn btn-primary btn-block" type="submit">Send</button>
-                        </div>
+                    <div className="col-md-2 col-lg-1 p-0 text-right">
+                        <img src={img} id="addCommentAvt" alt="my avatar"
+                             className="postProfileImg"/>
+                    </div>
+                    <div className="col-md-7 col-lg-9">
+                        <Field as={'textarea'} rows={1} style={{width: '100%'}} name={'comment'}
+                               className={'form-control'}/>
+                    </div>
+                    <div className="col-md-3 col-lg-2 p-0">
+                        <button className="btn btn-primary btn-block" type="submit">Send</button>
+                    </div>
                 </Form>
             </Formik>
         </div>

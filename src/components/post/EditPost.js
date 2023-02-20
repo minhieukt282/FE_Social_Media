@@ -3,13 +3,14 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import Typography from '@mui/joy/Typography';
 import {Field, Form, Formik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {Link} from "react-router-dom";
 import {getDownloadURL, listAll, ref, uploadBytes} from "firebase/storage";
 import {v4} from "uuid";
 import {useEffect, useState} from "react";
 import {storage} from "../../firebase";
-import {deletePosts, editPosts, getPosts} from "../../services/postServices";
+import {editPosts, getPosts} from "../../services/postServices";
+import {toast} from "react-toastify";
 
 
 export default function EditPost({item, url}) {
@@ -20,11 +21,8 @@ export default function EditPost({item, url}) {
     const [submitting, setSubmitting] = useState(false)
 
     const dispatch = useDispatch();
-    const posts = useSelector((state) => {
-        return state.posts.posts
-    })
+
     const handleEdit = async (values) => {
-        console.log(values)
         let imgSent
         if (img !== "") {
             imgSent = img
@@ -35,6 +33,9 @@ export default function EditPost({item, url}) {
         };
         await dispatch(editPosts(data));
         await dispatch(getPosts())
+        toast.success('Edit status done!', {
+            position: toast.POSITION.BOTTOM_LEFT
+        });
         setOpen(false);
     };
 
@@ -127,12 +128,13 @@ export default function EditPost({item, url}) {
                                     </label>
 
                                     <div className={'d-flex justify-content-end'}>
-                                    <Field className="form-control mr-2" as="select" name="status">
-                                        <option value='public'>Public</option>
-                                        <option value='private'>Private</option>
-                                        <option value='onlyFriend'>Only friend</option>
-                                    </Field>
-                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Edit</button>
+                                        <Field className="form-control mr-2" as="select" name="status">
+                                            <option value='public'>Public</option>
+                                            <option value='private'>Private</option>
+                                            <option value='onlyFriend'>Only friend</option>
+                                        </Field>
+                                        <button className="btn btn-primary" type="submit" disabled={submitting}>Edit
+                                        </button>
                                     </div>
                                 </div>
                             </div>

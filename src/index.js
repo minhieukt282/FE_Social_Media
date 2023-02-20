@@ -7,6 +7,7 @@ import {store} from "./redux/store";
 import {ToastContainer} from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <Provider store={store}>
         <BrowserRouter>
@@ -20,7 +21,7 @@ root.render(
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                theme="light"
+                theme='dark'
             />
 
             <App/>

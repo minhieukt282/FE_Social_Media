@@ -22,10 +22,13 @@ export default function AddPost() {
     const handleAddPost = async (values) => {
         const data = {
             ...values,
+            content: values.content.trim(),
             accountId: users.loginWed.accountId,
             img: img
         }
-        await dispatch(addPosts(data))
+        if (values.content.trim() !== '') {
+            await dispatch(addPosts(data))
+        }
     }
 
     const uploadFile = (imageUpload) => {
@@ -57,36 +60,40 @@ export default function AddPost() {
                     img: imageUrls,
                     status: 'public'
                 }} onSubmit={(values, {resetForm}) => {
-                    if (img !== '' || values.content !== '') {
+                    let content = values.content.replace(/^\s+|\s+$/gm, '')
+                    if ((img !== '' || values.content !== '') && content !== '') {
                         handleAddPost(values).then(() => {
                             resetForm()
                         });
+                    } else {
+                        resetForm()
                     }
                 }}>
                     <Form>
                         <div className={"post-group"}>
                             <div className="form-group">
-                                <Field as={'textarea'} style={{width: '100%',maxHeight:"20vh"}} name={'content'}
-                                       className={'form-control'} placeholder={'What are you thinking?'} />
+                                <Field as={'textarea'} style={{width: '100%', maxHeight: "20vh"}} name={'content'}
+                                       className={'form-control'} placeholder={'What are you thinking?'}/>
                             </div>
                             <div className="d-flex justify-content-between">
-                                    <label htmlFor="file-upload" className="custom-file-upload mb-0">
-                                        <i className="fas fa-camera"></i> Photo
-                                        <input
-                                            id="file-upload"
-                                            type="file"
-                                            onChange={(event) => {
-                                                setSubmitting(true)
-                                                uploadFile(event.target.files[0])
-                                            }}/>
-                                    </label>
+                                <label htmlFor="file-upload" className="custom-file-upload mb-0">
+                                    <i className="fas fa-camera"></i> Photo
+                                    <input
+                                        id="file-upload"
+                                        type="file"
+                                        onChange={(event) => {
+                                            setSubmitting(true)
+                                            uploadFile(event.target.files[0])
+                                        }}/>
+                                </label>
                                 <div className={'d-flex justify-content-end'}>
                                     <Field className="form-control mr-2" as="select" name="status">
                                         <option value='public'>Public</option>
                                         <option value='private'>Private</option>
                                         <option value='onlyFriend'>Only friend</option>
                                     </Field>
-                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Share</button>
+                                    <button className="btn btn-primary" type="submit" disabled={submitting}>Share
+                                    </button>
                                 </div>
                             </div>
                         </div>

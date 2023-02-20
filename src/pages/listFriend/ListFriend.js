@@ -16,7 +16,7 @@ export default function ListFriend({socket}) {
     return (
         <>
             <h2 style={{paddingTop: 20, paddingLeft: 10}}>Friends list</h2>
-            <hr/>
+            <hr style={{backgroundColor: '#FFFAFA'}}/>
             <div className="row">
                 <ListFriendCard socket={socket}/>
             </div>

@@ -16,6 +16,7 @@ import EditPost from "./EditPost";
 import AddComment from "../comment/AddComment";
 import CommentDetails from "../comment/CommentDetails";
 import {deleteComments} from "../../services/commentService";
+import moment from 'moment'
 
 const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) => {
     const dispatch = useDispatch();
@@ -126,7 +127,9 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                     <Link to={`/profile/${item.account.accountId}`}
                           className="postUsername">{item.account.displayName}</Link>
                     <span
-                        className="postDate">{new Date(item.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}
+                        className="postDate">
+                        {/*{new Date(item.timeUpdate).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})}*/}
+                        {moment(item.timeUpdate).fromNow()}
                     </span>
                     <i className={`fa-solid ${icon}`}></i>
                 </div>
@@ -163,11 +166,13 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                     className="postImg"/>
             </div>
 
-            <div className="postBottomFooter">
-                <div>
-                    <i className="fa-regular fa-thumbs-up"> {numberLikes}</i>
+            <div className="postBottomFooter row">
+                <div className='col-md-2' style={{textAlign: 'right'}}>
+                    <ThumbUpOffAltIcon />
+                    {numberLikes}
                 </div>
-                <div>
+                <div className='col-md-7'></div>
+                <div className='col-md-3'>
                     <button className="button" onClick={() => {
                         setShowFormListComment(!showFormListComment)
                     }}>
@@ -176,7 +181,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                 </div>
             </div>
 
-            <hr/>
+            <hr style={{backgroundColor: '#FFFAFA'}}/>
             <div className="postBottomFooter">
                 <div className="postBottomFooterItem">
                     {like ? (
@@ -194,7 +199,7 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                                 onClick={() => {
                                     handleNotificationDisliked(item.account.accountId, item.postId)
                                 }}>
-                           <ThumbUpIcon/>
+                            <ThumbUpIcon/>
                             <span className="span"> Unlike</span>
                         </button>
                     )}
@@ -220,13 +225,6 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                     <>
                         <hr/>
                         <AddComment item={item} img={imgAvt} socket={socket}/>
-                    </>
-                ) : (<></>)
-            }
-
-            {
-                showFormListComment ? (
-                    <>
                         <hr/>
                         <div className="postBottomFooter1">
                             <CommentDetails item={item.comments} postPostId={item.postId}/>
@@ -234,6 +232,16 @@ const PostDetails = ({socket, item, countLike, isSetting, url, countComment}) =>
                     </>
                 ) : (<></>)
             }
+            {/*{*/}
+            {/*    showFormListComment ? (*/}
+            {/*        <>*/}
+            {/*            <hr/>*/}
+            {/*            <div className="postBottomFooter1">*/}
+            {/*                <CommentDetails item={item.comments} postPostId={item.postId}/>*/}
+            {/*            </div>*/}
+            {/*        </>*/}
+            {/*    ) : (<></>)*/}
+            {/*}*/}
         </div>
     )
 

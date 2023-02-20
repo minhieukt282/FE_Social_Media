@@ -13,6 +13,7 @@
     overflow: scroll;
 
 }
+
 .btn-req {
     color: white;
     background: #007bff;
@@ -67,6 +68,7 @@ input[type="file"] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
+    border-radius: 0.25rem;
 }
 
 .file-upload {
@@ -82,7 +84,7 @@ input[type="file"] {
 }
 
 @media (max-width: 1100px) {
-    .post-group{
+    .post-group {
         width: 100%;
     }
 }
@@ -92,7 +94,7 @@ input[type="file"] {
         width: 100%;
     }
 
-    .post{
+    .post {
         width: 100%;
     }
 

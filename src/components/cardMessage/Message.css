@@ -12,7 +12,8 @@
     float: right;
     background-color: #221aef;
     color: white;
-    border-radius: 15px 10px 20px 5px;
+    /*border-radius: 15px 10px 20px 5px;*/
+    border-radius: 10px;
     text-align: right;
 }
 
@@ -21,5 +22,6 @@
     text-align: left;
     background-color: rgb(76, 96, 71);
     color: white;
-    border-radius: 5px 20px 10px 15px;
+    border-radius: 10px;
+    /*border-radius: 5px 20px 10px 15px;*/
 }
