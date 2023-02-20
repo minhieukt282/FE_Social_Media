@@ -84,7 +84,7 @@ export default function Login({socket}) {
                                     <button type={"submit"} className={"blue_btn"}>Log In</button>
                                 </Form>
                             </Formik>
-                            <div>{message}</div>
+                            <div style={{color:"red"}}>{message}</div>
                             <Link style={{textDecoration: "none", color: "white", width: "75%", marginLeft: 80}}
                                   to={"/register"}>
                                 <button className="blue_btn open_signup">Create Account</button>
