@@ -4,6 +4,7 @@ import React, {useEffect} from "react";
 import AddPost from "../../components/post/AddPost";
 import {getPosts} from "../../services/postServices";
 import {useDispatch} from "react-redux";
+import showStory from "../../components/Story/storyTop";
 
 export default function Home({socket}) {
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ export default function Home({socket}) {
 
     return (
         <>
+            <showStory/>
             <AddPost/>
             <Post socket={socket} url={null}/>
         </>
