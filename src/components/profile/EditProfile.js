@@ -80,7 +80,7 @@ export default function EditProfile({accountInfo}) {
             <Modal open={open} onClose={() => setOpen(false)}>
                 <ModalDialog
                     style={{color: "black", width: 600, boxShadow: '0px 0px 2px 0px rgba(0,0,0,0.75)'}}
-                    aria-labelledby="basic-modal-dialog-title"
+                    aria-labelledby="basic-modal-dialog-user"
                     aria-describedby="basic-modal-dialog-description"
                     sx={{
                         borderRadius: 'md',
@@ -88,7 +88,7 @@ export default function EditProfile({accountInfo}) {
                     }}
                 >
                     <Typography
-                        id="basic-modal-dialog-title"
+                        id="basic-modal-dialog-user"
                         component="h2"
                         level="inherit"
                         fontSize="1.25em"
